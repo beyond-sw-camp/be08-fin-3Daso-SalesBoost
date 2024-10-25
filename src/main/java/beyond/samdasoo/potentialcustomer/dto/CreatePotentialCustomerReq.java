@@ -54,6 +54,12 @@ public class CreatePotentialCustomerReq {
 
 
     public PotentialCustomer toPotentialCustomer() {
+        PotentialCustomer.Grade inputGrade;
+        if(grade==null || grade.isEmpty()){
+            inputGrade = PotentialCustomer.Grade.X;
+        }else{
+            inputGrade = PotentialCustomer.Grade.getGrade(grade);
+        }
         return PotentialCustomer.builder()
                 .name(name)
                 .company(company)
@@ -61,7 +67,7 @@ public class CreatePotentialCustomerReq {
                 .position(position)
                 .cls(cls)
                 .contactStatus(PotentialCustomer.ContactStatus.getStatus(contactStatus))
-                .grade(PotentialCustomer.Grade.getGrade(grade))
+                .grade(inputGrade)
                 .phone(phone)
                 .tel(tel)
                 .email(email)

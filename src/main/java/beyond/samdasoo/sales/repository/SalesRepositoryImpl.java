@@ -40,21 +40,6 @@ public class SalesRepositoryImpl implements SalesRepositoryCustom {
         String year = String.valueOf(searchDate.getYear());
         String month = String.format("%02d", searchDate.getMonthValue());
 
-        Integer monthResult = queryFactory.select(sales.price.sum())
-                .from(sales)
-                .join(sales.contract, contract)
-                .join(contract.estimate, estimate)
-                .join(estimate.proposal, proposal)
-                .join(proposal.lead, lead)
-                .join(lead.customer, customer)
-                .where(builder
-                        .and(sales.salesDate.year().eq(Integer.parseInt(year)))
-                        .and(sales.salesDate.month().eq(Integer.parseInt(month)))
-                )
-                .fetchOne();
-
-        int monthSales = Optional.ofNullable(monthResult).orElse(0);
-
         Integer yearResult = queryFactory
                 .select(sales.price.sum())
                 .from(sales)
@@ -69,6 +54,20 @@ public class SalesRepositoryImpl implements SalesRepositoryCustom {
                 .fetchOne();
 
         int yearSales = Optional.ofNullable(yearResult).orElse(0);
+
+        Integer monthResult = queryFactory.select(sales.price.sum())
+                .from(sales)
+                .join(sales.contract, contract)
+                .join(contract.estimate, estimate)
+                .join(estimate.proposal, proposal)
+                .join(proposal.lead, lead)
+                .join(lead.customer, customer)
+                .where(builder
+                        .and(sales.salesDate.month().eq(Integer.parseInt(month)))
+                )
+                .fetchOne();
+
+        int monthSales = Optional.ofNullable(monthResult).orElse(0);
 
         return new SalesStatusDto(monthSales, yearSales);
     }

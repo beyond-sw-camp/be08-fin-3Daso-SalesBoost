@@ -25,7 +25,6 @@ public class CustomerService {
 
     private final CustomerRepository customerRepository;
     private final UserRepository userRepository;
-    private final CustomerRepositoryCustom customerRepositoryCustom;
 
     public void create(CustomerCreateReq req) {
 
@@ -110,7 +109,11 @@ public class CustomerService {
     }
 
     public Long getCustomerCount(SearchCond searchCond) {
-        return customerRepositoryCustom.getCustomerCount(searchCond.getSearchDate(), searchCond.getUserNo());
+        return customerRepository.getCustomerCount(searchCond.getSearchDate(), searchCond.getUserNo());
+    }
+
+    public List<PopupCustomerGetRes> searchCustomers(SearchCriteriaDTO searchCriteria) {
+        return customerRepository.searchCustomers(searchCriteria);
     }
 }
 
