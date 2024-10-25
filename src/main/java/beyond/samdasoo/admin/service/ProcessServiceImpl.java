@@ -34,6 +34,14 @@ public class ProcessServiceImpl implements ProcessService {
     public void addProcess(ProcessRequestDto request) {
         boolean exists = processRepository.existsByProcessName(request.getProcessName());
 
+        if(request.getIsDefault()){
+            Process defaultProcess = processRepository.findByIsDefaultIsTrue();
+
+            if(defaultProcess != null){
+                defaultProcess.setIsDefault(false);
+            }
+        }
+
         if(exists){
             throw new BaseException(PROCESS_ALREADY_EXIST);
         }
@@ -63,6 +71,14 @@ public class ProcessServiceImpl implements ProcessService {
     @Override
     public void updateProcessByNo(Long no, ProcessRequestDto request) {
         Optional<Process> optionalProcess = processRepository.findById(no);
+
+        if(request.getIsDefault()){
+            Process defaultProcess = processRepository.findByIsDefaultIsTrue();
+
+            if(defaultProcess != null){
+                defaultProcess.setIsDefault(false);
+            }
+        }
 
         if(optionalProcess.isEmpty()){
             throw new BaseException(PROCESS_NOT_EXIST);

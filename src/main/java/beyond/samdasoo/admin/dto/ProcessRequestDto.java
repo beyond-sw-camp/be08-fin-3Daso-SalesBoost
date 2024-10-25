@@ -14,7 +14,5 @@ public class ProcessRequestDto {
 
     private Boolean isDefault;      // 기본 프로세스 지정여부
 
-    private Integer expectedDuration;   // 예상 소요 시간
-
     private String description;   // 내용
 }
