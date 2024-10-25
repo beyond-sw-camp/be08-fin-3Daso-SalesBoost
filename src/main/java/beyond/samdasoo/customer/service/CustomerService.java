@@ -53,7 +53,9 @@ public class CustomerService {
 
         List<Customer> customers = customerRepository.findAll(); // 전체 검색
 
-        List<CustomersGetRes> result = customers.stream().map(c -> new CustomersGetRes(c.getId(), c.getName(), c.getPosition(), c.getCompany(), c.getEmail(), c.getPhone(), c.getTel(),c.getUser().getName())).toList();
+        List<CustomersGetRes> result = customers.stream().map(c -> new CustomersGetRes(c.getId(), c.getName(),
+                c.getPosition(), c.getCompany(), c.getEmail(), c.getPhone(), c.getTel(),
+                c.getUser().getName(),c.getGrade().getMessage(),c.isKeyMan())).toList();
         return result;
 
     }
@@ -76,7 +78,9 @@ public class CustomerService {
         }
 
 
-        List<CustomersGetRes> result = customers.stream().map(c -> new CustomersGetRes(c.getId(), c.getName(), c.getPosition(), c.getCompany(), c.getEmail(), c.getPhone(), c.getTel(),c.getUser().getName())).toList();
+        List<CustomersGetRes> result = customers.stream().map(c -> new CustomersGetRes(c.getId(), c.getName(), c.getPosition(),
+                c.getCompany(), c.getEmail(), c.getPhone(), c.getTel(),c.getUser().getName(),
+                c.getGrade().getMessage(),c.isKeyMan())).toList();
         return result;
 
     }

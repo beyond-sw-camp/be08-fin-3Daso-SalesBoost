@@ -23,4 +23,7 @@ public class CustomersGetRes {
 
     private String userName;
 
+    private String grade;
+
+    private boolean keyman;
 }

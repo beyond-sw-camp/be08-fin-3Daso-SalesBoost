@@ -1,6 +1,7 @@
 package beyond.samdasoo.customer.repository;
 
 import beyond.samdasoo.customer.entity.Customer;
+import beyond.samdasoo.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -29,4 +30,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
             @Param("selectedKey") String selectedKey,
             @Param("personInCharge") Long personInCharge
     );
+
+
+    List<Customer> findCustomersByUser(User user);
 }
