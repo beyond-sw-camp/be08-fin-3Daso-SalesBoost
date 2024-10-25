@@ -48,15 +48,15 @@ public class CalendarController {
 
     @PostMapping
     @Operation(summary = "캘린더 등록", description = "새로운 캘린더 등록")
-    public ResponseEntity<BaseResponse<CalendarResponseDto>> createCalendar() {
+    public BaseResponse<CalendarResponseDto> createCalendar() {
         User user = getAuthenticatedUser();
         boolean calendarExists = calendarService.existsByUser(user);
 
         if (calendarExists) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(new BaseResponse<>(CALENDAR_ALREADY_EXIST));
+            throw new BaseException(CALENDAR_ALREADY_EXIST);
         }
         CalendarResponseDto responseDto = calendarService.createCalendar(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(new BaseResponse<>(responseDto));
+        return new BaseResponse<>(responseDto);
     }
 
     @GetMapping("/{no}")
@@ -73,23 +73,31 @@ public class CalendarController {
 
     @GetMapping("/user/exists")
     @Operation(summary = "캘린더 존재 여부 확인", description = "로그인한 사용자의 캘린더 보유 여부 조회")
-    public ResponseEntity<BaseResponse<Boolean>> checkCalendarExists() {
+    public BaseResponse<Boolean> checkCalendarExists() {
         User user = getAuthenticatedUser();
         boolean exists = calendarService.existsByUser(user);
-        return ResponseEntity.ok(new BaseResponse<>(exists));
+        return new BaseResponse<>(exists);
     }
+
+//    @GetMapping("/user/data")
+//    @Operation(summary = "사용자의 캘린더 조회", description = "로그인한 사용자의 캘린더를 조회")
+//    public ResponseEntity<BaseResponse<CalendarResponseDto>> getUserCalendarData() {
+//        User user = getAuthenticatedUser();
+//        try {
+//            CalendarResponseDto responseDto = calendarService.getCalendarDataByUser(user);
+//            return ResponseEntity.ok(new BaseResponse<>(responseDto));
+//        } catch (BaseException ex) {
+//            BaseResponseStatus status = ex.getStatus();
+//            return new ResponseEntity<>(new BaseResponse<>(status), HttpStatus.valueOf(status.getCode()));
+//        }
+//    }
 
     @GetMapping("/user/data")
     @Operation(summary = "사용자의 캘린더 조회", description = "로그인한 사용자의 캘린더를 조회")
-    public ResponseEntity<BaseResponse<CalendarResponseDto>> getUserCalendarData() {
+    public BaseResponse<CalendarResponseDto> getUserCalendarData() {
         User user = getAuthenticatedUser();
-        try {
-            CalendarResponseDto responseDto = calendarService.getCalendarDataByUser(user);
-            return ResponseEntity.ok(new BaseResponse<>(responseDto));
-        } catch (BaseException ex) {
-            BaseResponseStatus status = ex.getStatus();
-            return new ResponseEntity<>(new BaseResponse<>(status), HttpStatus.valueOf(status.getCode()));
-        }
+        CalendarResponseDto responseDto = calendarService.getCalendarDataByUser(user);
+        return new BaseResponse<>(responseDto);
     }
 
     @GetMapping
