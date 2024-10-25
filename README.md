@@ -13,20 +13,48 @@
 
 <br>
 
+## 🔗 Frontend Repository 
+
+[SalesBoost-FE](https://github.com/beyond-sw-camp/be08-fin-3Dasoo-SalesBoost-FE)
+
+<br>
+
 ## ⚙개발 환경
 
 ### [DevOps]
 
 ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white) ![Kubernetes](https://img.shields.io/badge/kubernetes-%23326ce5.svg?style=for-the-badge&logo=kubernetes&logoColor=white)
+![Jenkins](https://img.shields.io/badge/jenkins-%232C5263.svg?style=for-the-badge&logo=jenkins&logoColor=white)
+![GitHub Actions](https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white)
 
 ### [ FrontEnd ]
 
-<img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"> <img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html&logoColor=white"> <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white"> <img src="https://img.shields.io/badge/vue.js-4FC08D?style=for-the-badge&logo=vue.js&logoColor=white"> <img src="https://img.shields.io/badge/bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white"><br>
-![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white) ![NPM](https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white)
+<p>
+  <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"> 
+  <img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html&logoColor=white"> 
+  <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white">  
+
+  ![Vue.js](https://img.shields.io/badge/vuejs-%2335495e.svg?style=for-the-badge&logo=vuedotjs&logoColor=%234FC08D) ![Vuetify](https://img.shields.io/badge/Vuetify-1867C0?style=for-the-badge&logo=vuetify&logoColor=AEDDFF) 
+  ![Bootstrap](https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white)
+  ![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white) ![NPM](https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white)
+
+</p>
 
 ### [ BackEnd ]
 
-<img alt="Java" src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white"/> <img src="https://img.shields.io/badge/gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white"> <img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"/> <img src="https://img.shields.io/badge/mariaDB-003545?style=for-the-badge&logo=mariaDB&logoColor=white"/>
+<p>
+  
+<img alt="Java" src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white"/> 
+<img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"/> 
+<img src="https://img.shields.io/badge/springsecurity-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white">
+<img src="https://img.shields.io/badge/springdatajpa-6DB33F?style=for-the-badge&logo=&logoColor=white">
+<img src="https://img.shields.io/badge/querydsl-0769AD?style=for-the-badge&logo=&logoColor=white">
+
+![MariaDB](https://img.shields.io/badge/MariaDB-003545?style=for-the-badge&logo=mariadb&logoColor=white) ![Redis](https://img.shields.io/badge/redis-%23DD0031.svg?style=for-the-badge&logo=redis&logoColor=white) ![Gradle](https://img.shields.io/badge/Gradle-02303A.svg?style=for-the-badge&logo=Gradle&logoColor=white)
+
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) ![Flask](https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white) ![NumPy](https://img.shields.io/badge/numpy-%23013243.svg?style=for-the-badge&logo=numpy&logoColor=white) ![Pandas](https://img.shields.io/badge/pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white)
+  
+</p>
 
 ### [ Tool ]
 
@@ -69,14 +97,36 @@
 
 <br>
 
-## 📑 화면 설계서
+## 📑 UI/UX 기획
 
-[화면 설계서](https://www.figma.com/design/3eVoEOIHFVwVvohUklm3Zy/3dsaoo?node-id=0-1)
+### 🎨 화면 설계서
+  
+   [화면 설계서](https://www.figma.com/design/3eVoEOIHFVwVvohUklm3Zy/3dsaoo?node-id=0-1)
+  
+<br>
+  
+### 🎨 스토리보드
+  
+   [스토리보드](https://docs.google.com/spreadsheets/d/19Nf7w0QSlVX1VOPbxbSS61pFMHorlVDw/edit?gid=2104583298#gid=2104583298&range=A1)
 
 <br>
 
 ## 📑 시스템 아키텍처
 
 [![3dasoo_SalesBoost_시스템 아키텍처](https://github.com/user-attachments/assets/80c448e3-716e-462f-bcbc-78bd9ca8a77c)](https://www.figma.com/design/3eVoEOIHFVwVvohUklm3Zy/3dsaoo?node-id=1-2)
+
+<br>
+
+## 💯 테스트
+
+### 📑 백엔드 단위 테스트 
+
+   [단위 테스트](https://docs.google.com/spreadsheets/d/19Nf7w0QSlVX1VOPbxbSS61pFMHorlVDw/edit?gid=662038167#gid=662038167&range=A1) 
+
+<br>
+
+### 📑 UI/IX 단위 테스트 
+
+   [UI/UX 단위 테스트](https://docs.google.com/spreadsheets/d/19Nf7w0QSlVX1VOPbxbSS61pFMHorlVDw/edit?gid=696265026#gid=696265026&range=A1)
 
 <br>
