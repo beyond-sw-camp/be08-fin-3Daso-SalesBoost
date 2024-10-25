@@ -47,6 +47,7 @@ public class ProductServiceImpl implements ProductService {
                 .quantity(request.getQuantity())
                 .unit(request.getUnit())
                 .field(request.getField())
+                .taxRate(request.getTaxRate())
                 .supplyPrice(request.getSupplyPrice())
                 .price(request.getPrice())
                 .build();
