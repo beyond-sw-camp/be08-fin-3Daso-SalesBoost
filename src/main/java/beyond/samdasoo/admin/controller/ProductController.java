@@ -13,7 +13,7 @@ import java.util.List;
 
 @Tag(name="Product APIs",description = "제품 관련 API")
 @RestController
-@RequestMapping("/api/products")
+@RequestMapping("/api/admin/products")
 public class ProductController {
 
     @Autowired
