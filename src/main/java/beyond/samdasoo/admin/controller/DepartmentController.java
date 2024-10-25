@@ -15,7 +15,7 @@ import java.util.List;
 
 @Tag(name="Department APIs",description = "부서 관련 API")
 @RestController
-@RequestMapping("/api/admin/department")
+@RequestMapping("/api/admin/departments")
 public class DepartmentController {
     @Autowired
     private DepartmentService departmentService;
@@ -54,7 +54,7 @@ public class DepartmentController {
     
     @PatchMapping("/{no}")
     @Operation(summary = "특정 부서 수정", description = "관리자 계정에서 부서번호로 등록된 부서의 정보 수정")
-    public BaseResponse<String> updateDepartmentByNo(@PathVariable("no") Long deptNo, DepartmentRequestDto request){
+    public BaseResponse<String> updateDepartmentByNo(@PathVariable("no") Long deptNo, @RequestBody DepartmentRequestDto request){
         departmentService.updateDepartmentByNo(deptNo, request);
 
         return new BaseResponse<>("부서 수정을 완료했습니다.");
