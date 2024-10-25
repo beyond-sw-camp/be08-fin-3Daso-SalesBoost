@@ -20,7 +20,7 @@ public class CustomerController {
     private final CustomerService customerService;
 
     /**
-    고객 등록 API
+     * 고객 등록 API
      */
     @Operation(summary = "고객 등록", description = "새로운 고객 등록")
     @PostMapping("/add")
@@ -40,38 +40,38 @@ public class CustomerController {
         return new BaseResponse<>(result);
 
     }
-  
+
     /**
-    고객 수정 API
+     * 고객 수정 API
      */
     @PatchMapping("/{customerId}")
-    public BaseResponse<String> patchCustomer(@PathVariable Long customerId, @RequestBody UpdateCustomerReq request){
-        customerService.updateCustomer(customerId,request);
+    public BaseResponse<String> patchCustomer(@PathVariable Long customerId, @RequestBody UpdateCustomerReq request) {
+        customerService.updateCustomer(customerId, request);
         return new BaseResponse<>("고객 정보가 수정되었습니다");
     }
 
 
     /**
-    고객 삭제 API
+     * 고객 삭제 API
      */
     @DeleteMapping
     public void deleteCustomer() {
     }
 
     /**
-    고객 목록 조회 API
-    */
+     * 고객 목록 조회 API
+     */
     @GetMapping
-    public BaseResponse<List<CustomersGetRes>> getCustomers(){
+    public BaseResponse<List<CustomersGetRes>> getCustomers() {
         List<CustomersGetRes> result = customerService.getLists();
         return new BaseResponse<>(result);
     }
 
     /**
-    고객 목록 조회 by Filter API
+     * 고객 목록 조회 by Filter API
      */
     @PostMapping
-    public BaseResponse<List<CustomersGetRes>> getCustomersByFilter(@RequestBody SearchCriteriaDTO searchCriteria){
+    public BaseResponse<List<CustomersGetRes>> getCustomersByFilter(@RequestBody SearchCriteriaDTO searchCriteria) {
 
         List<CustomersGetRes> result = customerService.getListByFilter(searchCriteria);
         return new BaseResponse<>(result);
@@ -82,5 +82,12 @@ public class CustomerController {
     public BaseResponse<Long> getCustomerCount(@RequestBody SearchCond searchCond) {
         Long result = customerService.getCustomerCount(searchCond);
         return new BaseResponse<>(result);
+    }
+
+    @PostMapping("/search")
+    @Operation(summary = "고객 필터 조회", description = "검색조건(고객사, 고객명) 둘 중에 하나라도 포함되는 고객을 조회한다.")
+    public BaseResponse<List<PopupCustomerGetRes>> searchCustomers(@RequestBody SearchCriteriaDTO searchCriteria) {
+        List<PopupCustomerGetRes> customers = customerService.searchCustomers(searchCriteria);
+        return new BaseResponse<>(customers);
     }
 }

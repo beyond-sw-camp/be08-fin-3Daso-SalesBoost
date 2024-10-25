@@ -7,21 +7,47 @@ VALUES
 
 # INSERT INTO tb_calendar (user_no) VALUES (1), (2), (3), (4), (5);
 
-INSERT INTO tb_process (process_no, created_at, updated_at, description, expected_duration, is_default, process_name)
-VALUES
-    (1, NOW(), NOW(), '계약 체결 과정', 30, 1, '계약'),
-    (2, NOW(), NOW(), '제안서 작성 과정', 20, 0, '제안서'),
-    (3, NOW(), NOW(), '견적서 검토 과정', 15, 0, '견적서'),
-    (4, NOW(), NOW(), '고객 협상 과정', 25, 1, '협상'),
-    (5, NOW(), NOW(), '영업 전략 수립 과정', 40, 0, '영업 전략');
+INSERT INTO tb_process(process_no, process_name, is_default, DESCRIPTION, created_at, updated_at)
+VALUES (1, '기본영업프로세스', 1, '기회인지-상담-제안-협상-계약', CURDATE(), CURDATE()),
+       (2, '테스트영업프로세스', 0, '제안-협상-계약', CURDATE(), CURDATE());
 
-INSERT INTO tb_lead (created_at, updated_at, aware_path, start_date, end_date, exp_margin, exp_profit, exp_sales, name, note, process, status, sub_process, sucess_per, customer_no)
-VALUES
-    (NOW(), NOW(), 'DEMO', '2024-06-01', '2024-12-01', 500, 2000, 5000, '신규 거래처 확보', '확보를 위한 전략 논의', 1, 'PROGRESS', 1, 70, 1),
-    (NOW(), NOW(), 'PARTNER', '2024-03-15', '2024-08-20', 800, 3000, 6000, '파트너사 신규 계약', '파트너사 계약 체결 준비', 2, 'PROGRESS', 2, 20,2),
-    (NOW(), NOW(), 'EXISTING', '2024-02-10', '2024-07-15', 700, 2500, 7000, '기존 거래처 리뉴얼', '계약 리뉴얼 논의', 3, 'SUCCESS', 3, 80, 3),
-    (NOW(), NOW(), 'EDUCATION', '2024-05-01', '2024-09-01', 600, 2200, 5500, '교육 프로그램 참여', '교육 프로그램 제공 논의', 4, 'HOLD', 4, 65, 4),
-    (NOW(), NOW(), 'SEARCH', '2024-04-10', '2024-10-10', 900, 3200, 7500, '검색 통한 신규 고객 확보', '검색 마케팅 준비', 5, 'PROGRESS', 5, 85, 5);
+INSERT INTO tb_sub_process(sub_process_no, sub_process_name, progress_step, success_rate, ACTION, expected_duration, created_at, updated_at, process_no)
+VALUES (1, '기회인지', '인지', 0, '인지', 5, CURDATE(), CURDATE(), 1),
+       (2, '상담', '제안', 10, '제안', 10, CURDATE(), CURDATE(), 1),
+       (3, '제안', '제안', 20, '제안', 5, CURDATE(), CURDATE(), 1),
+       (4, '협상', '협상', 60, '견적', 5, CURDATE(), CURDATE(), 1),
+       (5, '계약', '계약', 100, '계약', 20, CURDATE(), CURDATE(), 1),
+       (1, '제안', '제안', 20, '제안', 5, CURDATE(), CURDATE(), 2),
+       (2, '협상', '협상', 30, '견적', 5, CURDATE(), CURDATE(), 2),
+       (3, '계약', '계약', 100, '계약', 20, CURDATE(), CURDATE(), 2);
+
+INSERT INTO tb_lead (created_at, updated_at, start_date, end_date, exp_margin, exp_profit, exp_sales, name, note, process, status, sub_process, sucess_per, customer_no)
+VALUES (CURDATE(), CURDATE(), '2024-03-01', '2024-04-11', 20, 2000, 10000, '고객 A 영업', 'A에 대한 활동 메모', 1, 'SUCCESS', 5, 100, 1),
+       (CURDATE(), CURDATE(), '2024-03-15', '2024-08-20', 10, 800, 8000, '고객 B 영업', 'B에 대한 활동 메모', 1, 'SUCCESS', 5, 100,2),
+       (CURDATE(), CURDATE(), '2024-02-10', '2024-07-15', 20, 1000, 5000, '고객 C 영업', 'C에 대한 활동 메모', 1, 'SUCCESS', 5, 100, 3),
+       (CURDATE(), CURDATE(), '2024-05-01', '2024-09-01', 30, 1800, 6000, '고객 D 영업', 'D에 대한 활동 메모', 1, 'SUCCESS', 5, 100, 4);
+
+INSERT INTO tb_step(step_no, complete_yn, complete_date, LEVEL, lead_no, sub_process_no)
+VALUES (1, Y, '2024-03-01', 0, 1, 1) ,
+       (2, Y, '2024-03-11', 1, 1, 2) ,
+       (3, Y, '2024-03-16', 2, 1, 3) ,
+       (4, Y, '2024-03-21', 3, 1, 4) ,
+       (5, Y, '2024-04-11', 4, 1, 5) ,
+       (6, Y, '2024-04-01', 0, 2, 1) ,
+       (7, Y, '2024-04-11', 1, 2, 2) ,
+       (8, Y, '2024-04-16', 2, 2, 3) ,
+       (9, Y, '2024-04-21', 3, 2, 4) ,
+       (10, Y, '2024-05-11', 4, 2, 5) ,
+       (11, Y, '2024-05-01', 0, 3, 1) ,
+       (12, Y, '2024-05-11', 1, 3, 2) ,
+       (13, Y, '2024-05-16', 2, 3, 3) ,
+       (14, Y, '2024-05-21', 3, 3, 4) ,
+       (15, Y, '2024-06-11', 4, 3, 5) ,
+       (16, Y, '2024-05-01', 0, 4, 1) ,
+       (17, Y, '2024-05-11', 1, 4, 2) ,
+       (18, Y, '2024-05-16', 2, 4, 3) ,
+       (19, Y, '2024-05-21', 3, 4, 4) ,
+       (20, Y, '2024-06-11', 4, 4, 5);
 
 INSERT INTO tb_act (created_at, updated_at, no, act_cont, act_date, cls, complete_yn, end_time, name, plan_cont, purpose, start_time, calendar_no, lead_no)
 VALUES
@@ -409,22 +435,6 @@ VALUES
     ( NOW(), NOW(), '소매', '정기 주문', '2016-06-11', '특별 가격 협상 완료', 686861, 27, 'SALES', '2016-05-14', 618174.9, 'Y', 68686.1, '10%', 1),
     ( NOW(), NOW(), '소매', '대량 주문', '2015-01-27', '정기 배송 필요', 698592, 6, 'SALES', '2015-01-15', 628732.8, 'N', 0, '0%', 2),
     ( NOW(), NOW(), '소매', '소량 주문', '2016-06-20', '특별 가격 협상 완료', 825494, 23, 'SALES', '2016-05-21', 742944.6, 'Y', 82549.40000000001, '10%', 5);
-
-INSERT INTO tb_sub_process (sub_process_no, created_at, updated_at, action, expected_duration, progress_step, sub_process_name, success_rate, process_no)
-VALUES
-    (1, NOW(), NOW(), '고객 상담 진행', 15, '초기 상담', '상담', 80, 1),
-    (2, NOW(), NOW(), '계약 협의 진행', 20, '계약 협의', '계약', 70, 2),
-    (3, NOW(), NOW(), '견적서 작성 완료', 10, '견적 작성', '견적', 85, 3),
-    (4, NOW(), NOW(), '프로젝트 계획 수립', 25, '계획 수립', '계획', 75, 4),
-    (5, NOW(), NOW(), '최종 보고서 작성', 30, '보고서 작성', '보고서', 90, 5);
-
-INSERT INTO tb_step (step_no, complete_date, complete_yn, level, lead_no, sub_process_no)
-VALUES
-    (1, '2024-07-15', 'Y', 1, 1, 1),
-    (2, '2024-08-20', 'N', 2, 2, 2),
-    (3, '2024-09-10', 'Y', 3, 3, 3),
-    (4, '2024-10-05', 'N', 4, 4, 4),
-    (5, '2024-11-01', 'Y', 5, 5, 5);
 
 INSERT INTO tb_target_sale (target_sale_no, created_at, updated_at, month, month_target, year, product_no, user_no)
 VALUES
