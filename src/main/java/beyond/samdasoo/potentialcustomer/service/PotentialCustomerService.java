@@ -52,7 +52,7 @@ public class PotentialCustomerService {
                 .position(pCustomer.getPosition())
                 .cls(pCustomer.getCls())
                 .status(pCustomer.getContactStatus().getMessage())
-                .grade(pCustomer.getGrade().getMessage())
+                .grade(pCustomer.getGradeMessage())
                 .phone(pCustomer.getPhone())
                 .tel(pCustomer.getTel())
                 .email(pCustomer.getEmail())
