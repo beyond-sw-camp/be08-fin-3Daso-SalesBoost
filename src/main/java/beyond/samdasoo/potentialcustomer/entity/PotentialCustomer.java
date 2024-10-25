@@ -83,12 +83,14 @@ public class PotentialCustomer extends BaseEntity{
         }
 
         public static Grade getGrade(String str){
+            if(str==null) return null;
             for (Grade grade : Grade.values()) {
                 if(Objects.equals(grade.getMessage(), str))
                     return grade;
             }
             throw new NoSuchElementException("No such Grade : " + str);
         }
+
     }
 
     @Getter
@@ -175,6 +177,8 @@ public class PotentialCustomer extends BaseEntity{
         this.note = note;
     }
 
-
+    public String getGradeMessage(){
+        return (this.grade!=null)? this.grade.getMessage():"미선택";
+    }
 
 }
