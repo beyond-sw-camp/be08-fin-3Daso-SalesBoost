@@ -13,6 +13,9 @@ import beyond.samdasoo.common.email.dto.EmailVerificationUser;
 import beyond.samdasoo.common.exception.BaseException;
 import beyond.samdasoo.common.jwt.JwtTokenProvider;
 import beyond.samdasoo.common.jwt.service.RefreshTokenService;
+import beyond.samdasoo.customer.dto.CustomersGetRes;
+import beyond.samdasoo.customer.entity.Customer;
+import beyond.samdasoo.customer.repository.CustomerRepository;
 import beyond.samdasoo.user.dto.*;
 import beyond.samdasoo.user.entity.User;
 import beyond.samdasoo.user.repository.UserRepository;
@@ -45,6 +48,7 @@ public class UserService {
     private final EmailRepository emailRepository;
     private final EmailVerificationUserRedisRepository emailVerificationUserRedisRepository;
     private final CalendarService calendarService;
+    private final CustomerRepository customerRepository;
 
 
     public JoinUserRes join(JoinUserReq joinUserReq) {
@@ -106,7 +110,8 @@ public class UserService {
         //   User findUser = userRepository.findById(userId).orElseThrow(()->new BaseException(USER_NOT_EXIST));
         User findUser = userRepository.findByEmail(email).orElseThrow(() -> new BaseException(USER_NOT_EXIST));
 
-        return new UserDto(findUser.getName(), findUser.getEmail(), findUser.getRole());
+        return new UserDto(findUser.getName(), findUser.getEmail(),findUser.getEmployeeId(),
+                findUser.getDepartment().getDeptName(),findUser.getJoinDate());
     }
 
 
@@ -225,5 +230,16 @@ public class UserService {
 
     public List<FilterUserDto> getUsersByDepartmentAndSubDepartments(Long deptNo) {
         return userRepository.findUsersByDepartmentAndSubDepartments(deptNo);
+    }
+
+    public List<CustomersGetRes> getCustomers(String loginUserEmail) {
+        User user = userRepository.findByEmail(loginUserEmail).get();
+        List<Customer> customers = customerRepository.findCustomersByUser(user);
+
+        return customers.stream().map(c -> new CustomersGetRes(c.getId(), c.getName(), c.getPosition(), c.getCompany(),
+                c.getEmail(), c.getPhone(), c.getTel(),c.getUser().getName(),c.getGrade().getMessage(),
+                c.isKeyMan()
+        )).toList();
+
     }
 }
