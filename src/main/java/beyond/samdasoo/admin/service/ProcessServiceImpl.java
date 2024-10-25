@@ -94,10 +94,6 @@ public class ProcessServiceImpl implements ProcessService {
             process.setIsDefault(request.getIsDefault());
         }
 
-        if(request.getExpectedDuration() != null){
-            process.setExpectedDuration(request.getExpectedDuration());
-        }
-
         if(request.getDescription() != null){
             process.setDescription(request.getDescription());
         }
