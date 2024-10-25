@@ -31,26 +31,23 @@ public class TargetSaleRepositoryImpl implements TargetSaleRepositoryCustom {
         int year = Integer.parseInt(String.valueOf(searchDate.getYear()));
         int month = Integer.parseInt(String.format("%02d", searchDate.getMonthValue()));
 
-        System.out.println("searchDate: " + year + "@@" + month + "@@" + searchDate);
-
-        Integer monthResult = queryFactory.select(targetSale.monthTarget.sum())
-                .from(targetSale)
-                .where(builder
-                        .and(targetSale.year.eq(year))
-                )
-                .fetchOne();
-
-        int monthSales = Optional.ofNullable(monthResult).orElse(0);
-
         Integer yearResult = queryFactory.select(targetSale.monthTarget.sum())
                 .from(targetSale)
                 .where(builder
                         .and(targetSale.year.eq(year))
-                        .and(targetSale.month.eq(month))
                 )
                 .fetchOne();
 
         int yearSales = Optional.ofNullable(yearResult).orElse(0);
+
+        Integer monthResult = queryFactory.select(targetSale.monthTarget.sum())
+                .from(targetSale)
+                .where(builder
+                        .and(targetSale.month.eq(month))
+                )
+                .fetchOne();
+
+        int monthSales = Optional.ofNullable(monthResult).orElse(0);
 
         return new TargetSalesStatusDto(monthSales, yearSales);
     }
