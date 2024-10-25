@@ -94,7 +94,7 @@ public class TargetSaleServiceImpl implements TargetSaleService {
                 for (int i = 0; i < 12; i++) {
                     int newMonthTarget = 0;
                     if (request.getMonthTargets() != null && request.getMonthTargets().size() > i) {
-                        if (request.getMonthTargets().get(i) == null) {
+                        if (request.getMonthTargets().get(i) == 0) {
                             newMonthTarget = 0;
                         } else {
                             newMonthTarget = request.getMonthTargets().get(i);
