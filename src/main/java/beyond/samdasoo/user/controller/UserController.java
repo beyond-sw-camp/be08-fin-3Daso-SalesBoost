@@ -4,6 +4,8 @@ import beyond.samdasoo.common.exception.BaseException;
 import beyond.samdasoo.common.response.BaseResponse;
 import beyond.samdasoo.common.utils.CookieUtil;
 import beyond.samdasoo.common.utils.JwtUtil;
+import beyond.samdasoo.common.utils.UserUtil;
+import beyond.samdasoo.customer.dto.CustomersGetRes;
 import beyond.samdasoo.user.dto.*;
 import beyond.samdasoo.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -68,8 +70,8 @@ public class UserController {
     @Operation(summary = "유저 정보 조회", description = "현재 로그인한 유저 정보를 조회한다")
     @GetMapping("/my-info")
     public BaseResponse<UserDto> getUser() {
-
         String loginUserEmail = getLoginUserEmail();
+        System.out.println(loginUserEmail);
         UserDto result = userService.getUser(loginUserEmail);
 
         return new BaseResponse<>(result);
@@ -178,5 +180,14 @@ public class UserController {
     public BaseResponse<List<FilterUserDto>> getUsersByDepartmentAndSubDepartments(@PathVariable Long deptNo) {
         List<FilterUserDto> users = userService.getUsersByDepartmentAndSubDepartments(deptNo);
         return new BaseResponse<>(users);
+    }
+
+    @Operation(summary = "내 고객 목록 조회", description = "로그인한 영업사원이 담당하는 고객들 목록 조회")
+    @GetMapping("/customers")
+    public BaseResponse<List<CustomersGetRes>> getCustomers(){
+        String loginUserEmail = getLoginUserEmail();
+        List<CustomersGetRes> result = userService.getCustomers(loginUserEmail);
+        return new BaseResponse<>(result);
+
     }
 }
