@@ -125,8 +125,16 @@
 
 <br>
 
-### 📑 UI/IX 단위 테스트 
+### 📑 UI/UX 단위 테스트 
 
    [UI/UX 단위 테스트](https://docs.google.com/spreadsheets/d/19Nf7w0QSlVX1VOPbxbSS61pFMHorlVDw/edit?gid=696265026#gid=696265026&range=A1)
 
 <br>
+
+
+### 📑 통합 테스트 및 프로그램 사양서
+
+   [통합 테스트](https://www.notion.so/127a0be8a371805a912ce4bc85ddef3d)
+
+<br>
+
