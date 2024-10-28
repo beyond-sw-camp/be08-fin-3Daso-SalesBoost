@@ -7,9 +7,9 @@ VALUES
 
 # INSERT INTO tb_calendar (user_no) VALUES (1), (2), (3), (4), (5);
 
-INSERT INTO tb_process(process_no, process_name, is_default, DESCRIPTION, created_at, updated_at)
-VALUES (1, '기본영업프로세스', 1, '기회인지-상담-제안-협상-계약', CURDATE(), CURDATE()),
-       (2, '테스트영업프로세스', 0, '제안-협상-계약', CURDATE(), CURDATE());
+INSERT INTO tb_process(process_no, process_name, is_default, DESCRIPTION, created_at, updated_at, expected_duration)
+VALUES (1, '기본영업프로세스', 1, '기회인지-상담-제안-협상-계약', CURDATE(), CURDATE(), 45),
+       (2, '테스트영업프로세스', 0, '제안-협상-계약', CURDATE(), CURDATE(), 30);
 
 INSERT INTO tb_sub_process(sub_process_no, sub_process_name, progress_step, success_rate, ACTION, expected_duration, created_at, updated_at, process_no)
 VALUES (1, '기회인지', '인지', 0, '인지', 5, CURDATE(), CURDATE(), 1),
@@ -17,9 +17,9 @@ VALUES (1, '기회인지', '인지', 0, '인지', 5, CURDATE(), CURDATE(), 1),
        (3, '제안', '제안', 20, '제안', 5, CURDATE(), CURDATE(), 1),
        (4, '협상', '협상', 60, '견적', 5, CURDATE(), CURDATE(), 1),
        (5, '계약', '계약', 100, '계약', 20, CURDATE(), CURDATE(), 1),
-       (1, '제안', '제안', 20, '제안', 5, CURDATE(), CURDATE(), 2),
-       (2, '협상', '협상', 30, '견적', 5, CURDATE(), CURDATE(), 2),
-       (3, '계약', '계약', 100, '계약', 20, CURDATE(), CURDATE(), 2);
+       (6, '제안', '제안', 20, '제안', 5, CURDATE(), CURDATE(), 2),
+       (7, '협상', '협상', 30, '견적', 5, CURDATE(), CURDATE(), 2),
+       (8, '계약', '계약', 100, '계약', 20, CURDATE(), CURDATE(), 2);
 
 INSERT INTO tb_lead (created_at, updated_at, start_date, end_date, exp_margin, exp_profit, exp_sales, name, note, process, status, sub_process, sucess_per, customer_no)
 VALUES (CURDATE(), CURDATE(), '2024-03-01', '2024-04-11', 20, 2000, 10000, '고객 A 영업', 'A에 대한 활동 메모', 1, 'SUCCESS', 5, 100, 1),
@@ -436,10 +436,71 @@ VALUES
     ( NOW(), NOW(), '소매', '대량 주문', '2015-01-27', '정기 배송 필요', 698592, 6, 'SALES', '2015-01-15', 628732.8, 'N', 0, '0%', 2),
     ( NOW(), NOW(), '소매', '소량 주문', '2016-06-20', '특별 가격 협상 완료', 825494, 23, 'SALES', '2016-05-21', 742944.6, 'Y', 82549.40000000001, '10%', 5);
 
-INSERT INTO tb_target_sale (target_sale_no, created_at, updated_at, month, month_target, year, product_no, user_no)
+-- 2024년도 테스트만 존재
+INSERT INTO tb_target_sale (month, month_target, year, created_at, product_no, target_sale_no, updated_at, user_no)
 VALUES
-    (1, NOW(), NOW(), 7, 500000, 2024, 1, 1),
-    (2, NOW(), NOW(), 8, 300000, 2024, 2, 2),
-    (3, NOW(), NOW(), 9, 200000, 2024, 3, 3),
-    (4, NOW(), NOW(), 10, 450000, 2024, 4, 4),
-    (5, NOW(), NOW(), 11, 350000, 2024, 5, 5);
+    (1, 5000, 2024, NOW(), 1, 1, NOW(), 1),
+    (2, 5000, 2024, NOW(), 1, 2, NOW(), 1),
+    (3, 5000, 2024, NOW(), 1, 3, NOW(), 1),
+    (4, 5000, 2024, NOW(), 1, 4, NOW(), 1),
+    (5, 5000, 2024, NOW(), 1, 5, NOW(), 1),
+    (6, 5000, 2024, NOW(), 1, 6, NOW(), 1),
+    (7, 5000, 2024, NOW(), 1, 7, NOW(), 1),
+    (8, 5000, 2024, NOW(), 1, 8, NOW(), 1),
+    (9, 5000, 2024, NOW(), 1, 9, NOW(), 1),
+    (10, 5000, 2024, NOW(), 1, 10, NOW(), 1),
+    (11, 5000, 2024, NOW(), 1, 11, NOW(), 1),
+    (12, 5000, 2024, NOW(), 1, 12, NOW(), 1),
+
+    (1, 5000, 2024, NOW(), 2, 13, NOW(), 1),
+    (2, 5000, 2024, NOW(), 2, 14, NOW(), 1),
+    (3, 5000, 2024, NOW(), 2, 15, NOW(), 1),
+    (4, 5000, 2024, NOW(), 2, 16, NOW(), 1),
+    (5, 5000, 2024, NOW(), 2, 17, NOW(), 1),
+    (6, 5000, 2024, NOW(), 2, 18, NOW(), 1),
+    (7, 5000, 2024, NOW(), 2, 19, NOW(), 1),
+    (8, 5000, 2024, NOW(), 2, 20, NOW(), 1),
+    (9, 5000, 2024, NOW(), 2, 21, NOW(), 1),
+    (10, 5000, 2024, NOW(), 2, 22, NOW(), 1),
+    (11, 5000, 2024, NOW(), 2, 23, NOW(), 1),
+    (12, 5000, 2024, NOW(), 2, 24, NOW(), 1),
+
+    (1, 5000, 2024, NOW(), 3, 25, NOW(), 1),
+    (2, 5000, 2024, NOW(), 3, 26, NOW(), 1),
+    (3, 5000, 2024, NOW(), 3, 27, NOW(), 1),
+    (4, 5000, 2024, NOW(), 3, 28, NOW(), 1),
+    (5, 5000, 2024, NOW(), 3, 29, NOW(), 1),
+    (6, 5000, 2024, NOW(), 3, 30, NOW(), 1),
+    (7, 5000, 2024, NOW(), 3, 31, NOW(), 1),
+    (8, 5000, 2024, NOW(), 3, 32, NOW(), 1),
+    (9, 5000, 2024, NOW(), 3, 33, NOW(), 1),
+    (10, 5000, 2024, NOW(), 3, 34, NOW(), 1),
+    (11, 5000, 2024, NOW(), 3, 35, NOW(), 1),
+    (12, 5000, 2024, NOW(), 3, 36, NOW(), 1),
+
+    (1, 5000, 2024, NOW(), 4, 37, NOW(), 1),
+    (2, 5000, 2024, NOW(), 4, 38, NOW(), 1),
+    (3, 5000, 2024, NOW(), 4, 39, NOW(), 1),
+    (4, 5000, 2024, NOW(), 4, 40, NOW(), 1),
+    (5, 5000, 2024, NOW(), 4, 41, NOW(), 1),
+    (6, 5000, 2024, NOW(), 4, 42, NOW(), 1),
+    (7, 5000, 2022, NOW(), 4, 43, NOW(), 1),
+    (8, 5000, 2024, NOW(), 4, 44, NOW(), 1),
+    (9, 5000, 2024, NOW(), 4, 45, NOW(), 1),
+    (10, 5000, 2024, NOW(), 4, 46, NOW(), 1),
+    (11, 5000, 2024, NOW(), 4, 47, NOW(), 1),
+    (12, 5000, 2024, NOW(), 4, 48, NOW(), 1),
+
+
+    (1, 5000, 2024, NOW(), 1, 61, NOW(), 2),
+    (2, 5000, 2024, NOW(), 1, 62, NOW(), 2),
+    (3, 5000, 2024, NOW(), 1, 63, NOW(), 2),
+    (4, 5000, 2024, NOW(), 1, 64, NOW(), 2),
+    (5, 5000, 2024, NOW(), 1, 65, NOW(), 2),
+    (6, 5000, 2024, NOW(), 1, 66, NOW(), 2),
+    (7, 5000, 2024, NOW(), 1, 67, NOW(), 2),
+    (8, 5000, 2024, NOW(), 1, 68, NOW(), 2),
+    (9, 5000, 2024, NOW(), 1, 69, NOW(), 2),
+    (10, 5000, 2024, NOW(), 1, 70, NOW(), 2),
+    (11, 5000, 2024, NOW(), 1, 71, NOW(), 2),
+    (12, 5000, 2024, NOW(), 1, 72, NOW(), 2);
