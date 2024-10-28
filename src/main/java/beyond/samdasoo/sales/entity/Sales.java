@@ -23,8 +23,8 @@ public class Sales extends BaseEntity {
     @Column(name = "sales_no")
     private Long salesNo;
 
-    @Column(name = "sales_cls", nullable = false)
-    private String salesCls;
+    @Column(name = "sales_name", nullable = false)
+    private String salesName;
 
     @Column(name = "sales_date", nullable = false)
     private LocalDate salesDate;

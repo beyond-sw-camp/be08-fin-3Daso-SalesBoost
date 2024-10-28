@@ -72,7 +72,7 @@ public class SalesService {
                 .orElseThrow(() -> new BaseException(BaseResponseStatus.SALES_ALREADY_EXIST));
 
         Sales sales = Sales.builder()
-                .salesCls(requestDto.getSalesCls())
+                .salesName(requestDto.getSalesName())
                 .salesDate(requestDto.getSalesDate())
                 .taxCls(requestDto.getTaxCls())
                 .surtaxYn(requestDto.getSurtaxYn())
@@ -103,7 +103,7 @@ public class SalesService {
         // No는 기존 값 사용
         sales = Sales.builder()
                 .salesNo(sales.getSalesNo())
-                .salesCls(requestDto.getSalesCls())
+                .salesName(requestDto.getSalesName())
                 .salesDate(requestDto.getSalesDate())
                 .taxCls(requestDto.getTaxCls())
                 .surtaxYn(requestDto.getSurtaxYn())
