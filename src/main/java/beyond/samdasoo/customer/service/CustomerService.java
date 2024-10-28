@@ -16,8 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-import static beyond.samdasoo.common.response.BaseResponseStatus.CUSTOMER_NOT_EXIST;
-import static beyond.samdasoo.common.response.BaseResponseStatus.USER_NOT_EXIST;
+import static beyond.samdasoo.common.response.BaseResponseStatus.*;
 
 @RequiredArgsConstructor
 @Service
@@ -89,12 +88,16 @@ public class CustomerService {
         Customer c = customerRepository.findById(id).orElseThrow(() -> new BaseException(CUSTOMER_NOT_EXIST));
 
         return new CustomerGetRes(c.getId(), c.getName(), c.getPosition(), c.getCompany(), c.getEmail()
-                , c.getPhone(), c.getTel(),c.getGrade().getMessage(),c.isKeyMan(),c.getDept(),c.getUser().getName());
+                , c.getPhone(), c.getTel(),c.getGrade().getMessage(),c.isKeyMan(),c.getDept(),c.getUser().getName(),c.getUser().getEmail());
     }
 
     @Transactional
-    public void updateCustomer(Long customerId, UpdateCustomerReq request) {
-        Customer customer = customerRepository.findById(customerId).orElseThrow(() -> new BaseException(USER_NOT_EXIST));
+    public void updateCustomer(String loginUserEmail,Long customerId, UpdateCustomerReq request) {
+        Customer customer = customerRepository.findById(customerId).orElseThrow(() -> new BaseException(CUSTOMER_NOT_EXIST));
+
+        if(!customer.getUser().getEmail().equals(loginUserEmail)) {
+            throw new BaseException(INVALID_AUTH_UPDATE_CUSTOMER);
+        }
 
         Optional.ofNullable(request.getName()).ifPresent(customer::changeName);
         Optional.ofNullable(request.getCompany()).ifPresent(customer::changeCompany);
@@ -114,6 +117,17 @@ public class CustomerService {
 
     public List<PopupCustomerGetRes> searchCustomers(SearchCriteriaDTO searchCriteria) {
         return customerRepository.searchCustomers(searchCriteria);
+    }
+
+    public void delete(String loginUserEmail, Long customerId) {
+        Customer customer = customerRepository.findById(customerId).orElseThrow(() -> new BaseException(CUSTOMER_NOT_EXIST));
+
+        if(customer.getUser().getEmail().equals(loginUserEmail)){
+                customerRepository.delete(customer);
+        }else{
+            throw new BaseException(INVALID_AUTH_DEL_CUSTOMER);
+        }
+
     }
 }
 

@@ -2,6 +2,7 @@ package beyond.samdasoo.customer.controller;
 
 import beyond.samdasoo.common.dto.SearchCond;
 import beyond.samdasoo.common.response.BaseResponse;
+import beyond.samdasoo.common.utils.UserUtil;
 import beyond.samdasoo.customer.dto.*;
 import beyond.samdasoo.customer.service.CustomerService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -46,7 +47,8 @@ public class CustomerController {
      */
     @PatchMapping("/{customerId}")
     public BaseResponse<String> patchCustomer(@PathVariable Long customerId, @RequestBody UpdateCustomerReq request) {
-        customerService.updateCustomer(customerId, request);
+        String loginUserEmail = UserUtil.getLoginUserEmail();
+        customerService.updateCustomer(loginUserEmail,customerId, request);
         return new BaseResponse<>("고객 정보가 수정되었습니다");
     }
 
@@ -54,8 +56,11 @@ public class CustomerController {
     /**
      * 고객 삭제 API
      */
-    @DeleteMapping
-    public void deleteCustomer() {
+    @DeleteMapping("/{customerId}")
+    public BaseResponse<String> deleteCustomer(@PathVariable Long customerId) {
+        String loginUserEmail = UserUtil.getLoginUserEmail();
+        customerService.delete(loginUserEmail,customerId);
+        return new BaseResponse<>("고객 정보를 삭제했습니다");
     }
 
     /**

@@ -36,10 +36,10 @@ public enum BaseResponseStatus {
     EMAIL_REGEX_ERROR(false,HttpStatus.BAD_REQUEST.value(), "이메일 형식으로 입력해주세요."),
     EMAIL_NOT_VERIFICATED(false, HttpStatus.BAD_REQUEST.value(), "이메일 인증이 완료되지 않았습니다. 메일인증 후 다시 시도하세요"),
 
-  EMAIL_EMPTY(false,HttpStatus.BAD_REQUEST.value(), "이메일을 입력해 주세요."),
-  NAME_EMPTY(false,HttpStatus.BAD_REQUEST.value(), "이름을 입력해 주세요."),
-  PASSWORD_EMPTY(false,HttpStatus.BAD_REQUEST.value(), "비밀번호를 입력해 주세요."),
-  DEPT_EMPTY(false,HttpStatus.BAD_REQUEST.value(), "부서를 선택해 주세요."),
+    EMAIL_EMPTY(false,HttpStatus.BAD_REQUEST.value(), "이메일을 입력해 주세요."),
+    NAME_EMPTY(false,HttpStatus.BAD_REQUEST.value(), "이름을 입력해 주세요."),
+    PASSWORD_EMPTY(false,HttpStatus.BAD_REQUEST.value(), "비밀번호를 입력해 주세요."),
+    DEPT_EMPTY(false,HttpStatus.BAD_REQUEST.value(), "부서를 선택해 주세요."),
 
     /**
      * product 관련
@@ -134,6 +134,9 @@ public enum BaseResponseStatus {
      * Customer 관련
      */
     CUSTOMER_NOT_EXIST(false, HttpStatus.BAD_REQUEST.value(), "등록되지 않은 고객입니다."),
+    INVALID_AUTH_DEL_CUSTOMER(false, HttpStatus.BAD_REQUEST.value(), "해당 고객을 삭제할 권한이 없습니다"),
+    INVALID_AUTH_UPDATE_CUSTOMER(false, HttpStatus.BAD_REQUEST.value(), "해당 고객을 수정할 권한이 없습니다"),
+
 
     /*
         report(PDF) 관련
