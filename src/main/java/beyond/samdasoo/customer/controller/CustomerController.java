@@ -47,7 +47,8 @@ public class CustomerController {
      */
     @PatchMapping("/{customerId}")
     public BaseResponse<String> patchCustomer(@PathVariable Long customerId, @RequestBody UpdateCustomerReq request) {
-        customerService.updateCustomer(customerId, request);
+        String loginUserEmail = UserUtil.getLoginUserEmail();
+        customerService.updateCustomer(loginUserEmail,customerId, request);
         return new BaseResponse<>("고객 정보가 수정되었습니다");
     }
 

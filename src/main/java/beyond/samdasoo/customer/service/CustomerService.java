@@ -92,8 +92,12 @@ public class CustomerService {
     }
 
     @Transactional
-    public void updateCustomer(Long customerId, UpdateCustomerReq request) {
+    public void updateCustomer(String loginUserEmail,Long customerId, UpdateCustomerReq request) {
         Customer customer = customerRepository.findById(customerId).orElseThrow(() -> new BaseException(CUSTOMER_NOT_EXIST));
+
+        if(!customer.getUser().getEmail().equals(loginUserEmail)) {
+            throw new BaseException(INVALID_AUTH_UPDATE_CUSTOMER);
+        }
 
         Optional.ofNullable(request.getName()).ifPresent(customer::changeName);
         Optional.ofNullable(request.getCompany()).ifPresent(customer::changeCompany);

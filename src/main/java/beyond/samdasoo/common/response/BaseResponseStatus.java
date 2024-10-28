@@ -135,6 +135,7 @@ public enum BaseResponseStatus {
      */
     CUSTOMER_NOT_EXIST(false, HttpStatus.BAD_REQUEST.value(), "등록되지 않은 고객입니다."),
     INVALID_AUTH_DEL_CUSTOMER(false, HttpStatus.BAD_REQUEST.value(), "해당 고객을 삭제할 권한이 없습니다"),
+    INVALID_AUTH_UPDATE_CUSTOMER(false, HttpStatus.BAD_REQUEST.value(), "해당 고객을 수정할 권한이 없습니다"),
 
 
     /*
