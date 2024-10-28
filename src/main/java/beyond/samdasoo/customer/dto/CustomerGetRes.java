@@ -30,4 +30,6 @@ public class CustomerGetRes {
 
         private String userName; // 담당자
 
+        private String userEmail;  // 담당자 이메일
+
     }
