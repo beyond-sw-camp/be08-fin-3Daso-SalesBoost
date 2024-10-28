@@ -1,6 +1,7 @@
 package beyond.samdasoo.estimate.entity;
 
 import beyond.samdasoo.common.entity.BaseEntity;
+import beyond.samdasoo.contract.entity.Contract;
 import beyond.samdasoo.proposal.entity.Proposal;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -55,6 +56,9 @@ public class Estimate extends BaseEntity {
 
     @Column(name = "note")
     private String note;  // 비고 (optional)
+
+    @OneToOne(mappedBy = "estimate", cascade = CascadeType.ALL)
+    private Contract contract;
 
     @OneToMany(mappedBy = "estimate", cascade = CascadeType.ALL)
     private List<EstProduct> estProducts = new ArrayList<>();

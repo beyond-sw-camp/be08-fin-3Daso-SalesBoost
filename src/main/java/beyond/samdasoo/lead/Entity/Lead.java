@@ -1,5 +1,6 @@
 package beyond.samdasoo.lead.Entity;
 
+import beyond.samdasoo.act.entity.Act;
 import beyond.samdasoo.common.entity.BaseEntity;
 import beyond.samdasoo.customer.entity.Customer;
 import beyond.samdasoo.proposal.entity.Proposal;
@@ -38,13 +39,13 @@ public class Lead extends BaseEntity {
     private LeadStatus status;  // 진행상태
 
     @Column(name = "exp_sales")
-    private int expSales;   // 예상 매출
+    private Long expSales;   // 예상 매출
 
     @Column(name = "exp_margin")
     private int expMargin;  // 예상 이익률
 
     @Column(name = "exp_profit")
-    private int expProfit;  // 예상 이익금액
+    private Long expProfit;  // 예상 이익금액
 
     @Column(name = "process", nullable = false)
     private Long process;    // 프로세스
@@ -70,6 +71,9 @@ public class Lead extends BaseEntity {
 
     @OneToMany(mappedBy = "lead", cascade = CascadeType.ALL)
     private List<Step> steps;   // 진행단계
+
+    @OneToMany(mappedBy = "lead", cascade = CascadeType.ALL)
+    private List<Act> acts;
 
     @OneToMany(mappedBy = "lead", cascade = CascadeType.ALL)
     private List<Proposal> proposals;

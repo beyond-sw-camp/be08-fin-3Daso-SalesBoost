@@ -117,4 +117,9 @@ public class ContractService {
     public void deleteContract(Long no) {
         contractRepository.delete(findContractId(no));
     }
+
+    @Transactional(readOnly = true)
+    public ContractResponseDto getContractByLead(Long leadNo) {
+        return contractRepository.findContractByLead(leadNo);
+    }
 }

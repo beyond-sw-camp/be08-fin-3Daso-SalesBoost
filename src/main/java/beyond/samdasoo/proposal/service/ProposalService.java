@@ -88,4 +88,9 @@ public class ProposalService {
 
         proposalRepository.deleteById(propNo);
     }
+
+    @Transactional(readOnly = true)
+    public ProposalResponseDto getLatestProposalWithEstimatesByLeadId(Long leadNo) {
+        return proposalRepository.findLatestProposalWithEstimatesByLeadId(leadNo);
+    }
 }

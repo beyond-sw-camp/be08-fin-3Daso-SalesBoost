@@ -5,6 +5,7 @@ import beyond.samdasoo.estimate.dto.CreateEstimateDto;
 import beyond.samdasoo.estimate.dto.EstimateRequestDto;
 import beyond.samdasoo.estimate.dto.EstimateResponseDto;
 import beyond.samdasoo.estimate.service.EstimateService;
+import beyond.samdasoo.proposal.dto.ProposalResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,4 +63,8 @@ public class EstimateController {
         return new BaseResponse<>("견적이 삭제되었습니다.");
     }
 
+    @GetMapping("/timeline/{leadNo}")
+    public BaseResponse<EstimateResponseDto> getEstimateByLead(@PathVariable Long leadNo) {
+        return new BaseResponse<>(estimateService.getEstimateByLead(leadNo));
+    }
 }

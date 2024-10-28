@@ -20,12 +20,14 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/acts")
-@Tag(name="Act APIs", description = "영업활동 API")
+@Tag(name = "Act APIs", description = "영업활동 API")
 public class ActController {
     private final ActService actService;
 
     @Autowired
-    public ActController(ActService actService) { this.actService = actService; }
+    public ActController(ActService actService) {
+        this.actService = actService;
+    }
 
 
     @PostMapping
@@ -123,5 +125,13 @@ public class ActController {
     public ResponseEntity<ActStatusDto> getActStatus(@RequestBody SearchCond searchCond) {
         ActStatusDto actStatus = actService.getActStatus(searchCond);
         return ResponseEntity.ok(actStatus);
+    }
+
+    @GetMapping("/timeline/{leadNo}")
+    @Operation(summary = "영업활동 리스트 조회", description = "영업기회에 해당하는 영업활동 조회")
+    public BaseResponse<List<ActResponseDto>> getActsByLead(@PathVariable Long leadNo) {
+        List<ActResponseDto> acts = actService.getActsByLead(leadNo);
+
+        return new BaseResponse<>(acts);
     }
 }

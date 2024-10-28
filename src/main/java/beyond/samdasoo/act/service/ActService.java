@@ -17,7 +17,6 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -79,7 +78,9 @@ public class ActService {
     }
 
     @Transactional(readOnly = true)
-    public ActResponseDto getActById(Long no) {return new ActResponseDto(findActById(no));}
+    public ActResponseDto getActById(Long no) {
+        return new ActResponseDto(findActById(no));
+    }
 
     @Transactional
     public ActResponseDto updateAct(Long no, ActRequestDto actRequestDto) {
@@ -102,7 +103,9 @@ public class ActService {
 
     }
 
-    public void deleteAct(Long no) {actRepository.delete(findActById(no));}
+    public void deleteAct(Long no) {
+        actRepository.delete(findActById(no));
+    }
 
     public Map<String, Long> countActsCategory() {
         QAct act = QAct.act;
@@ -161,5 +164,12 @@ public class ActService {
     @Transactional(readOnly = true)
     public ActStatusDto getActStatus(SearchCond searchCond) {
         return actRepository.findActStatus(searchCond.getSearchDate(), searchCond.getUserNo());
+    }
+
+    @Transactional(readOnly = true)
+    public List<ActResponseDto> getActsByLead(Long leadNo) {
+        return actRepository.findByLeadOrderByActDateDesc(findLeadById(leadNo)).stream()
+                .map(ActResponseDto::new)
+                .collect(Collectors.toList());
     }
 }
