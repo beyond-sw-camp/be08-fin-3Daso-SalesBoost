@@ -7,7 +7,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class SalesRequestDto {
-    private String salesCls;
+    private String salesName;
     private LocalDate salesDate;
     private String taxCls;
     private String surtaxYn;

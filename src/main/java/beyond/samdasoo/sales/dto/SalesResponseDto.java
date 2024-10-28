@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class SalesResponseDto {
     private Long salesNo;
-    private String salesCls;
+    private String salesName;
     private LocalDate salesDate;
     private String taxCls;
     private String surtaxYn;
@@ -28,7 +28,7 @@ public class SalesResponseDto {
 
     public SalesResponseDto(Sales sales) {
         this.salesNo = sales.getSalesNo();
-        this.salesCls = sales.getSalesCls();
+        this.salesName = sales.getSalesName();
         this.salesDate = sales.getSalesDate();
         this.taxCls = sales.getTaxCls();
         this.surtaxYn = sales.getSurtaxYn();
