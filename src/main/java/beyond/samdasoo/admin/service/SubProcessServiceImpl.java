@@ -28,6 +28,7 @@ public class SubProcessServiceImpl implements SubProcessService{
     public void addSubProcess(SubProcessRequestDto request) {
         boolean exists = subProcessRepository.existsBySubProcessName(request.getSubProcessName());
         Optional<Process> optionalProcess = processRepository.findById(request.getProcessNo());
+        int progressED = 0;
 
         if (optionalProcess.isEmpty()) {
             throw new BaseException(PROCESS_NOT_EXIST);
@@ -39,7 +40,10 @@ public class SubProcessServiceImpl implements SubProcessService{
             throw new BaseException(SUBPROCESS_ALREADY_EXIST);
         }
 
-        process.setExpectedDuration(process.getExpectedDuration() + request.getExpectedDuration());
+        if(process.getExpectedDuration() != null){
+            progressED = process.getExpectedDuration();
+        }
+        process.setExpectedDuration(progressED + request.getExpectedDuration());
 
         SubProcess subProcess = SubProcess.builder()
                 .process(process)
