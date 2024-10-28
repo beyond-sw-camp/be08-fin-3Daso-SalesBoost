@@ -1,6 +1,7 @@
 package beyond.samdasoo.contract.dto;
 
 import beyond.samdasoo.contract.entity.Contract;
+import com.querydsl.core.annotations.QueryProjection;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -31,6 +32,7 @@ public class ContractResponseDto {
     private String note;
     private Long estimateNo;
 
+    @QueryProjection
     public ContractResponseDto(Contract contract) {
         this.contractNo = contract.getContractNo();
         this.name = contract.getName();

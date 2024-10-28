@@ -1,6 +1,7 @@
 package beyond.samdasoo.proposal.dto;
 
 import beyond.samdasoo.proposal.entity.Proposal;
+import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -20,6 +21,7 @@ public class ProposalResponseDto {
     private Long leadNo;
     private String leadName;
 
+    @QueryProjection
     public ProposalResponseDto(Proposal proposal) {
         this.propNo = proposal.getPropNo();
         this.name = proposal.getName();

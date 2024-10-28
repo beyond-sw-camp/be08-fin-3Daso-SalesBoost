@@ -1,6 +1,7 @@
 package beyond.samdasoo.estimate.dto;
 
 import beyond.samdasoo.estimate.entity.Estimate;
+import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -21,6 +22,7 @@ public class EstimateResponseDto {
     private Long propNo;  // 제안번호 (FK)
     private String propName;
 
+    @QueryProjection
     public EstimateResponseDto(Estimate estimate) {
         this.estNo = estimate.getEstNo();
         this.name = estimate.getName();

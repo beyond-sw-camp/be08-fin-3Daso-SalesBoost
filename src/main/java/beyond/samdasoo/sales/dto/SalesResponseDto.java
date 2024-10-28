@@ -1,6 +1,7 @@
 package beyond.samdasoo.sales.dto;
 
 import beyond.samdasoo.sales.entity.Sales;
+import com.querydsl.core.annotations.QueryProjection;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,6 +27,7 @@ public class SalesResponseDto {
     private String note;
     private Long contractNo;
 
+    @QueryProjection
     public SalesResponseDto(Sales sales) {
         this.salesNo = sales.getSalesNo();
         this.salesCls = sales.getSalesCls();

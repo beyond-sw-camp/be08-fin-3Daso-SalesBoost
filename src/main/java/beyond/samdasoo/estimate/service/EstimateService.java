@@ -12,6 +12,7 @@ import beyond.samdasoo.estimate.entity.EstProduct;
 import beyond.samdasoo.estimate.entity.Estimate;
 import beyond.samdasoo.estimate.repository.EstProductRepository;
 import beyond.samdasoo.estimate.repository.EstimateRepository;
+import beyond.samdasoo.proposal.dto.ProposalResponseDto;
 import beyond.samdasoo.proposal.entity.Proposal;
 import beyond.samdasoo.proposal.repository.ProposalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -154,5 +155,10 @@ public class EstimateService {
                 .orElseThrow(() -> new BaseException(BaseResponseStatus.ESTIMATE_NOT_EXIST));
 
         estimateRepository.delete(estimate);
+    }
+
+    @Transactional(readOnly = true)
+    public EstimateResponseDto getEstimateByLead(Long leadNo) {
+        return estimateRepository.findEstimateByLead(leadNo);
     }
 }

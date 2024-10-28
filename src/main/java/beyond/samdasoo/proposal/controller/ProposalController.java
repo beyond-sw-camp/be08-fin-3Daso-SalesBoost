@@ -63,4 +63,9 @@ public class ProposalController {
         proposalService.deleteProposal(propNo);
         return new BaseResponse<>("제안이 삭제되었습니다.");
     }
+
+    @GetMapping("/timeline/{leadNo}")
+    public BaseResponse<ProposalResponseDto> getLatestProposalWithEstimatesByLeadId(@PathVariable Long leadNo) {
+        return new BaseResponse<>(proposalService.getLatestProposalWithEstimatesByLeadId(leadNo));
+    }
 }
