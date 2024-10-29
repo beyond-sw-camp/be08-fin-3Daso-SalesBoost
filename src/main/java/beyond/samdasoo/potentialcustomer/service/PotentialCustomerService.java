@@ -200,4 +200,15 @@ public class PotentialCustomerService {
                 searchCond.getSearchDate(), searchCond.getUserNo()
         );
     }
+
+    public void delete(String loginUserEmail, Long prospectId) {
+        PotentialCustomer pCustomer = potentialCustomerRepository.findById(prospectId).orElseThrow(() -> new BaseException(POTENTIAL_CUSTOMER_NOT_EXIST));
+
+        if(pCustomer.getUser().getEmail().equals(loginUserEmail)){
+            potentialCustomerRepository.delete(pCustomer);
+        }else {
+            throw new BaseException(INVALID_AUTH_DEL_CUSTOMER);
+        }
+
+    }
 }

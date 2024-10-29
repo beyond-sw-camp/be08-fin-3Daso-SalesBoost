@@ -3,6 +3,7 @@ package beyond.samdasoo.user.entity;
 import beyond.samdasoo.admin.entity.Department;
 import beyond.samdasoo.admin.entity.TargetSale;
 import beyond.samdasoo.common.entity.BaseEntity;
+import beyond.samdasoo.potentialcustomer.entity.PotentialCustomer;
 import beyond.samdasoo.user.dto.UserRole;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -50,6 +51,7 @@ public class User extends BaseEntity {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<TargetSale> targetSales;
+
 
     public void RoleChangeToAdmin(){
         this.role = UserRole.ADMIN;

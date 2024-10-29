@@ -11,6 +11,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
@@ -66,6 +67,9 @@ public class PotentialCustomer extends BaseEntity{
 
     @Column(name = "modify_date")
     private LocalDate modifyDate; // 고객으로 전환일
+
+    @OneToMany(mappedBy = "pcustomer",cascade =CascadeType.ALL )
+    private List<ContactHistory> contactHistories;
 
     public PotentialCustomer() {
 

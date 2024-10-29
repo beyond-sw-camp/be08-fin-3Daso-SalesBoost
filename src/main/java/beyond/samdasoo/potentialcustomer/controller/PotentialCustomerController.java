@@ -81,6 +81,15 @@ public class PotentialCustomerController {
     }
 
     /**
+     * 잠재고객 삭제 API
+     */
+    @DeleteMapping("/{prospectId}")
+    public BaseResponse<String> deletePotentialCustomer(@PathVariable Long prospectId){
+        String loginUserEmail = UserUtil.getLoginUserEmail();
+        potentialCustomerService.delete(loginUserEmail,prospectId);
+        return new BaseResponse<>("고객 정보를 삭제했습니다");
+    }
+    /**
      * 접촉 이력 생성 API
      */
     @PostMapping("/{prospectId}/history")
