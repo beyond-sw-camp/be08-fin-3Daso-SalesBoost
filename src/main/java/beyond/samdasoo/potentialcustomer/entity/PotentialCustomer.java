@@ -1,6 +1,7 @@
 package beyond.samdasoo.potentialcustomer.entity;
 
 import beyond.samdasoo.common.entity.BaseEntity;
+import beyond.samdasoo.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,6 +11,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
@@ -55,12 +57,19 @@ public class PotentialCustomer extends BaseEntity{
 
     private String note; // 비고
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_no",nullable = false)
+    private User user;
+
     @CreationTimestamp
     @Column(name = "register_date", nullable = false,updatable = false)
     private LocalDate registerDate; // 잠재고객 등록일
 
     @Column(name = "modify_date")
     private LocalDate modifyDate; // 고객으로 전환일
+
+    @OneToMany(mappedBy = "pcustomer",cascade =CascadeType.ALL )
+    private List<ContactHistory> contactHistories;
 
     public PotentialCustomer() {
 
