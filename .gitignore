@@ -10,6 +10,7 @@
 /src/test/resources/application-test.yml
 /src/test/resources/application-test.properties
 
+.idea/
 # User-specific stuff
 .idea/**/workspace.xml
 .idea/**/tasks.xml
