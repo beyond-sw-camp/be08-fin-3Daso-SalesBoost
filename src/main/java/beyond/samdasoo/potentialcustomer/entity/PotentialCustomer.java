@@ -1,6 +1,7 @@
 package beyond.samdasoo.potentialcustomer.entity;
 
 import beyond.samdasoo.common.entity.BaseEntity;
+import beyond.samdasoo.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -54,6 +55,10 @@ public class PotentialCustomer extends BaseEntity{
     private String addr; // 주소
 
     private String note; // 비고
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_no",nullable = false)
+    private User user;
 
     @CreationTimestamp
     @Column(name = "register_date", nullable = false,updatable = false)

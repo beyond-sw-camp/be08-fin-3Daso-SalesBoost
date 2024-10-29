@@ -3,6 +3,7 @@ package beyond.samdasoo.potentialcustomer.controller;
 import beyond.samdasoo.common.dto.SearchCond;
 import beyond.samdasoo.common.exception.BaseException;
 import beyond.samdasoo.common.response.BaseResponse;
+import beyond.samdasoo.common.utils.UserUtil;
 import beyond.samdasoo.potentialcustomer.dto.SearchCriteriaDTO;
 import beyond.samdasoo.potentialcustomer.dto.*;
 import beyond.samdasoo.potentialcustomer.service.PotentialCustomerService;
@@ -31,7 +32,8 @@ public class PotentialCustomerController {
     @Operation(summary = "잠재고객 등록", description = "새로운 잠재고객을 등록한다")
     public BaseResponse<String> createPotentialCustomer(@RequestBody CreatePotentialCustomerReq request) {
         validateInputEmptyCreate(request);
-        potentialCustomerService.create(request);
+        String loginUserEmail = UserUtil.getLoginUserEmail();
+        potentialCustomerService.create(loginUserEmail,request);
         return new BaseResponse<>("잠재고객 생성을 완료하였습니다.");
 
     }

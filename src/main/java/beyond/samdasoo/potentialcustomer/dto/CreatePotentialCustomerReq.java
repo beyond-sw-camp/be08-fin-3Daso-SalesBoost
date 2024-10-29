@@ -1,5 +1,6 @@
 package beyond.samdasoo.potentialcustomer.dto;
 import beyond.samdasoo.potentialcustomer.entity.PotentialCustomer;
+import beyond.samdasoo.user.entity.User;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -53,7 +54,7 @@ public class CreatePotentialCustomerReq {
     private String note; // 비고
 
 
-    public PotentialCustomer toPotentialCustomer() {
+    public PotentialCustomer toPotentialCustomer(User user) {
         PotentialCustomer.Grade inputGrade;
         if(grade==null || grade.isEmpty()){
             inputGrade = PotentialCustomer.Grade.X;
@@ -74,6 +75,7 @@ public class CreatePotentialCustomerReq {
                 .fax(fax)
                 .addr(addr)
                 .note(note)
+                .user(user)
                 .build();
     }
 }

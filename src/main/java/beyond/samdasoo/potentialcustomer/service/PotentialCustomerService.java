@@ -34,8 +34,9 @@ public class PotentialCustomerService {
     private final CustomerRepository customerRepository;
     private final PotentialCustomerRepositoryCustom potentialCustomerRepositoryCustom;
 
-    public void create(CreatePotentialCustomerReq request) {
-        potentialCustomerRepository.save(request.toPotentialCustomer());
+    public void create(String loginUserEmail ,CreatePotentialCustomerReq request) {
+        User user = userRepository.findByEmail(loginUserEmail).get();
+        potentialCustomerRepository.save(request.toPotentialCustomer(user));
     }
 
 
@@ -59,6 +60,7 @@ public class PotentialCustomerService {
                 .fax(pCustomer.getFax())
                 .addr(pCustomer.getAddr())
                 .note(pCustomer.getNote())
+                .userEmail(pCustomer.getUser().getEmail())
                 .build();
     }
 

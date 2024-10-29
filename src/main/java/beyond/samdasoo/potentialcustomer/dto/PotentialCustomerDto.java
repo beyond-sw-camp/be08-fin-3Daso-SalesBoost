@@ -37,6 +37,8 @@ public class PotentialCustomerDto {
 
     private String note; // 비고
 
+    private String userEmail;
+
  //   private LocalDateTime registerDate; // 잠재고객 등록일
 
 //    private LocalDateTime modifyDate; // 고객으로 전환일
