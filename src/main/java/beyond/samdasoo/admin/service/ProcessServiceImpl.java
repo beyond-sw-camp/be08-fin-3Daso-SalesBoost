@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -33,12 +34,15 @@ public class ProcessServiceImpl implements ProcessService {
     @Override
     public void addProcess(ProcessRequestDto request) {
         boolean exists = processRepository.existsByProcessName(request.getProcessName());
+        Process defaultProcess = processRepository.findByIsDefaultIsTrue();
 
         if(request.getIsDefault()){
-            Process defaultProcess = processRepository.findByIsDefaultIsTrue();
-
             if(defaultProcess != null){
                 defaultProcess.setIsDefault(false);
+            }
+        }else{
+            if(defaultProcess == null){
+                request.setIsDefault(true);
             }
         }
 
@@ -61,6 +65,7 @@ public class ProcessServiceImpl implements ProcessService {
     public void deleteProcessByNo(Long no) {
         Optional<Process> optionalProcess = processRepository.findById(no);
 
+
         if(optionalProcess.isEmpty()){
             throw new BaseException(PROCESS_NOT_EXIST);
         }
@@ -71,12 +76,16 @@ public class ProcessServiceImpl implements ProcessService {
     @Override
     public void updateProcessByNo(Long no, ProcessRequestDto request) {
         Optional<Process> optionalProcess = processRepository.findById(no);
+        Process defaultProcess = processRepository.findByIsDefaultIsTrue();
+
 
         if(request.getIsDefault()){
-            Process defaultProcess = processRepository.findByIsDefaultIsTrue();
-
             if(defaultProcess != null){
                 defaultProcess.setIsDefault(false);
+            }
+        }else{
+            if(Objects.equals(defaultProcess.getProcessNo(), no)){
+                request.setIsDefault(true);
             }
         }
 
