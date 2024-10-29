@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  samdasoo_mariadb:
+    image: mariadb:latest
+    container_name: samdasoo_mariadb
+    environment:
+      - MARIADB_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
+      - MARIADB_DATABASE=samdasoo
+      - MARIADB_USER=app_user
+      - MARIADB_PASSWORD=${MARIADB_PASSWORD}
+    ports:
+      - "3307:3306"
+    networks:
+      - samdasoo-network
+
+  samdasoo_redis:
+    image: redis:latest
+    container_name: samdasoo_redis
+    ports:
+      - "6379:6379"
+    networks:
+      - samdasoo-network
+
+  app:
+    build:
+      context: .
+    container_name: samdasoo-container
+    ports:
+      - "8080:8080"
+    networks:
+      - samdasoo-network
+    depends_on:
+      - samdasoo_mariadb
+      - samdasoo_redis
+
+networks:
+  samdasoo-network:
+    driver: bridge
