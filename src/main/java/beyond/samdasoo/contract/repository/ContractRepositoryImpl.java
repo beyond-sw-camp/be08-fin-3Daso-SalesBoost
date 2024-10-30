@@ -59,4 +59,22 @@ public class ContractRepositoryImpl implements ContractRepositoryCustom {
                     .fetchOne();
         }
     }
+
+    @Override
+    public List<ContractResponseDto> findContractWithoutSales() {
+        // 계약 매출 정상적으로 1:1 관계되면 아래 리턴 지우고 주석 해제
+//        return queryFactory
+//                .select(new QContractResponseDto(contract))
+//                .from(contract)
+//                .leftJoin(contract.sales, sales)
+//                .where(sales.isNull())
+//                .fetch();
+
+        return queryFactory
+                .select(new QContractResponseDto(contract))
+                .from(contract)
+                .leftJoin(sales).on(sales.contract.eq(contract))
+                .where(sales.isNull())
+                .fetch();
+    }
 }

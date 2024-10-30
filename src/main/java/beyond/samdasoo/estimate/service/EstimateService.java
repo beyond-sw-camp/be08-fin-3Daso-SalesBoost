@@ -179,4 +179,9 @@ public class EstimateService {
     public EstimateResponseDto getEstimateByLead(Long leadNo) {
         return estimateRepository.findEstimateByLead(leadNo);
     }
+
+    @Transactional(readOnly = true)
+    public List<EstimateResponseDto> getEstimatesWithoutContract() {
+        return estimateRepository.findEstimatesWithoutContract();
+    }
 }

@@ -59,4 +59,10 @@ public class ContractController {
     public BaseResponse<ContractResponseDto> getContractByLead(@PathVariable Long leadNo) {
         return new BaseResponse<>(contractService.getContractByLead(leadNo));
     }
+
+    @GetMapping("/without-sales")
+    @Operation(summary = "매출건이 없는 계약 조회", description = "연관된 자식 데이터(매출)가 없는 계약 목록 조회")
+    public BaseResponse<List<ContractResponseDto>> getEstimatesWithoutContract() {
+        return new BaseResponse<>(contractService.getContractsWithoutSales());
+    }
 }

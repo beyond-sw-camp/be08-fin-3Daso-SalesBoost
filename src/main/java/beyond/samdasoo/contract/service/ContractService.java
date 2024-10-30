@@ -1,5 +1,7 @@
 package beyond.samdasoo.contract.service;
 
+import beyond.samdasoo.admin.entity.SubProcess;
+import beyond.samdasoo.admin.repository.SubProcessRepository;
 import beyond.samdasoo.common.exception.BaseException;
 import beyond.samdasoo.common.response.BaseResponseStatus;
 import beyond.samdasoo.contract.dto.ContractRequestDto;
@@ -8,6 +10,8 @@ import beyond.samdasoo.contract.entity.Contract;
 import beyond.samdasoo.contract.repository.ContractRepository;
 import beyond.samdasoo.estimate.entity.Estimate;
 import beyond.samdasoo.estimate.repository.EstimateRepository;
+import beyond.samdasoo.lead.dto.LeadRequestDto;
+import beyond.samdasoo.lead.service.LeadService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +26,8 @@ public class ContractService {
 
     private final ContractRepository contractRepository;
     private final EstimateRepository estimateRepository;
+    private final LeadService leadService;
+    private final SubProcessRepository subProcessRepository;
 
     // 모든 계약 조회
     public List<ContractResponseDto> getAllContracts() {
@@ -42,6 +48,10 @@ public class ContractService {
     public ContractResponseDto createContract(ContractRequestDto requestDto) {
         Estimate estimate = estimateRepository.findById(requestDto.getEstimateNo())
                 .orElseThrow(() -> new BaseException(BaseResponseStatus.CONTRACT_NOT_EXIST));
+
+        if (estimate.getContract() != null) {
+            throw new BaseException(BaseResponseStatus.ESTIMATE_ALREADY_HAVEN_CONTRACT);
+        }
 
         Contract contract = Contract.builder()
                 .name(requestDto.getName())
@@ -67,6 +77,15 @@ public class ContractService {
                 .build();
 
         Contract savedContract = contractRepository.save(contract);
+
+        SubProcess subProcess = subProcessRepository.searchSubProcesses(estimate.getProposal().getLead().getProcess(), "계약");
+
+        LeadRequestDto leadRequestDto = leadService.objToDto(estimate.getProposal().getLead());
+        leadRequestDto.setSubProcess(subProcess.getSubProcessNo());
+        leadRequestDto.setSuccessPer(subProcess.getSuccessRate());
+
+        leadService.updateLead(estimate.getProposal().getLead().getNo(), leadRequestDto);
+
         return new ContractResponseDto(savedContract);
     }
 
@@ -77,6 +96,11 @@ public class ContractService {
                 .orElseThrow(() -> new BaseException(BaseResponseStatus.CONTRACT_NOT_EXIST));
         Estimate estimate = estimateRepository.findById(requestDto.getEstimateNo())
                 .orElseThrow(() -> new BaseException(BaseResponseStatus.ESTIMATE_NOT_EXIST));
+
+        if ((!estimate.getEstNo().equals(contract.getEstimate().getEstNo()))
+                && estimate.getContract() != null) {
+            throw new BaseException(BaseResponseStatus.ESTIMATE_ALREADY_HAVEN_CONTRACT);
+        }
 
         contract = Contract.builder()
                 .contractNo(contract.getContractNo())  // 기존 계약번호 유지
@@ -121,5 +145,10 @@ public class ContractService {
     @Transactional(readOnly = true)
     public ContractResponseDto getContractByLead(Long leadNo) {
         return contractRepository.findContractByLead(leadNo);
+    }
+
+    @Transactional(readOnly = true)
+    public List<ContractResponseDto> getContractsWithoutSales() {
+        return contractRepository.findContractWithoutSales();
     }
 }
