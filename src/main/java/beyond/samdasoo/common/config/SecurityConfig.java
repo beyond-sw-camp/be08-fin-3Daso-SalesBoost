@@ -77,7 +77,7 @@ public class SecurityConfig {
 //                        .requestMatchers("/api/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll() // 테스트용
                         .requestMatchers(HttpMethod.GET, "/api/admin/processes", "/api/admin/subprocesses/**", "/api/admin/departments").permitAll()
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/test/**", "/api/users/login", "/api/users/join",
-                                "/api/users/reissue", "/api/users/email/**", "/api/admin/targetsales/status/**").permitAll()
+                                "/api/users/reissue", "/api/users/email/**", "/api/admin/targetsales/status/**","/api/users/reset-password-request","/api/users/reset-password").permitAll()
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 );

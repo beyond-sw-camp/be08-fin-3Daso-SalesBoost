@@ -113,13 +113,13 @@ VALUES
     (4, NOW(), NOW(), '계약서 내용 확인', '2024-11-05', 'HIGH', 'N', 'TODO', '계약서 검토', 'CONTRACT', 1),
     (5, NOW(), NOW(), '이메일 답변 작성', '2024-09-30', 'MEDIUM', 'N', 'TODO', '이메일 답변', 'EMAIL', 1);
 
-INSERT INTO tb_poetntial_customer (p_cust_no, created_at, updated_at, addr, cls, company, dept, email, fax, grade, modify_date, name, note, phone, position, register_date,tel, user_no)
+INSERT INTO tb_poetntial_customer (p_cust_no, created_at, updated_at, addr, cls, company, dept, email, fax, grade, modify_date, name, note, phone, position, register_date,tel,user_no,contact_status)
 VALUES
-    (1, NOW(), NOW(), '서울시 강남구', 'B2B', 'POC 회사', '영업부', 'poc1@poc.com', '02-111-2222', 'A', NOW(), '홍길동', '잠재 고객 관리 필요', '010-8888-9999', '과장', NOW(), '02-999-8888', 1),
-    (2, NOW(), NOW(), '서울시 서초구', 'B2C', 'POC2 회사', '개발부', 'poc2@poc.com', '02-222-3333', 'B', NOW(), '이순신', '기술 문의 진행 중', '010-7777-6666', '팀장', NOW(),'02-888-7777', 2),
-    (3, NOW(), NOW(), '서울시 종로구', 'B2B', 'POC3 회사', '기획부', 'poc3@poc.com', '02-333-4444', 'C', NOW(), '박문수', '견적서 요청 예정', '010-5555-4444', '대리', NOW(),  '02-777-6666', 3),
-    (4, NOW(), NOW(), '서울시 중구', 'B2C', 'POC4 회사', '인사부', 'poc4@poc.com', '02-444-5555', 'A', NOW(), '최영', '고객사 미팅 예정', '010-3333-2222', '사원', NOW(),'02-666-5555', 4),
-    (5, NOW(), NOW(), '서울시 용산구', 'B2B', 'POC5 회사', '총무부', 'poc5@poc.com', '02-555-6666', 'S', NOW(), '정몽주', '계약 준비 중', '010-1111-0000', '부장', NOW(), '02-555-4444', 5);
+    (1, NOW(), NOW(), '서울시 강남구', 'B2B', 'POC 회사', '영업부', 'poc1@poc.com', '02-111-2222', 'A', NOW(), '홍길동', '잠재 고객 관리 필요', '010-8888-9999', '과장', NOW(), '02-999-8888',1,'TRY_CONTACT'),
+    (2, NOW(), NOW(), '서울시 서초구', 'B2C', 'POC2 회사', '개발부', 'poc2@poc.com', '02-222-3333', 'B', NOW(), '이순신', '기술 문의 진행 중', '010-7777-6666', '팀장', NOW(),'02-888-7777',2,'CONTACTING'),
+    (3, NOW(), NOW(), '서울시 종로구', 'B2B', 'POC3 회사', '기획부', 'poc3@poc.com', '02-333-4444', 'C', NOW(), '박문수', '견적서 요청 예정', '010-5555-4444', '대리', NOW(),  '02-777-6666',3,'CONTACTING'),
+    (4, NOW(), NOW(), '서울시 중구', 'B2C', 'POC4 회사', '인사부', 'poc4@poc.com', '02-444-5555', 'A', NOW(), '최영', '고객사 미팅 예정', '010-3333-2222', '사원', NOW(),'02-666-5555',4,'NO_CONTACT'),
+    (5, NOW(), NOW(), '서울시 용산구', 'B2B', 'POC5 회사', '총무부', 'poc5@poc.com', '02-555-6666', 'S', NOW(), '정몽주', '계약 준비 중', '010-1111-0000', '부장', NOW(), '02-555-4444',5,'TRY_CONTACT');
 
 INSERT INTO tb_contact_history (contact_history_no, created_at, updated_at, cls, contact_date, content, p_cust_no, user_no)
 VALUES
@@ -145,6 +145,7 @@ VALUES
     (3, NOW(), NOW(), '2024-08-15', '견적서 C', '제품 C에 대한 견적', 8, 15000, 'Y', 1500, '10%', 16500, 3),
     (4, NOW(), NOW(), '2024-09-05', '견적서 D', '제품 D에 대한 견적', 12, 12000, 'N', 0, '0%', 12000, 4),
     (5, NOW(), NOW(), '2024-10-20', '견적서 E', '제품 E에 대한 견적', 6, 25000, 'Y', 2500, '10%', 27500, 5);
+
 
 INSERT INTO tb_contract (contract_no, created_at, updated_at, arrival_noti_day, arrival_noti_yn, cls, cont_date, end_date, exp_arrival_date, name, note, payment_terms, prod_cnt, renewal_noti_day, renewal_noti_yn, start_date, supply_price, surtax_yn, tax, tax_cls, price, warrenty, est_no)
 VALUES

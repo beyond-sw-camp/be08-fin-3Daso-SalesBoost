@@ -38,7 +38,7 @@ public class PotentialCustomer extends BaseEntity{
     @Column(nullable = false)
     private String cls; // 접촉구분
 
-    @Column(name = "contact_status")
+    @Column(name = "contact_status",nullable = false)
     @Enumerated(EnumType.STRING)
     private ContactStatus contactStatus; // 접촉단계
 
