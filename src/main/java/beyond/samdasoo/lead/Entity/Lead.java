@@ -4,20 +4,16 @@ import beyond.samdasoo.act.entity.Act;
 import beyond.samdasoo.common.entity.BaseEntity;
 import beyond.samdasoo.customer.entity.Customer;
 import beyond.samdasoo.proposal.entity.Proposal;
-import beyond.samdasoo.lead.Entity.LeadStatus;
-import beyond.samdasoo.lead.Entity.AwarePath;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.List;
 
-@Data
 @Entity
 @Builder
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "tb_lead")

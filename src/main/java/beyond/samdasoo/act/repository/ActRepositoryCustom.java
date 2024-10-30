@@ -1,9 +1,8 @@
 package beyond.samdasoo.act.repository;
 
 import beyond.samdasoo.act.dto.ActStatusDto;
-
-import java.time.LocalDate;
+import beyond.samdasoo.common.dto.SearchCond;
 
 public interface ActRepositoryCustom {
-    ActStatusDto findActStatus(LocalDate searchDate, Long userNo);
+    ActStatusDto findActStatus(SearchCond searchCond);
 }

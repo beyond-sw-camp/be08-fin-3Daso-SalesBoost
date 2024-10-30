@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface SubProcessRepository extends JpaRepository<SubProcess, Long> {
+public interface SubProcessRepository extends JpaRepository<SubProcess, Long>, SubProcessRepositoryCustom {
     boolean existsBySubProcessName(String subProcessName);
 
     List<SubProcess> findByProcess_ProcessName(String processName);

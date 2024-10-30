@@ -112,7 +112,7 @@ public class CustomerService {
     }
 
     public Long getCustomerCount(SearchCond searchCond) {
-        return customerRepository.getCustomerCount(searchCond.getSearchDate(), searchCond.getUserNo());
+        return customerRepository.getCustomerCount(searchCond);
     }
 
     public List<PopupCustomerGetRes> searchCustomers(SearchCriteriaDTO searchCriteria) {

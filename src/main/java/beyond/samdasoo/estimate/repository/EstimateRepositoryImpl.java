@@ -46,4 +46,14 @@ public class EstimateRepositoryImpl implements EstimateRepositoryCustom {
                 .limit(1)
                 .fetchOne();
     }
+
+    @Override
+    public List<EstimateResponseDto> findEstimatesWithoutContract() {
+        return queryFactory
+                .select(new QEstimateResponseDto(estimate))
+                .from(estimate)
+                .leftJoin(estimate.contract, contract)
+                .where(contract.isNull())
+                .fetch();
+    }
 }
