@@ -74,7 +74,7 @@ public class EmailProvider {
         message +="<p>안녕하세요. SalesBoost 입니다. </p>";
         message +="<p>아래의 링크를 통해 비밀번호를 재설정 해주세요. </p>";
         message +="<p>해당 링크의 유효시간은 <strong>10</strong> 분입니다.</p>";
-        message+="<p>"+link+"</p>";
+        message+="<h3 style='text-align:center;'>비밀번호 변경 링크 : <a href='" + link + "'>비밀번호 변경하기</a></h3>";
         return message;
 
     }
