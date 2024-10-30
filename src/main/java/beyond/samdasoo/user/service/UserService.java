@@ -13,6 +13,7 @@ import beyond.samdasoo.common.email.dto.EmailVerificationUser;
 import beyond.samdasoo.common.exception.BaseException;
 import beyond.samdasoo.common.jwt.JwtTokenProvider;
 import beyond.samdasoo.common.jwt.service.RefreshTokenService;
+import beyond.samdasoo.common.response.BaseResponse;
 import beyond.samdasoo.customer.dto.CustomersGetRes;
 import beyond.samdasoo.customer.entity.Customer;
 import beyond.samdasoo.customer.repository.CustomerRepository;
@@ -22,6 +23,7 @@ import beyond.samdasoo.user.repository.UpdatePasswordTokenRedisRepository;
 import beyond.samdasoo.user.repository.UserRepository;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.sql.Update;
@@ -241,5 +243,26 @@ public class UserService {
                 .build();
 
         updatePasswordTokenRedisRepository.save(updatePasswordToken);
+    }
+
+    @Transactional
+    public void updatePassword(UpdatePasswordReq updatePasswordReq) {
+        String email = updatePasswordReq.getEmail();
+        String token = updatePasswordReq.getToken();
+        String newPassword = updatePasswordReq.getNewPwd();
+
+        UpdatePasswordToken updatePasswordToken = updatePasswordTokenRedisRepository.findById(email).orElseThrow(
+                ()-> new BaseException(FAIL_EXPIRE_TIME));
+
+        if(!token.equals(updatePasswordToken.getToken())){
+            updatePasswordTokenRedisRepository.deleteById(email); // 악의적인 요청 예방을 위해 아예 삭제
+            throw new BaseException(FAIL_UPDATE_PASSWORD);
+        }
+
+        // 비번 변경
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new BaseException(EMAIL_NOT_EXIST));
+        user.changePassword(encoder.encode(newPassword));
+
+        updatePasswordTokenRedisRepository.deleteById(email); // 저장된 토큰값 날림
     }
 }

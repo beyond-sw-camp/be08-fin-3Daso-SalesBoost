@@ -4,7 +4,6 @@ import beyond.samdasoo.common.exception.BaseException;
 import beyond.samdasoo.common.response.BaseResponse;
 import beyond.samdasoo.common.utils.CookieUtil;
 import beyond.samdasoo.common.utils.JwtUtil;
-import beyond.samdasoo.common.utils.UserUtil;
 import beyond.samdasoo.customer.dto.CustomersGetRes;
 import beyond.samdasoo.user.dto.*;
 import beyond.samdasoo.user.service.UserService;
@@ -77,12 +76,18 @@ public class UserController {
     }
 
     @PostMapping("/reset-password-request")
-    public BaseResponse<String> updatePasswordRequest(@RequestBody UpdatePasswordReq updatePasswordReq){
+    public BaseResponse<String> updatePasswordRequest(@RequestBody UpdatePasswordRequestReq updatePasswordRequestReq){
 
-        userService.updatePasswordRequest(updatePasswordReq.getEmail());
+        userService.updatePasswordRequest(updatePasswordRequestReq.getEmail());
 
         return new BaseResponse<>("해당 이메일로 비밀번호 재설정 링크를 전송했습니다");
 
+    }
+    @PostMapping("/reset-password")
+    public BaseResponse<String> updatePassword(@RequestBody UpdatePasswordReq updatePasswordReq){
+        userService.updatePassword(updatePasswordReq);
+
+        return new BaseResponse<>("비밀번호가 성공적으로 변경되었습니다");
     }
 
     /**

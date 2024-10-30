@@ -4,6 +4,7 @@ import lombok.Getter;
 
 @Getter
 public class UpdatePasswordReq {
-
-    String email;
+    private String email;
+    private String token;
+    private String newPwd;
 }
