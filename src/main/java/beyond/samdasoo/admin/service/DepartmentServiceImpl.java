@@ -6,6 +6,7 @@ import beyond.samdasoo.admin.dto.DepartmentResponseDto;
 import beyond.samdasoo.admin.entity.Department;
 import beyond.samdasoo.admin.repository.DepartmentRepository;
 import beyond.samdasoo.common.exception.BaseException;
+import beyond.samdasoo.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -132,7 +133,7 @@ public class DepartmentServiceImpl implements DepartmentService{
         if(request.getDeptHead() != null){
             department.setDeptHead(request.getDeptHead());
         }
-        if(request.getUpperDeptName() != null){
+        if(request.getUpperDeptName().equals(" ")){
             Optional<Department> optionalUpperDepartment = departmentRepository.findByDeptName(request.getUpperDeptName());
 
             if (optionalUpperDepartment.isEmpty()) {
@@ -141,6 +142,7 @@ public class DepartmentServiceImpl implements DepartmentService{
 
             department.setParent(optionalUpperDepartment.get());
         }
+
 
         departmentRepository.save(department);
     }

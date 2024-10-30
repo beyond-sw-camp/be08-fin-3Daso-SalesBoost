@@ -2,7 +2,9 @@ package beyond.samdasoo.admin.service;
 
 import beyond.samdasoo.admin.dto.ProductRequestDto;
 import beyond.samdasoo.admin.dto.ProductResponseDto;
+import beyond.samdasoo.admin.entity.Department;
 import beyond.samdasoo.admin.entity.Product;
+import beyond.samdasoo.admin.repository.DepartmentRepository;
 import beyond.samdasoo.admin.repository.ProductRepository;
 import beyond.samdasoo.common.exception.BaseException;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +21,7 @@ import static beyond.samdasoo.common.response.BaseResponseStatus.Product_NOT_EXI
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
+    private final DepartmentRepository departmentRepository;
 
     @Override
     public List<ProductResponseDto> getAllProducts() {
@@ -31,6 +34,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void addProduct(ProductRequestDto request) {
         boolean exists = productRepository.existsByName(request.getName());
+        Optional<Department> department =departmentRepository.findByDeptName(request.getDept());
 
         if(exists){
             throw new BaseException(PRODUCT_ALREADY_EXIST);
@@ -43,7 +47,7 @@ public class ProductServiceImpl implements ProductService {
                 .abbrName(request.getAbbrName())
                 .uppGroup(request.getUppGroup())
                 .releaseDate(request.getReleaseDate())
-                .dept(request.getDept())
+                .department(department.get())
                 .quantity(request.getQuantity())
                 .unit(request.getUnit())
                 .field(request.getField())
@@ -82,6 +86,9 @@ public class ProductServiceImpl implements ProductService {
     public void updateProductByNo(Long productNo, ProductRequestDto request) {
         Optional<Product> optionalProduct = productRepository.findById(productNo);
 
+        Optional<Department> department =departmentRepository.findByDeptName(request.getDept());
+
+
         if(optionalProduct.isEmpty()){
             throw new BaseException(Product_NOT_EXIST);
         }
@@ -107,7 +114,7 @@ public class ProductServiceImpl implements ProductService {
             product.setReleaseDate(request.getReleaseDate());
         }
         if (request.getDept() != null) {
-            product.setDept(request.getDept());
+            product.setDepartment(department.get());
         }
         if (request.getQuantity() != 0) {
             product.setQuantity(request.getQuantity());
