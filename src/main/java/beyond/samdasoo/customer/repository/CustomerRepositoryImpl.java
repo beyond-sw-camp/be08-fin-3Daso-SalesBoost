@@ -1,8 +1,10 @@
 package beyond.samdasoo.customer.repository;
 
+import beyond.samdasoo.common.dto.SearchCond;
 import beyond.samdasoo.customer.dto.PopupCustomerGetRes;
 import beyond.samdasoo.customer.dto.SearchCriteriaDTO;
 import beyond.samdasoo.customer.entity.QCustomer;
+import beyond.samdasoo.user.repository.UserRepository;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -18,6 +20,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class CustomerRepositoryImpl implements CustomerRepositoryCustom {
     private final JPAQueryFactory queryFactory;
+    private final UserRepository userRepository;
 
     @Override
     public List<PopupCustomerGetRes> searchCustomers(SearchCriteriaDTO searchCriteriaDTO) {
@@ -45,17 +48,23 @@ public class CustomerRepositoryImpl implements CustomerRepositoryCustom {
     }
 
     @Override
-    public long getCustomerCount(LocalDate searchDate, Long userNo) {
+    public long getCustomerCount(SearchCond searchCond) {
         QCustomer customer = QCustomer.customer;
 
         BooleanBuilder builder = new BooleanBuilder();
 
-        if (searchDate != null) {
-            builder.and(customer.createdAt.loe(searchDate.atTime(LocalTime.MAX)));
+        if (searchCond.getSearchDate() != null) {
+            builder.and(customer.createdAt.loe(searchCond.getSearchDate().atTime(LocalTime.MAX)));
         }
 
-        if (userNo != null && userNo > 0) {
-            builder.and(customer.user.id.eq(userNo));
+        if (searchCond.getDeptNo() != null && searchCond.getDeptNo() > 0) {
+            List<Long> deptNos = userRepository.findAllSubDepartments(searchCond.getDeptNo());
+
+            builder.and(customer.user.department.deptNo.in(deptNos));
+        }
+
+        if (searchCond.getUserNo() != null && searchCond.getUserNo() > 0) {
+            builder.and(customer.user.id.eq(searchCond.getUserNo()));
         }
 
         Long result = queryFactory

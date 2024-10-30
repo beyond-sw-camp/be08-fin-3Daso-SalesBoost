@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface UserRepositoryCustom {
     List<FilterUserDto> findUsersByDepartmentAndSubDepartments(Long deptNo);
+
+    List<Long> findAllSubDepartments(Long deptNo);
 }

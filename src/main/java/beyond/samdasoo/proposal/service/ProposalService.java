@@ -1,9 +1,13 @@
 package beyond.samdasoo.proposal.service;
 
+import beyond.samdasoo.admin.entity.SubProcess;
+import beyond.samdasoo.admin.repository.SubProcessRepository;
 import beyond.samdasoo.common.exception.BaseException;
 import beyond.samdasoo.common.response.BaseResponseStatus;
 import beyond.samdasoo.lead.Entity.Lead;
+import beyond.samdasoo.lead.dto.LeadRequestDto;
 import beyond.samdasoo.lead.repository.LeadRepository;
+import beyond.samdasoo.lead.service.LeadService;
 import beyond.samdasoo.proposal.dto.ProposalRequestDto;
 import beyond.samdasoo.proposal.dto.ProposalResponseDto;
 import beyond.samdasoo.proposal.entity.Proposal;
@@ -20,11 +24,16 @@ public class ProposalService {
 
     private final ProposalRepository proposalRepository;
     private final LeadRepository leadRepository;
+    private final LeadService leadService;
+    private final SubProcessRepository subProcessRepository;
 
     @Autowired
-    public ProposalService(ProposalRepository proposalRepository, LeadRepository leadRepository) {
+    public ProposalService(ProposalRepository proposalRepository, LeadRepository leadRepository
+            , SubProcessRepository subProcessRepository, LeadService leadService) {
         this.proposalRepository = proposalRepository;
         this.leadRepository = leadRepository;
+        this.subProcessRepository = subProcessRepository;
+        this.leadService = leadService;
     }
 
     @Transactional
@@ -45,6 +54,14 @@ public class ProposalService {
         proposal.setLead(lead);
 
         proposal = proposalRepository.save(proposal);
+
+        SubProcess subProcess = subProcessRepository.searchSubProcesses(lead.getProcess(), "제안");
+
+        LeadRequestDto leadRequestDto = leadService.objToDto(lead);
+        leadRequestDto.setSubProcess(subProcess.getSubProcessNo());
+        leadRequestDto.setSuccessPer(subProcess.getSuccessRate());
+
+        leadService.updateLead(lead.getNo(), leadRequestDto);
 
         return new ProposalResponseDto(proposal);
     }
@@ -78,6 +95,7 @@ public class ProposalService {
         proposal.setNote(proposalRequestDto.getNote());
 
         proposal = proposalRepository.save(proposal);
+
         return new ProposalResponseDto(proposal);
     }
 

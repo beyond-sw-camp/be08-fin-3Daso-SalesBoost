@@ -1,7 +1,9 @@
 package beyond.samdasoo.estimate.service;
 
 import beyond.samdasoo.admin.entity.Product;
+import beyond.samdasoo.admin.entity.SubProcess;
 import beyond.samdasoo.admin.repository.ProductRepository;
+import beyond.samdasoo.admin.repository.SubProcessRepository;
 import beyond.samdasoo.common.exception.BaseException;
 import beyond.samdasoo.common.response.BaseResponseStatus;
 import beyond.samdasoo.estimate.dto.CreateEstProductDto;
@@ -12,7 +14,8 @@ import beyond.samdasoo.estimate.entity.EstProduct;
 import beyond.samdasoo.estimate.entity.Estimate;
 import beyond.samdasoo.estimate.repository.EstProductRepository;
 import beyond.samdasoo.estimate.repository.EstimateRepository;
-import beyond.samdasoo.proposal.dto.ProposalResponseDto;
+import beyond.samdasoo.lead.dto.LeadRequestDto;
+import beyond.samdasoo.lead.service.LeadService;
 import beyond.samdasoo.proposal.entity.Proposal;
 import beyond.samdasoo.proposal.repository.ProposalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,14 +34,19 @@ public class EstimateService {
     private final ProposalRepository proposalRepository;
     private final EstProductRepository estProductRepository;
     private final ProductRepository productRepository;
+    private final LeadService leadService;
+    private final SubProcessRepository subProcessRepository;
 
     @Autowired
     public EstimateService(EstimateRepository estimateRepository, ProposalRepository proposalRepository,
-                           EstProductRepository estProductRepository, ProductRepository productRepository) {
+                           EstProductRepository estProductRepository, ProductRepository productRepository,
+                           LeadService leadService, SubProcessRepository subProcessRepository) {
         this.estimateRepository = estimateRepository;
         this.proposalRepository = proposalRepository;
         this.estProductRepository = estProductRepository;
         this.productRepository = productRepository;
+        this.leadService = leadService;
+        this.subProcessRepository = subProcessRepository;
     }
 
     @Transactional
@@ -61,26 +69,36 @@ public class EstimateService {
 
         estimateRepository.save(estimate);
 
-        for (CreateEstProductDto estProductDto : createEstimateDto.getEstProducts()) {
+        if (!createEstimateDto.getEstProducts().isEmpty()) {
+            for (CreateEstProductDto estProductDto : createEstimateDto.getEstProducts()) {
 
-            Long prodNo = estProductDto.getProdNo();
-            Product product = productRepository.findById(prodNo)
-                    .orElseThrow(() -> new BaseException(BaseResponseStatus.Product_NOT_EXIST));
+                Long prodNo = estProductDto.getProdNo();
+                Product product = productRepository.findById(prodNo)
+                        .orElseThrow(() -> new BaseException(BaseResponseStatus.Product_NOT_EXIST));
 
-            EstProduct estProduct = new EstProduct();
-            estProduct.setUnitAmt(estProductDto.getUnitAmt());
-            estProduct.setDiscount(estProductDto.getDiscount());
-            estProduct.setUnitPropAmt(estProductDto.getUnitPropAmt());
-            estProduct.setQty(estProductDto.getQty());
-            estProduct.setSupplyPrice(estProductDto.getSupplyPrice());
-            estProduct.setTax(estProductDto.getTax());
-            estProduct.setTotalAmt(estProductDto.getTotalAmt());
+                EstProduct estProduct = new EstProduct();
+                estProduct.setUnitAmt(estProductDto.getUnitAmt());
+                estProduct.setDiscount(estProductDto.getDiscount());
+                estProduct.setUnitPropAmt(estProductDto.getUnitPropAmt());
+                estProduct.setQty(estProductDto.getQty());
+                estProduct.setSupplyPrice(estProductDto.getSupplyPrice());
+                estProduct.setTax(estProductDto.getTax());
+                estProduct.setTotalAmt(estProductDto.getTotalAmt());
 
-            estProduct.setEstimate(estimate);
-            estProduct.setProduct(product);
+                estProduct.setEstimate(estimate);
+                estProduct.setProduct(product);
 
-            estimate.getEstProducts().add(estProduct);
+                estimate.getEstProducts().add(estProduct);
+            }
         }
+
+        SubProcess subProcess = subProcessRepository.searchSubProcesses(proposal.getLead().getProcess(), "협상");
+
+        LeadRequestDto leadRequestDto = leadService.objToDto(proposal.getLead());
+        leadRequestDto.setSubProcess(subProcess.getSubProcessNo());
+        leadRequestDto.setSuccessPer(subProcess.getSuccessRate());
+
+        leadService.updateLead(proposal.getLead().getNo(), leadRequestDto);
 
         return new EstimateResponseDto(estimate);
     }

@@ -21,7 +21,6 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     public List<FilterUserDto> findUsersByDepartmentAndSubDepartments(Long deptNo) {
         QUser user = QUser.user;
 
-        // 주어진 deptNo를 포함한 모든 하위 부서까지의 deptNo 리스트를 재귀적으로 조회
         List<Long> deptNos = findAllSubDepartments(deptNo);
 
         return queryFactory
@@ -31,7 +30,8 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
                 .fetch();
     }
 
-    private List<Long> findAllSubDepartments(Long deptNo) {
+    // 주어진 deptNo를 포함한 모든 하위 부서까지의 deptNo 리스트를 재귀적으로 조회
+    public List<Long> findAllSubDepartments(Long deptNo) {
         List<Long> deptNos = new ArrayList<>();
         QDepartment department = QDepartment.department;
         deptNos.add(deptNo);

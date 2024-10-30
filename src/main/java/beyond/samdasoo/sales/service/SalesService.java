@@ -150,7 +150,8 @@ public class SalesService {
                 pythonApiUrl,
                 HttpMethod.POST,
                 entity,
-                new ParameterizedTypeReference<Map<String, Object>>() {}
+                new ParameterizedTypeReference<Map<String, Object>>() {
+                }
         );
 
         return convertPredictionResponseToDto(response.getBody(), "years_total_predictions");
@@ -171,7 +172,8 @@ public class SalesService {
                 pythonApiUrl,
                 HttpMethod.POST,
                 entity,
-                new ParameterizedTypeReference<Map<String, Object>>() {}
+                new ParameterizedTypeReference<Map<String, Object>>() {
+                }
         );
 
         return convertPredictionResponseToDto(response.getBody(), "month_total_predictions");
@@ -192,7 +194,8 @@ public class SalesService {
                 pythonApiUrl,
                 HttpMethod.POST,
                 entity,
-                new ParameterizedTypeReference<Map<String, Object>>() {}
+                new ParameterizedTypeReference<Map<String, Object>>() {
+                }
         );
 
         return convertPredictionResponseToDto(response.getBody(), "quarter_total_predictions");
@@ -216,10 +219,13 @@ public class SalesService {
         return predictions;
     }
 
-
-
     @Transactional(readOnly = true)
     public SalesStatusDto getSalesStatus(SearchCond searchCond) {
         return salesRepository.findSalesStatus(searchCond);
+    }
+
+    @Transactional(readOnly = true)
+    public SalesResponseDto getSalesByLead(Long leadNo) {
+        return salesRepository.findSalesByLead(leadNo);
     }
 }

@@ -4,6 +4,7 @@ import beyond.samdasoo.contract.dto.ContractResponseDto;
 import beyond.samdasoo.contract.dto.QContractResponseDto;
 import beyond.samdasoo.contract.entity.QContract;
 import beyond.samdasoo.estimate.entity.QEstimate;
+import beyond.samdasoo.lead.Entity.QLead;
 import beyond.samdasoo.proposal.entity.QProposal;
 import beyond.samdasoo.sales.entity.QSales;
 import com.querydsl.core.BooleanBuilder;
@@ -22,6 +23,7 @@ public class ContractRepositoryImpl implements ContractRepositoryCustom {
     QContract contract = QContract.contract;
     QEstimate estimate = QEstimate.estimate;
     QProposal proposal = QProposal.proposal;
+    QLead lead = QLead.lead;
 
     @Override
     public ContractResponseDto findContractByLead(Long leadNo) {
@@ -37,16 +39,24 @@ public class ContractRepositoryImpl implements ContractRepositoryCustom {
 
         if (!contractNoes.isEmpty()) {
             builder.and(contract.contractNo.in(contractNoes));
-        } else {
-            builder.and(contract.estimate.proposal.lead.no.eq(leadNo));
-        }
 
-        return queryFactory
-                .select(new QContractResponseDto(contract))
-                .from(contract)
-                .where(builder)
-                .orderBy(contract.contractDate.desc())
-                .limit(1)
-                .fetchOne();
+            return queryFactory
+                    .select(new QContractResponseDto(contract))
+                    .from(contract)
+                    .where(builder)
+                    .orderBy(contract.contractDate.desc())
+                    .limit(1)
+                    .fetchOne();
+        } else {
+            return queryFactory
+                    .select(new QContractResponseDto(contract))
+                    .from(contract)
+                    .join(contract.estimate, estimate)
+                    .join(estimate.proposal, proposal)
+                    .join(proposal.lead, lead).on(lead.no.eq(leadNo))
+                    .orderBy(contract.contractDate.desc())
+                    .limit(1)
+                    .fetchOne();
+        }
     }
 }
