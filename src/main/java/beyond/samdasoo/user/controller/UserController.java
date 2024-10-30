@@ -76,7 +76,7 @@ public class UserController {
         return new BaseResponse<>(reissue.getAccessToken());
     }
 
-    @PostMapping()
+    @PostMapping("/reset-password-request")
     public BaseResponse<String> updatePasswordRequest(@RequestBody UpdatePasswordReq updatePasswordReq){
 
         userService.updatePasswordRequest(updatePasswordReq.getEmail());

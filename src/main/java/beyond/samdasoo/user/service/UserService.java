@@ -18,11 +18,13 @@ import beyond.samdasoo.customer.entity.Customer;
 import beyond.samdasoo.customer.repository.CustomerRepository;
 import beyond.samdasoo.user.dto.*;
 import beyond.samdasoo.user.entity.User;
+import beyond.samdasoo.user.repository.UpdatePasswordTokenRedisRepository;
 import beyond.samdasoo.user.repository.UserRepository;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.sql.Update;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -47,6 +49,7 @@ public class UserService {
     private final EmailVerificationUserRedisRepository emailVerificationUserRedisRepository;
     private final CalendarService calendarService;
     private final CustomerRepository customerRepository;
+    private final UpdatePasswordTokenRedisRepository updatePasswordTokenRedisRepository;
 
     @Value("${frontend.origin}")
     private String frontOrigin;
@@ -77,35 +80,6 @@ public class UserService {
         return new JoinUserRes(saveUser.getEmployeeId());
     }
 
-//    public TokenResult login(LoginUserReq loginUserReq) {
-//        String type = loginUserReq.getLoginType();
-//
-//        User findUser = null;
-//
-//        if (type.equals("email")) { // 이메일 로그인
-//            findUser = userRepository.findByEmail(loginUserReq.getEmail())
-//                    .orElseThrow(() -> new BaseException(EMAIL_OR_PWD_NOT_FOUND));
-//        } else if (type.equals("employeeId")) {
-//            findUser = userRepository.findByEmployeeId(loginUserReq.getEmployeeId())
-//                    .orElseThrow(() -> new BaseException(EMPLOYEE_ID_NOT_VALID));
-//        } else {
-//            throw new BaseException(LOGIN_TYPE_NOT_VALID);
-//        }
-//
-//
-//        boolean matches = encoder.matches(loginUserReq.getPassword(), findUser.getPassword());
-//
-//        if (!matches) {
-//            throw new BaseException(EMAIL_OR_PWD_NOT_FOUND);
-//        }
-//
-//        String accessToken = jwtTokenProvider.createToken(findUser.getEmail(), findUser.getRole().toString(), "ACCESS");
-//        String refreshToken = jwtTokenProvider.createToken(findUser.getEmail(), findUser.getRole().toString(), "REFRESH");
-//
-//        refreshTokenService.saveToken(findUser.getEmail(), refreshToken);
-//
-//        return new TokenResult(accessToken, refreshToken, findUser.getName(), findUser.getEmail(), findUser.getRole(), findUser.getDepartment().getDeptName());
-//    }
 
     public UserDto getUser(String email) {
         //   User findUser = userRepository.findById(userId).orElseThrow(()->new BaseException(USER_NOT_EXIST));
@@ -246,23 +220,5 @@ public class UserService {
 
     public void updatePasswordRequest(String email) {
 
-        //1. 이메일 존재 여부 검증
-        boolean exists = userRepository.existsByEmail(email);
-        if(!exists){
-            throw new BaseException(USER_NOT_EXIST);
-        }
-
-        //2. 변경용 토큰 생성
-        String token = UUID.randomUUID().toString();
-
-        //3. 비밀번호 변경 링크 생성
-        String link = frontOrigin + "/users/newpwd?email=" + email + "&token=" + token;
-
-//        //4. 링크를 메일 전송
-//        boolean isSucceed = emailProvider.sendUpdatePasswordLinkMail(email, link);
-//
-//        if(!isSucceed){
-//            throw new BaseException(FAIL_SEND_UPDATE_PASSWORD_LINK);
-//        }
     }
 }

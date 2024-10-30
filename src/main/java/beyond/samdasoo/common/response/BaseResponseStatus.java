@@ -35,6 +35,7 @@ public enum BaseResponseStatus {
     EMAIL_OR_CODE_NOT_FOUND(false,HttpStatus.BAD_REQUEST.value(), "이메일 또는 인증번호를 다시 확인해주세요."),
     EMAIL_REGEX_ERROR(false,HttpStatus.BAD_REQUEST.value(), "이메일 형식으로 입력해주세요."),
     EMAIL_NOT_VERIFICATED(false, HttpStatus.BAD_REQUEST.value(), "이메일 인증이 완료되지 않았습니다. 메일인증 후 다시 시도하세요"),
+    FAIL_SEND_UPDATE_PASSWORD_LINK(false, HttpStatus.BAD_REQUEST.value(), "비밀번호 재설정 이메일 전송에 실패했습니다"),
 
     EMAIL_EMPTY(false,HttpStatus.BAD_REQUEST.value(), "이메일을 입력해 주세요."),
     NAME_EMPTY(false,HttpStatus.BAD_REQUEST.value(), "이름을 입력해 주세요."),

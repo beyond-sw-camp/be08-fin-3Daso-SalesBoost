@@ -24,7 +24,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter { // JWT 검증 필터 -> 헤더로 들어온 jwt 토큰을 검증
 
-    private static String[] whiteList={"/api/users/login","/api/users/join","/api/users/reissue"};
+    private static String[] whiteList={"/api/users/login","/api/users/join","/api/users/reissue","/api/users/reset-password-request"};
     private final JwtTokenProvider jwtTokenProvider;
     private final CustomUserDetailService customUserDetailService;
     String jwtToken;

@@ -38,8 +38,24 @@ public class EmailProvider {
 
     }
 
-    public boolean sendFindPasswordMail(){
-        // todo : 진행 예정
+    public boolean sendFindPasswordMail(String email, String link){
+
+        try{
+            MimeMessage message = javaMailSender.createMimeMessage();
+            MimeMessageHelper messageHelper = new MimeMessageHelper(message, true);
+
+            String htmlContent = getUpdatePasswordLinkMessage(link);
+
+            messageHelper.setTo(email);
+            messageHelper.setSubject(CHANGE_PASSWORD_TITLE);
+            messageHelper.setText(htmlContent,true);
+
+            javaMailSender.send(message);
+
+        }catch (MessagingException e) {
+            e.printStackTrace();
+            return false;
+        }
         return true;
     }
 
@@ -50,5 +66,16 @@ public class EmailProvider {
         message +="<p>해당 인증 코드의 유효시간은 <strong>5</strong> 분입니다.</p>";
         message+="<p>인증코드 : <strong style='font-size:17px;'>"+certificationNumber+"</strong></p>";
         return message;
+    }
+
+
+    private String getUpdatePasswordLinkMessage(String link){
+        String message = "";
+        message +="<p>안녕하세요. SalesBoost 입니다. </p>";
+        message +="<p>아래의 링크를 통해 비밀번호를 재설정 해주세요. </p>";
+        message +="<p>해당 링크의 유효시간은 <strong>10</strong> 분입니다.</p>";
+        message+="<p>인증코드 : <style='font-size:13px;'>"+link+"</p>";
+        return message;
+
     }
 }
