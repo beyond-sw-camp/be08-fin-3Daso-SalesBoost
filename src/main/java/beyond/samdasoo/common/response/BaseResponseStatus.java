@@ -30,6 +30,7 @@ public enum BaseResponseStatus {
     EMAIL_ALREADY_EXIST(false, HttpStatus.BAD_REQUEST.value(), "이미 사용중인 이메일입니다"),
     EMAIL_OR_PWD_NOT_FOUND(false, HttpStatus.BAD_REQUEST.value(), "이메일 또는 비밀번호를 확인해주세요"),
     USER_NOT_EXIST(false, HttpStatus.BAD_REQUEST.value(), "존재하지 않는 회원입니다"),
+    EMAIL_NOT_EXIST(false, HttpStatus.BAD_REQUEST.value(), "가입한 이메일을 다시 확인해주세요"),
     LOGIN_TYPE_NOT_VALID(false, HttpStatus.BAD_REQUEST.value(), "로그인 타입은 이메일 또는 사번만 유효합니다"),
     EMPLOYEE_ID_NOT_VALID(false, HttpStatus.BAD_REQUEST.value(), "사원번호 또는 비밀번호를 확인해주세요"),
     EMAIL_OR_CODE_NOT_FOUND(false,HttpStatus.BAD_REQUEST.value(), "이메일 또는 인증번호를 다시 확인해주세요."),

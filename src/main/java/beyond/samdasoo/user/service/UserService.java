@@ -220,5 +220,26 @@ public class UserService {
 
     public void updatePasswordRequest(String email) {
 
+        boolean exists = userRepository.existsByEmail(email);
+        if(!exists){
+            throw new BaseException(EMAIL_NOT_EXIST);
+        }
+
+        String token = UUID.randomUUID().toString();
+
+        String link = frontOrigin + "/auth/change-password?email=" + email + "&token=" + token;
+
+        boolean isSucceed = emailProvider.sendFindPasswordMail(email, link);
+
+        if(!isSucceed){
+            throw new BaseException(FAIL_SEND_UPDATE_PASSWORD_LINK);
+        }
+
+        UpdatePasswordToken updatePasswordToken = UpdatePasswordToken.builder()
+                .email(email)
+                .token(token)
+                .build();
+
+        updatePasswordTokenRedisRepository.save(updatePasswordToken);
     }
 }
