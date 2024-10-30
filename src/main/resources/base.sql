@@ -149,13 +149,13 @@ VALUES
     (4, NOW(), NOW(), '20', 'N', 'CONTRACT', '2024-09-01', '2025-03-31', '2024-09-15', '계약 연장', '계약 연장 필요 사항 확인', '후불', 8, '90', 'N', '2024-09-01', 18000, 'N', 0, '0%', 18000, 12, 4),
     (5, NOW(), NOW(), '7', 'Y', 'SALES', '2024-10-01', '2025-04-30', '2024-10-20', '영업 계약 체결', '영업 전략 검토 완료', '선불', 12, '14', 'Y', '2024-10-01', 25000, 'Y', 2500, '10%', 27500, 18, 5);
 
-INSERT INTO tb_product (prod_no, created_at, updated_at, abbr_name, dept, eng_name, field, name, price, prod_code, quantity, release_date, supply_price, tax_rate, unit, upp_group)
+INSERT INTO tb_product (prod_no, created_at, updated_at, abbr_name, dept_id, eng_name, field, name, price, prod_code, quantity, release_date, supply_price, tax_rate, unit, upp_group)
 VALUES
-    (1, NOW(), NOW(), 'PRD001', '영업부', 'Product A', '전자기기', '제품 A', 50000, 'P001', 100, '2024-05-01', 45000, 10, '개', '전자'),
-    (2, NOW(), NOW(), 'PRD002', '개발부', 'Product B', '소프트웨어', '제품 B', 30000, 'P002', 50, '2024-06-01', 27000, 8, '카피', '소프트웨어'),
-    (3, NOW(), NOW(), 'PRD003', '기획부', 'Product C', '소모품', '제품 C', 10000, 'P003', 200, '2024-07-01', 9000, 5, '박스', '소모품'),
-    (4, NOW(), NOW(), 'PRD004', '총무부', 'Product D', '사무용품', '제품 D', 15000, 'P004', 150, '2024-08-01', 14000, 7, '개', '사무용품'),
-    (5, NOW(), NOW(), 'PRD005', '인사부', 'Product E', '의류', '제품 E', 20000, 'P005', 120, '2024-09-01', 18000, 6, '벌', '의류');
+    (1, NOW(), NOW(), 'PRD001', 1, 'Product A', '전자기기', '제품 A', 50000, 'P001', 100, '2024-05-01', 45000, 10, '개', '전자'),
+    (2, NOW(), NOW(), 'PRD002', 2, 'Product B', '소프트웨어', '제품 B', 30000, 'P002', 50, '2024-06-01', 27000, 8, '카피', '소프트웨어'),
+    (3, NOW(), NOW(), 'PRD003', 3, 'Product C', '소모품', '제품 C', 10000, 'P003', 200, '2024-07-01', 9000, 5, '박스', '소모품'),
+    (4, NOW(), NOW(), 'PRD004', 4, 'Product D', '사무용품', '제품 D', 15000, 'P004', 150, '2024-08-01', 14000, 7, '개', '사무용품'),
+    (5, NOW(), NOW(), 'PRD005', 5, 'Product E', '의류', '제품 E', 20000, 'P005', 120, '2024-09-01', 18000, 6, '벌', '의류');
 
 INSERT INTO tb_est_prod (est_prod_no, created_at, updated_at, discount, qty, supply_price, tax, total_amt, unit_amt, unit_prop_amt, est_no, prod_no)
 VALUES

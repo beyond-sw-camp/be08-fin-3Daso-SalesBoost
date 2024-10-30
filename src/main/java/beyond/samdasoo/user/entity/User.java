@@ -3,20 +3,21 @@ package beyond.samdasoo.user.entity;
 import beyond.samdasoo.admin.entity.Department;
 import beyond.samdasoo.admin.entity.TargetSale;
 import beyond.samdasoo.common.entity.BaseEntity;
+import beyond.samdasoo.customer.entity.Customer;
 import beyond.samdasoo.potentialcustomer.entity.PotentialCustomer;
 import beyond.samdasoo.user.dto.UserRole;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "TB_USER")
 @Entity
@@ -38,8 +39,9 @@ public class User extends BaseEntity {
     @Column(nullable = false,name="employee_id",unique = true)
     private String employeeId; // 사번
 
-    @JoinColumn(name = "dept_id",nullable = false)
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "dept_id", nullable = false)
     private Department department;
 
     @Enumerated(EnumType.STRING)
@@ -51,6 +53,9 @@ public class User extends BaseEntity {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<TargetSale> targetSales;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Customer> customers = new ArrayList<>();
 
 
     public void RoleChangeToAdmin(){
