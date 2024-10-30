@@ -2,6 +2,7 @@ package beyond.samdasoo.admin.entity;
 
 import beyond.samdasoo.common.entity.BaseEntity;
 import beyond.samdasoo.estimate.entity.EstProduct;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -40,9 +41,6 @@ public class Product extends BaseEntity {
     @Column(name = "release_date")
     private LocalDate releaseDate;       // 출시일
 
-    @Column(name = "dept")
-    private String dept;            // 부서
-
     @Column(nullable = false)
     private int quantity;           // 포장 수량
 
@@ -65,5 +63,10 @@ public class Product extends BaseEntity {
     private List<EstProduct> estProducts;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private List<TargetSale> targetSales;      // 목표 매출
+    private List<TargetSale> targetSales;
+
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "dept_id", nullable = false)
+    private Department department;
 }

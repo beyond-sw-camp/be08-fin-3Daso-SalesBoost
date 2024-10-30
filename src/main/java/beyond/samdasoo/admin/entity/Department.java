@@ -50,12 +50,12 @@ public class Department extends BaseEntity {
     private List<Department> children = new ArrayList<>();
 
 
-//    @OneToMany(mappedBy = "department")
-//    private ArrayList<User> users = new ArrayList<>();
-//
-//
-//    public void addUser(User user){
-//        users.add(user);
-//    }
+    @JsonManagedReference
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<User> users = new ArrayList<>();
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Product> products = new ArrayList<>();
 
 }

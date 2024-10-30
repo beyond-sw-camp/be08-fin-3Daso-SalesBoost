@@ -67,9 +67,14 @@ public class SalesService {
     // 매출 생성
     @Transactional
     public SalesResponseDto createSales(SalesRequestDto requestDto) {
-
         Contract contract = contractRepository.findById(requestDto.getContractNo())
                 .orElseThrow(() -> new BaseException(BaseResponseStatus.SALES_ALREADY_EXIST));
+
+        // 1:1 관계로 수정되면 아래거 조건문 지우고 주석 해제
+//        if (contract.getSales() != null) {
+        if (!contract.getSalesList().isEmpty()) {
+            throw new BaseException(BaseResponseStatus.CONTRACT_ALREADY_HAVEN_SALES);
+        }
 
         Sales sales = Sales.builder()
                 .salesName(requestDto.getSalesName())
@@ -100,6 +105,12 @@ public class SalesService {
         Contract contract = contractRepository.findById(requestDto.getContractNo())
                 .orElseThrow(() -> new BaseException(BaseResponseStatus.CONTRACT_NOT_EXIST));
 
+        // 1:1 관계 되면 주석 해제
+//        if ((!contract.getContractNo().equals(sales.getContract().getContractNo()))
+//                && contract.getSales() != null) {
+//            throw new BaseException(BaseResponseStatus.CONTRACT_ALREADY_HAVEN_SALES);
+//        }
+        
         // No는 기존 값 사용
         sales = Sales.builder()
                 .salesNo(sales.getSalesNo())
@@ -150,7 +161,8 @@ public class SalesService {
                 pythonApiUrl,
                 HttpMethod.POST,
                 entity,
-                new ParameterizedTypeReference<Map<String, Object>>() {}
+                new ParameterizedTypeReference<Map<String, Object>>() {
+                }
         );
 
         return convertPredictionResponseToDto(response.getBody(), "years_total_predictions");
@@ -171,7 +183,8 @@ public class SalesService {
                 pythonApiUrl,
                 HttpMethod.POST,
                 entity,
-                new ParameterizedTypeReference<Map<String, Object>>() {}
+                new ParameterizedTypeReference<Map<String, Object>>() {
+                }
         );
 
         return convertPredictionResponseToDto(response.getBody(), "month_total_predictions");
@@ -192,7 +205,8 @@ public class SalesService {
                 pythonApiUrl,
                 HttpMethod.POST,
                 entity,
-                new ParameterizedTypeReference<Map<String, Object>>() {}
+                new ParameterizedTypeReference<Map<String, Object>>() {
+                }
         );
 
         return convertPredictionResponseToDto(response.getBody(), "quarter_total_predictions");
@@ -216,10 +230,13 @@ public class SalesService {
         return predictions;
     }
 
-
-
     @Transactional(readOnly = true)
     public SalesStatusDto getSalesStatus(SearchCond searchCond) {
         return salesRepository.findSalesStatus(searchCond);
+    }
+
+    @Transactional(readOnly = true)
+    public SalesResponseDto getSalesByLead(Long leadNo) {
+        return salesRepository.findSalesByLead(leadNo);
     }
 }

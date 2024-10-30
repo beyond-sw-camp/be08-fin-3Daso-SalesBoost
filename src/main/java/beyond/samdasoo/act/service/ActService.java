@@ -163,7 +163,7 @@ public class ActService {
 
     @Transactional(readOnly = true)
     public ActStatusDto getActStatus(SearchCond searchCond) {
-        return actRepository.findActStatus(searchCond.getSearchDate(), searchCond.getUserNo());
+        return actRepository.findActStatus(searchCond);
     }
 
     @Transactional(readOnly = true)

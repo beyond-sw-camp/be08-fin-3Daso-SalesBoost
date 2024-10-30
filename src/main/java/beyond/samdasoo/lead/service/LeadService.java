@@ -104,6 +104,7 @@ public class LeadService {
         return new LeadResponseDto(lead);
     }
 
+    @Transactional
     public LeadResponseDto createLead(LeadRequestDto leadRequestDto) {
         Customer customer = findCustomerById(leadRequestDto.getCustNo());
 
@@ -125,7 +126,6 @@ public class LeadService {
 
         Lead savedLead = leadRepository.save(lead);
 
-        // 단계 생성
         createSteps(leadRequestDto.getProcess(), leadRequestDto.getSubProcess(), savedLead);
 
         return new LeadResponseDto(savedLead);
@@ -133,6 +133,7 @@ public class LeadService {
 
     @Transactional
     public void updateLead(Long no, LeadRequestDto leadRequestDto) {
+        System.out.println("@@@leadRequestDto : " + leadRequestDto);
         Lead lead = findLeadById(no);
         Customer customer = findCustomerById(leadRequestDto.getCustNo());
 
@@ -147,20 +148,29 @@ public class LeadService {
         Optional.of(leadRequestDto.getExpProfit()).ifPresent(lead::setExpProfit);
         Optional.of(leadRequestDto.getProcess()).ifPresent(lead::setProcess);
         Optional.of(leadRequestDto.getSubProcess()).ifPresent(lead::setSubProcess);
+        Optional.of(leadRequestDto.getSuccessPer()).ifPresent(lead::setSuccessPer);
         Optional.ofNullable(leadRequestDto.getStartDate()).ifPresent(lead::setStartDate);
         Optional.ofNullable(leadRequestDto.getEndDate()).ifPresent(lead::setEndDate);
         Optional.ofNullable(leadRequestDto.getAwarePath()).ifPresent(lead::setAwarePath);
         Optional.ofNullable(leadRequestDto.getNote()).ifPresent(lead::setNote);
 
-        // 프로세스 번호를 수정하면 그전 step 데이터 삭제후 그 프로세스에 맞게 재생성
+        // 프로세스 수정한 경우 step 삭제 후 재생성
         if (leadRequestDto.getProcess() != null && !orgProcess.equals(lead.getProcess())) {
             Optional.of(leadRequestDto.getProcess()).ifPresent(lead::setProcess);
             Optional.of(leadRequestDto.getSubProcess()).ifPresent(lead::setSubProcess);
 
             createSteps(leadRequestDto.getProcess(), leadRequestDto.getSubProcess(), lead);
         }
+
+        // 서브프로세스(단계)만 수정한 경우
+        if (orgProcess.equals(lead.getProcess()) && !orgSubProcess.equals(lead.getSubProcess())) {
+            Optional.of(leadRequestDto.getSubProcess()).ifPresent(lead::setSubProcess);
+
+            updateSteps(leadRequestDto.getSubProcess(), lead);
+        }
     }
 
+    @Transactional
     public void deleteLead(Long no) {
         leadRepository.delete(findLeadById(no));
     }
@@ -189,9 +199,51 @@ public class LeadService {
         }
     }
 
+    public void updateSteps(Long subProcessNo, Lead lead) {
+        List<Step> steps = stepRepository.findByLead(lead);
+
+        if (!stepRepository.findByLead(lead).isEmpty()) {
+            stepRepository.deleteByLead(lead);
+        }
+
+        for (Step targetStep : steps) {
+            long tSubProcNo = targetStep.getSubProcess().getSubProcessNo();
+
+            Step step = Step.builder()
+                    .level(targetStep.getLevel())
+                    .completeYn(tSubProcNo <= subProcessNo ? "Y" : "N")
+                    .completeDate(tSubProcNo <= subProcessNo
+                            ? (targetStep.getCompleteDate() == null ? LocalDate.now() : targetStep.getCompleteDate())
+                            : null)
+                    .lead(lead)
+                    .subProcess(targetStep.getSubProcess())
+                    .build();
+
+            stepRepository.save(step);
+        }
+    }
+
     public List<LeadStatusDto> getLeadStatusGroupedByStatus(SearchCond searchCond) {
-        return leadRepositoryCustom.findLeadStatusGroupedByStatus(
-                searchCond.getSearchDate(), searchCond.getUserNo()
-        );
+        return leadRepositoryCustom.findLeadStatusGroupedByStatus(searchCond);
+    }
+
+    public LeadRequestDto objToDto(Lead lead) {
+        LeadRequestDto dto = new LeadRequestDto();
+
+        dto.setName(lead.getName());
+        dto.setStatus(lead.getStatus());
+        dto.setExpSales(lead.getExpSales());
+        dto.setExpMargin(lead.getExpMargin());
+        dto.setExpProfit(lead.getExpProfit());
+        dto.setProcess(lead.getProcess());
+        dto.setSubProcess(lead.getSubProcess());
+        dto.setSuccessPer(lead.getSuccessPer());
+        dto.setStartDate(lead.getStartDate());
+        dto.setEndDate(lead.getEndDate());
+        dto.setAwarePath(lead.getAwarePath());
+        dto.setNote(lead.getNote());
+        dto.setCustNo(lead.getCustomer().getId());
+
+        return dto;
     }
 }

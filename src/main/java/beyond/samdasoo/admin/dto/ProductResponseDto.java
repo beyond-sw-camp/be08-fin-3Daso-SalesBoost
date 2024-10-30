@@ -50,7 +50,7 @@ public class ProductResponseDto {
         this.abbrName = product.getAbbrName();
         this.uppGroup = product.getField();
         this.releaseDate = product.getReleaseDate();
-        this.dept = product.getDept();
+        this.dept = product.getDepartment().getDeptName();
         this.quantity = product.getQuantity();
         this.unit = product.getUnit();
         this.field = product.getField();

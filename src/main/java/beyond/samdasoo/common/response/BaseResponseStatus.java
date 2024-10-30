@@ -107,6 +107,7 @@ public enum BaseResponseStatus {
      */
     ESTIMATE_ALREADY_EXIST(false, HttpStatus.BAD_REQUEST.value(), "이미 등록된 견적입니다."),
     ESTIMATE_NOT_EXIST(false, HttpStatus.BAD_REQUEST.value(), "등록되지 않은 견적입니다."),
+    ESTIMATE_ALREADY_HAVEN_CONTRACT(false, HttpStatus.CONFLICT.value(), "이미 계약이 성사된 견적입니다."),
 
     /*
         estProduct 관련
@@ -118,6 +119,7 @@ public enum BaseResponseStatus {
      */
     CONTRACT_ALREADY_EXIST(false, HttpStatus.BAD_REQUEST.value(), "이미 등록된 계약입니다."),
     CONTRACT_NOT_EXIST(false, HttpStatus.BAD_REQUEST.value(), "등록되지 않은 계약입니다."),
+    CONTRACT_ALREADY_HAVEN_SALES(false, HttpStatus.CONFLICT.value(), "이미 매출이 발생된 계약입니다."),
 
     /**
      * Sales 관련
@@ -134,13 +136,13 @@ public enum BaseResponseStatus {
     PC_CLS_EMPTY(false, HttpStatus.BAD_REQUEST.value(), "접촉구분 선택은 필수입니다"),
     PC_STATUS_EMPTY(false, HttpStatus.BAD_REQUEST.value(), "접촉상태 선택은 필수입니다"),
     PC_PHONE_EMPTY(false, HttpStatus.BAD_REQUEST.value(), "휴대폰 입력은 필수입니다"),
+
     /**
      * Customer 관련
      */
     CUSTOMER_NOT_EXIST(false, HttpStatus.BAD_REQUEST.value(), "등록되지 않은 고객입니다."),
     INVALID_AUTH_DEL_CUSTOMER(false, HttpStatus.BAD_REQUEST.value(), "해당 고객을 삭제할 권한이 없습니다"),
     INVALID_AUTH_UPDATE_CUSTOMER(false, HttpStatus.BAD_REQUEST.value(), "해당 고객을 수정할 권한이 없습니다"),
-
 
     /*
         report(PDF) 관련
