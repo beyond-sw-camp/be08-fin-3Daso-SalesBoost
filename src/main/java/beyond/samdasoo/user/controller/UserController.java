@@ -45,24 +45,6 @@ public class UserController {
         return new BaseResponse<>(result);
     }
 
-    /**
-     * 로그인 API
-     */
-//    @Operation(summary = "로그인", description = "이메일/사원번호와 비밀번호를 입력해 로그인을 진행한다")
-//    @PostMapping("/login")
-//    public BaseResponse<LoginUserRes> login(@RequestBody @Valid LoginUserReq loginUserReq, HttpServletResponse response) {
-//
-//        TokenResult tokenResult = userService.login(loginUserReq);
-//
-//        // 쿠키에 refresh token 저장
-//        Cookie cookie = cookieUtil.createCookie(JwtUtil.REFRESH_TOKEN_COOKIE_NAME, tokenResult.getRefreshToken(), JwtUtil.refreshTokenExpireDuration / 1000);
-//        response.addCookie(cookie);
-//
-//        // 로그인 응답객체 생성
-//        LoginUserRes result = new LoginUserRes(tokenResult.getName(), tokenResult.getEmail(), tokenResult.getRole(), tokenResult.getDept(), tokenResult.getAccessToken());
-//
-//        return new BaseResponse<>(result);
-//    }
 
     /**
      * 유저 정보 조회 API
@@ -92,6 +74,15 @@ public class UserController {
         response.addCookie(newCookie);
 
         return new BaseResponse<>(reissue.getAccessToken());
+    }
+
+    @PostMapping()
+    public BaseResponse<String> updatePasswordRequest(@RequestBody UpdatePasswordReq updatePasswordReq){
+
+        userService.updatePasswordRequest(updatePasswordReq.getEmail());
+
+        return new BaseResponse<>("해당 이메일로 비밀번호 재설정 링크를 전송했습니다");
+
     }
 
     /**

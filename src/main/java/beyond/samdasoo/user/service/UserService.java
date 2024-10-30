@@ -23,15 +23,13 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 import static beyond.samdasoo.common.response.BaseResponseStatus.*;
 
@@ -49,6 +47,9 @@ public class UserService {
     private final EmailVerificationUserRedisRepository emailVerificationUserRedisRepository;
     private final CalendarService calendarService;
     private final CustomerRepository customerRepository;
+
+    @Value("${frontend.origin}")
+    private String frontOrigin;
 
 
     public JoinUserRes join(JoinUserReq joinUserReq) {
@@ -241,5 +242,27 @@ public class UserService {
                 c.isKeyMan()
         )).toList();
 
+    }
+
+    public void updatePasswordRequest(String email) {
+
+        //1. 이메일 존재 여부 검증
+        boolean exists = userRepository.existsByEmail(email);
+        if(!exists){
+            throw new BaseException(USER_NOT_EXIST);
+        }
+
+        //2. 변경용 토큰 생성
+        String token = UUID.randomUUID().toString();
+
+        //3. 비밀번호 변경 링크 생성
+        String link = frontOrigin + "/users/newpwd?email=" + email + "&token=" + token;
+
+//        //4. 링크를 메일 전송
+//        boolean isSucceed = emailProvider.sendUpdatePasswordLinkMail(email, link);
+//
+//        if(!isSucceed){
+//            throw new BaseException(FAIL_SEND_UPDATE_PASSWORD_LINK);
+//        }
     }
 }
