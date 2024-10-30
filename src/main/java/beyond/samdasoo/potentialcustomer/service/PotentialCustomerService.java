@@ -196,9 +196,7 @@ public class PotentialCustomerService {
     }
 
     public Long getPotentialCustomerCount(SearchCond searchCond) {
-        return potentialCustomerRepositoryCustom.getPotentialCustomerCount(
-                searchCond.getSearchDate(), searchCond.getUserNo()
-        );
+        return potentialCustomerRepositoryCustom.getPotentialCustomerCount(searchCond);
     }
 
     public void delete(String loginUserEmail, Long prospectId) {
