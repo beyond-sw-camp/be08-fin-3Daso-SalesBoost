@@ -9,14 +9,15 @@ import beyond.samdasoo.admin.repository.ProductRepository;
 import beyond.samdasoo.admin.repository.TargetSaleRepository;
 import beyond.samdasoo.common.dto.SearchCond;
 import beyond.samdasoo.common.exception.BaseException;
-import beyond.samdasoo.sales.dto.SalesStatusDto;
 import beyond.samdasoo.user.entity.User;
 import beyond.samdasoo.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static beyond.samdasoo.common.response.BaseResponseStatus.Product_NOT_EXIST;
@@ -130,4 +131,18 @@ public class TargetSaleServiceImpl implements TargetSaleService {
     public TargetSalesStatusDto getTargetSalesStatus(SearchCond searchCond) {
         return targetSaleRepository.findTargetSalesStatus(searchCond);
     }
+
+    public Map<Integer, Integer> getMonthlyTargetSalesData(int year) {
+        Map<Integer, Integer> monthlySales = new HashMap<>();
+
+        List<Object[]> results = targetSaleRepository.findMonthlyTargetSalesByYear(year);
+        for (Object[] result : results) {
+            Integer month = (Integer) result[0];
+            Integer totalSales = ((Number) result[1]).intValue();
+            monthlySales.put(month, totalSales);
+        }
+
+        return monthlySales;
+    }
+
 }
