@@ -80,6 +80,14 @@ public class SubProcessServiceImpl implements SubProcessService{
             throw new BaseException(SUBPROCESS_NOT_EXIST);
         }
 
+        Optional<Process> optionalProcess = processRepository.findById(optionalSubProcess.get().getProcess().getProcessNo());
+
+        if(optionalProcess.isPresent()){
+            Process process = optionalProcess.get();
+
+            process.setExpectedDuration(process.getExpectedDuration() - optionalSubProcess.get().getExpectedDuration());
+        }
+
         subProcessRepository.deleteById(no);
     }
 
@@ -87,26 +95,21 @@ public class SubProcessServiceImpl implements SubProcessService{
     public void updateSubProcessByNo(Long no, SubProcessRequestDto request) {
         Optional<SubProcess> optionalSubProcess = subProcessRepository.findById(no);
 
-
         if(optionalSubProcess.isEmpty()){
             throw new BaseException(SUBPROCESS_NOT_EXIST);
         }
 
-
         SubProcess subProcess = optionalSubProcess.get();
 
+        Optional<Process> optionalProcess = processRepository.findById(subProcess.getProcess().getProcessNo());
 
-        if(request.getProcessNo() != null){
-            Optional<Process> optionalProcess = processRepository.findById(request.getProcessNo());
-
-            if (optionalProcess.isEmpty()) {
-                throw new BaseException(PROCESS_NOT_EXIST);
-            }
-
-            Process process = optionalProcess.get();
-
-            subProcess.setProcess(process);
+        if (optionalProcess.isEmpty()) {
+            throw new BaseException(PROCESS_NOT_EXIST);
         }
+
+        Process process = optionalProcess.get();
+
+
 
         if(request.getSubProcessName() != null){
             subProcess.setSubProcessName(request.getSubProcessName());
@@ -125,6 +128,8 @@ public class SubProcessServiceImpl implements SubProcessService{
         }
 
         if(request.getExpectedDuration() != null){
+            process.setExpectedDuration(process.getExpectedDuration() + request.getExpectedDuration()  - subProcess.getExpectedDuration());
+
             subProcess.setExpectedDuration(request.getExpectedDuration());
         }
 
