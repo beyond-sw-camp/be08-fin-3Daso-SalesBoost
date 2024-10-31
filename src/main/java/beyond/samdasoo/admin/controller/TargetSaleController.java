@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/admin/targetsales")
@@ -43,5 +44,11 @@ public class TargetSaleController {
     public BaseResponse<TargetSalesStatusDto> getSalesStatus(@RequestBody SearchCond searchCond) {
         TargetSalesStatusDto targetSalesStatus = targetSaleService.getTargetSalesStatus(searchCond);
         return new BaseResponse<>(targetSalesStatus);
+    }
+
+    @GetMapping("/status/monthly")
+    public BaseResponse<Map<Integer, Integer>> getMonthlyTargetSales(@RequestParam("year") int year) {
+        Map<Integer, Integer> monthlyTargetSales = targetSaleService.getMonthlyTargetSalesData(year);
+        return new BaseResponse<>(monthlyTargetSales);
     }
 }

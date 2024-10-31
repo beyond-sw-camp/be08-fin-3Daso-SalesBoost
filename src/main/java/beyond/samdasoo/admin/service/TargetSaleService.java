@@ -9,6 +9,7 @@ import beyond.samdasoo.sales.dto.SalesStatusDto;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 public interface TargetSaleService {
 
@@ -17,4 +18,6 @@ public interface TargetSaleService {
     List<TargetSaleResponseDto> getTargetSaleByUserName(String userName, int year);
 
     TargetSalesStatusDto getTargetSalesStatus(SearchCond searchCond);
+
+    Map<Integer, Integer> getMonthlyTargetSalesData(int year);
 }
