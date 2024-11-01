@@ -94,7 +94,7 @@ SELECT 4, '이지정', '카카오','서버운영팀','사원','kakao@gmail.com',
 WHERE NOT EXISTS (SELECT 1 FROM tb_customer WHERE customer_no=4);
 
 INSERT INTO `tb_customer` (customer_no,name,company,dept,position,email,phone,tel,grade,is_keyman,user_no,created_at,updated_at)
-SELECT 5, '최규범', '샘표','인사과','사원','sampho@gmail.com','010-1111-2222','02-888-999','A',false,1,now(),now()
+SELECT 5, '최규범', 'Google','인사과','사원','sampho@gmail.com','010-1111-2222','02-888-999','A',false,1,now(),now()
 WHERE NOT EXISTS (SELECT 1 FROM tb_customer WHERE customer_no=5);
 
 INSERT INTO `tb_customer` (customer_no,name,company,dept,position,email,phone,tel,grade,is_keyman,user_no,created_at,updated_at)
