@@ -1,15 +1,20 @@
 package beyond.samdasoo.contract.controller;
 
+import beyond.samdasoo.common.exception.BaseException;
 import beyond.samdasoo.common.response.BaseResponse;
+import beyond.samdasoo.common.response.BaseResponseStatus;
 import beyond.samdasoo.contract.dto.ContractRequestDto;
 import beyond.samdasoo.contract.dto.ContractResponseDto;
 import beyond.samdasoo.contract.service.ContractService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Tag(name = "Contract APIs", description = "계약 API")
 @RequiredArgsConstructor
@@ -53,6 +58,30 @@ public class ContractController {
         ContractResponseDto contract = contractService.updateContract(no, contractRequestDto);
 
         return new BaseResponse<>(contract);
+    }
+
+    @GetMapping("/chart/count/monthly")
+    @Operation(summary = "월별 계약 개수", description = "월별 계약 횟수 집계")
+    public ResponseEntity<BaseResponse<Map<String, Long>>> countMonthlyContracts(@RequestParam int year) {
+        try {
+            Map<String, Long> result = contractService.countMonthlyContracts(year);
+            return ResponseEntity.ok(new BaseResponse<>(result));
+        } catch (BaseException ex) {
+            BaseResponseStatus status = ex.getStatus();
+            return new ResponseEntity<>(new BaseResponse<>(status), HttpStatus.valueOf(status.getCode()));
+        }
+    }
+
+    @GetMapping("/chart/total/monthly")
+    @Operation(summary = "월별 계약 총액", description = "월별 계약 총액 집계")
+    public ResponseEntity<BaseResponse<Map<String, Long>>> totalAmountMonthlyContracts(@RequestParam int year) {
+        try {
+            Map<String, Long> result = contractService.totalAmountMonthlyContracts(year);
+            return ResponseEntity.ok(new BaseResponse<>(result));
+        } catch (BaseException ex) {
+            BaseResponseStatus status = ex.getStatus();
+            return new ResponseEntity<>(new BaseResponse<>(status), HttpStatus.valueOf(status.getCode()));
+        }
     }
 
     @GetMapping("/timeline/{leadNo}")
