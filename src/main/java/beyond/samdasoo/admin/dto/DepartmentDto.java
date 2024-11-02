@@ -1,5 +1,6 @@
 package beyond.samdasoo.admin.dto;
 
+import beyond.samdasoo.admin.entity.Department;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -38,5 +39,13 @@ public class DepartmentDto {
         this.deptHead = deptHead;
 
         this.upperDeptName = upperDeptName;
+    }
+
+    public DepartmentDto(Department department) {
+        this.no = department.getDeptNo();
+        this.name = department.getDeptName();
+        this.deptCode = department.getDeptCode();
+        this.engName = department.getEngName();
+        this.deptHead = department.getDeptHead();
     }
 }

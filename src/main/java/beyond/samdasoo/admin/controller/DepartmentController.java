@@ -28,6 +28,14 @@ public class DepartmentController {
         return new BaseResponse<>(departments);
     }
 
+    @GetMapping("/child")
+    @Operation(summary = "모든 부서 조회", description = "관리자 계정에 등록된 모든 부서(트리구조 x)를 조회")
+    public BaseResponse<List<DepartmentDto>> getAllDepartments2(){
+        List<DepartmentDto> departments = departmentService.getAllDept2();
+
+        return new BaseResponse<>(departments);
+    }
+
     @PostMapping
     @Operation(summary = "부서 추가", description = "관리자 계정에 부서를 추가")
     public BaseResponse<String> addDepartment(@RequestBody DepartmentRequestDto request){

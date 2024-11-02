@@ -11,6 +11,9 @@ import java.time.LocalDate;
 @ToString
 public class SearchCond {
     private LocalDate searchDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private Long deptNo;
     private Long userNo;
+
 }

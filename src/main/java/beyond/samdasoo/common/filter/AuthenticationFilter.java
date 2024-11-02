@@ -90,7 +90,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         response.addCookie(cookie);
 
         // 응답 객체 생성
-        LoginUserRes loginUserRes = new LoginUserRes(user.getUsername(),user.getEmail(),user.getUser().getRole(),access);
+        LoginUserRes loginUserRes = new LoginUserRes(user.getUser().getId(), user.getUser().getDepartment().getDeptNo(), user.getUsername(),user.getEmail(),user.getUser().getRole(),access);
 
         BaseResponse<LoginUserRes> responseObj = new BaseResponse<>(loginUserRes);
 
