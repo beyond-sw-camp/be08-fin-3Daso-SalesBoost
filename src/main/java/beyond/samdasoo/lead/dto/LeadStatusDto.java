@@ -9,4 +9,5 @@ import lombok.Getter;
 public class LeadStatusDto {
     private LeadStatus status;
     private long count;
+    private int amt;
 }

@@ -6,7 +6,6 @@ import beyond.samdasoo.admin.dto.DepartmentResponseDto;
 import beyond.samdasoo.admin.entity.Department;
 import beyond.samdasoo.admin.repository.DepartmentRepository;
 import beyond.samdasoo.common.exception.BaseException;
-import beyond.samdasoo.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,13 +13,14 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static beyond.samdasoo.common.response.BaseResponseStatus.*;
 
 
 @Service
 @RequiredArgsConstructor
-public class DepartmentServiceImpl implements DepartmentService{
+public class DepartmentServiceImpl implements DepartmentService {
     @Autowired
     private final DepartmentRepository departmentRepository;
 
@@ -64,12 +64,18 @@ public class DepartmentServiceImpl implements DepartmentService{
         return result;
     }
 
+    @Override
+    public List<DepartmentDto> getAllDept2() {
+        return departmentRepository.findAll().stream()
+                .map(DepartmentDto::new).collect(Collectors.toList());
+    }
+
     private DepartmentDto departmentTree(Department department) {
 
         String upperDeptName = "";
 
-        if(department.getParent() != null){
-            Optional<Department> upperDept =  departmentRepository.findById(department.getParent().getDeptNo());
+        if (department.getParent() != null) {
+            Optional<Department> upperDept = departmentRepository.findById(department.getParent().getDeptNo());
 
             upperDeptName = upperDept.get().getDeptName();
 
@@ -93,7 +99,7 @@ public class DepartmentServiceImpl implements DepartmentService{
     public DepartmentResponseDto getDepartmentByNo(Long deptNo) {
         Optional<Department> optionalDepartment = departmentRepository.findById(deptNo);
 
-        if(optionalDepartment.isEmpty()){
+        if (optionalDepartment.isEmpty()) {
             throw new BaseException(DEPARTMENT_NOT_EXIST);
         }
 
@@ -104,7 +110,7 @@ public class DepartmentServiceImpl implements DepartmentService{
     public void deleteDepartmentByNo(Long deptNo) {
         Optional<Department> optionalDepartment = departmentRepository.findById(deptNo);
 
-        if(optionalDepartment.isEmpty()){
+        if (optionalDepartment.isEmpty()) {
             throw new BaseException(DEPARTMENT_NOT_EXIST);
         }
 
@@ -115,25 +121,25 @@ public class DepartmentServiceImpl implements DepartmentService{
     public void updateDepartmentByNo(Long deptNo, DepartmentRequestDto request) {
         Optional<Department> optionalDepartment = departmentRepository.findById(deptNo);
 
-        if(optionalDepartment.isEmpty()){
+        if (optionalDepartment.isEmpty()) {
             throw new BaseException(DEPARTMENT_NOT_EXIST);
         }
 
         Department department = optionalDepartment.get();
 
-        if(request.getEngName() != null){
+        if (request.getEngName() != null) {
             department.setEngName(request.getEngName());
         }
-        if(request.getDeptName() != null){
+        if (request.getDeptName() != null) {
             department.setDeptName(request.getDeptName());
         }
-        if(request.getDeptCode() != null){
+        if (request.getDeptCode() != null) {
             department.setDeptCode(request.getDeptCode());
         }
-        if(request.getDeptHead() != null){
+        if (request.getDeptHead() != null) {
             department.setDeptHead(request.getDeptHead());
         }
-        if(request.getUpperDeptName().equals(" ")){
+        if (request.getUpperDeptName().equals(" ")) {
             Optional<Department> optionalUpperDepartment = departmentRepository.findByDeptName(request.getUpperDeptName());
 
             if (optionalUpperDepartment.isEmpty()) {

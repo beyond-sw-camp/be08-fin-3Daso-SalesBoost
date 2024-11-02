@@ -11,6 +11,8 @@ public interface DepartmentService {
 
     List<DepartmentDto> getAllDepartments();
 
+    List<DepartmentDto> getAllDept2();
+
     DepartmentResponseDto getDepartmentByNo(Long deptNo);
 
     void deleteDepartmentByNo(Long deptNo);

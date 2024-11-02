@@ -1,12 +1,13 @@
 package beyond.samdasoo.lead.Entity;
 
 public enum AwarePath {
-    // 데모시연, 교육, 기존고객, 인터넷신문, 파트너사, 인터넷검색, 기타
-    DEMO,
-    EDUCATION,
     EXISTING,
+    ETC,
+    DEMO,
     NEWSPAPER,
-    PARTNER,
     SEARCH,
-    ETC
+    EDUCATION,
+    INTRODUCE,
+    PARTNER
+    // e기존고객, 기타, 데모체험, 신문, 인터넷검색, 정규교육, 지인소개, 파트너사
 }
