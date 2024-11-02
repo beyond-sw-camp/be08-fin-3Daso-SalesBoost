@@ -12,6 +12,7 @@ import beyond.samdasoo.sales.dto.SalesStatusDto;
 import beyond.samdasoo.sales.entity.Sales;
 import beyond.samdasoo.sales.repository.SalesRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -32,6 +33,9 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class SalesService {
+
+    @Value("${flask.api.url}")
+    private String flaskApiUrl;
 
     private final SalesRepository salesRepository;
 
@@ -148,7 +152,7 @@ public class SalesService {
     public List<SalesPredictionDto> getYearsPredictedSales(List<SalesResponseDto> salesData) {
         RestTemplate restTemplate = new RestTemplate();
         // 파이썬 url 저장
-        String pythonApiUrl = "http://localhost:5000/api/forecast/years";
+        String pythonApiUrl = flaskApiUrl+"/api/forecast/years";
 
         // 요청 헤더 설정
         HttpHeaders headers = new HttpHeaders();
@@ -170,7 +174,7 @@ public class SalesService {
 
     public List<SalesPredictionDto> getMonthlyPredictedSales(List<SalesResponseDto> salesData) {
         RestTemplate restTemplate = new RestTemplate();
-        String pythonApiUrl = "http://localhost:5000/api/forecast/month";
+        String pythonApiUrl = flaskApiUrl + "/api/forecast/month";
 
         // 요청 헤더 설정
         HttpHeaders headers = new HttpHeaders();
@@ -192,7 +196,7 @@ public class SalesService {
 
     public List<SalesPredictionDto> getQuarterlyPredictedSales(List<SalesResponseDto> salesData) {
         RestTemplate restTemplate = new RestTemplate();
-        String pythonApiUrl = "http://localhost:5000/api/forecast/quarter";
+        String pythonApiUrl = flaskApiUrl + "/api/forecast/quarter";
 
         // 요청 헤더 설정
         HttpHeaders headers = new HttpHeaders();
@@ -219,6 +223,7 @@ public class SalesService {
         List<Double> predictedPrices = (List<Double>) responseBody.get(predictionKey);
         List<String> predictedTimes = (List<String>) responseBody.get("predicted_times");
         Double growthRate = (Double) responseBody.get("growthRate");
+//        System.out.println("grow" + responseBody);
 
         for (int i = 0; i < predictedPrices.size(); i++) {
             SalesPredictionDto dto = new SalesPredictionDto();
