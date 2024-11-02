@@ -2,7 +2,9 @@ package beyond.samdasoo.estimate.repository;
 
 import beyond.samdasoo.contract.entity.QContract;
 import beyond.samdasoo.estimate.dto.EstimateResponseDto;
+import beyond.samdasoo.estimate.dto.EstimateSearchDto;
 import beyond.samdasoo.estimate.dto.QEstimateResponseDto;
+import beyond.samdasoo.estimate.entity.Estimate;
 import beyond.samdasoo.estimate.entity.QEstimate;
 import beyond.samdasoo.proposal.entity.QProposal;
 import com.querydsl.core.BooleanBuilder;
@@ -56,4 +58,29 @@ public class EstimateRepositoryImpl implements EstimateRepositoryCustom {
                 .where(contract.isNull())
                 .fetch();
     }
+
+    @Override
+    public List<EstimateResponseDto> searchEstimates(EstimateSearchDto searchDto) {
+        BooleanBuilder builder = new BooleanBuilder();
+
+        if (searchDto.getEstName() != null && !searchDto.getEstName().isEmpty()) {
+            builder.and(estimate.name.contains(searchDto.getEstName()));
+        }
+
+        if (searchDto.getPropName() != null && !searchDto.getPropName().isEmpty()) {
+            builder.and(proposal.name.contains(searchDto.getPropName()));
+        }
+
+        if (searchDto.getEstDate() != null) {
+            builder.and(estimate.estDate.eq(searchDto.getEstDate()));
+        }
+
+        return queryFactory
+                .select(new QEstimateResponseDto(estimate))
+                .from(estimate)
+                .leftJoin(estimate.proposal, proposal)
+                .where(builder)
+                .fetch();
+    }
+
 }
