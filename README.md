@@ -135,6 +135,8 @@
 
 ### [💯 통합 테스트](https://www.notion.so/127a0be8a371805a912ce4bc85ddef3d)
 ### [🔄 CI/CD 계획서](https://windy-trail-270.notion.site/CI-CD-bc4e2c01a878459bb89c5a9f8ee425c0?pvs=4)
+### 📑 AWS Cloud architecture
+<img width="900" alt="AWS architecture" src="https://github.com/user-attachments/assets/d6e8c869-3e8e-490e-aa37-3b90220f1b5c">
 
 
 <br>
