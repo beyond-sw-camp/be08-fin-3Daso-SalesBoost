@@ -5,6 +5,7 @@ import beyond.samdasoo.estimate.dto.EstimateRequestDto;
 import beyond.samdasoo.estimate.dto.EstimateResponseDto;
 import beyond.samdasoo.proposal.dto.ProposalRequestDto;
 import beyond.samdasoo.proposal.dto.ProposalResponseDto;
+import beyond.samdasoo.proposal.dto.ProposalSearchCriteriaDTO;
 import beyond.samdasoo.proposal.service.ProposalService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -67,5 +68,12 @@ public class ProposalController {
     @GetMapping("/timeline/{leadNo}")
     public BaseResponse<ProposalResponseDto> getLatestProposalWithEstimatesByLeadId(@PathVariable Long leadNo) {
         return new BaseResponse<>(proposalService.getLatestProposalWithEstimatesByLeadId(leadNo));
+    }
+
+    @PostMapping("/search")
+    @Operation(summary = "제안 검색", description = "검색조건(제안명, 요청일, 제안시작일)에 맞는 제안을 조회")
+    public BaseResponse<List<ProposalResponseDto>> searchProposals(@RequestBody ProposalSearchCriteriaDTO searchCriteria) {
+        List<ProposalResponseDto> result = proposalService.searchProposals(searchCriteria);
+        return new BaseResponse<>(result);
     }
 }

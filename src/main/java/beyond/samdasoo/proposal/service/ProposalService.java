@@ -10,6 +10,7 @@ import beyond.samdasoo.lead.repository.LeadRepository;
 import beyond.samdasoo.lead.service.LeadService;
 import beyond.samdasoo.proposal.dto.ProposalRequestDto;
 import beyond.samdasoo.proposal.dto.ProposalResponseDto;
+import beyond.samdasoo.proposal.dto.ProposalSearchCriteriaDTO;
 import beyond.samdasoo.proposal.entity.Proposal;
 import beyond.samdasoo.proposal.repository.ProposalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -110,5 +111,10 @@ public class ProposalService {
     @Transactional(readOnly = true)
     public ProposalResponseDto getLatestProposalWithEstimatesByLeadId(Long leadNo) {
         return proposalRepository.findLatestProposalWithEstimatesByLeadId(leadNo);
+    }
+
+    @Transactional(readOnly = true)
+    public List<ProposalResponseDto> searchProposals(ProposalSearchCriteriaDTO searchDto) {
+        return proposalRepository.searchProposals(searchDto);
     }
 }
