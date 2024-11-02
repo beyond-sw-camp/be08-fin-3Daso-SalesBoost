@@ -53,7 +53,7 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/develop'
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/develop' }}
   
     steps:
       - name: Deploy to EC2
@@ -67,12 +67,11 @@ jobs:
             docker-compose down || echo "skip remove"
             docker-compose pull
             docker-compose -f ./docker-compose.yml up -d
-            docker image prune -a || echo "skip remove"
+            docker image prune -a -f || echo "skip remove"
             
   notify-discord:
-    needs: [build, deploy]
+    needs: deploy
     runs-on: ubuntu-latest
-    if: always()
     steps:
       - name: Push success
         if: success()
