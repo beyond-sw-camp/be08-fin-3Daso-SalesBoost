@@ -9,16 +9,10 @@ import beyond.samdasoo.common.exception.BaseException;
 import beyond.samdasoo.customer.entity.Customer;
 import beyond.samdasoo.customer.repository.CustomerRepository;
 import beyond.samdasoo.lead.Entity.Lead;
-import beyond.samdasoo.lead.Entity.QLead;
 import beyond.samdasoo.lead.Entity.Step;
-import beyond.samdasoo.lead.dto.LeadRequestDto;
-import beyond.samdasoo.lead.dto.LeadResponseDto;
-import beyond.samdasoo.lead.dto.LeadSearchCond;
-import beyond.samdasoo.lead.dto.LeadStatusDto;
+import beyond.samdasoo.lead.dto.*;
 import beyond.samdasoo.lead.repository.LeadRepository;
-import beyond.samdasoo.lead.repository.LeadRepositoryCustom;
 import beyond.samdasoo.lead.repository.StepRepository;
-import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -38,7 +32,6 @@ import static beyond.samdasoo.common.response.BaseResponseStatus.*;
 public class LeadService {
     private final JPAQueryFactory queryFactory;
     private final LeadRepository leadRepository;
-    private final LeadRepositoryCustom leadRepositoryCustom;
     private final CustomerRepository customerRepository;
     private final ProcessRepository processRepository;
     private final SubProcessRepository subProcessRepository;
@@ -60,40 +53,9 @@ public class LeadService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
     public List<LeadResponseDto> getFilteredLeads(LeadSearchCond searchCond) {
-        QLead lead = QLead.lead;
-
-        BooleanBuilder builder = new BooleanBuilder();
-
-        if (searchCond.getStatus() != null) {
-            builder.and(lead.status.eq(searchCond.getStatus()));
-        }
-
-        if (searchCond.getProcess() != null && searchCond.getProcess() > 0) {
-            builder.and(lead.process.eq(searchCond.getProcess()));
-        }
-
-        if (searchCond.getSubProcess() != null && searchCond.getSubProcess() > 0) {
-            builder.and(lead.subProcess.eq(searchCond.getSubProcess()));
-
-        }
-
-        if (searchCond.getStartDate() != null) {
-            builder.and(lead.startDate.goe(searchCond.getStartDate()));
-        }
-
-        if (searchCond.getEndDate() != null) {
-            builder.and(lead.endDate.loe(searchCond.getEndDate()));
-        }
-
-        List<Lead> leads = queryFactory
-                .selectFrom(lead)
-                .where(builder)  // 동적 조건
-                .fetch();
-
-        return leads.stream()
-                .map(LeadResponseDto::new)
-                .collect(Collectors.toList());
+        return leadRepository.findFilteredLeads(searchCond);
     }
 
     @Transactional(readOnly = true)
@@ -223,8 +185,24 @@ public class LeadService {
         }
     }
 
+    @Transactional(readOnly = true)
     public List<LeadStatusDto> getLeadStatusGroupedByStatus(SearchCond searchCond) {
-        return leadRepositoryCustom.findLeadStatusGroupedByStatus(searchCond);
+        return leadRepository.findLeadStatusGroupedByStatus(searchCond);
+    }
+
+    @Transactional(readOnly = true)
+    public MonthResponseDto getMonthlyChart(SearchCond searchCond) {
+        return leadRepository.findMonthlyLeadData(searchCond);
+    }
+
+    @Transactional(readOnly = true)
+    public List<SuccessChartDto> getSuccessChart(SearchCond searchCond) {
+        return leadRepository.findSuccessData(searchCond);
+    }
+
+    @Transactional(readOnly = true)
+    public List<AwarePathResponseDto> getPathChart(SearchCond searchCond) {
+        return leadRepository.findLeadDataByAwarePath(searchCond);
     }
 
     public LeadRequestDto objToDto(Lead lead) {
