@@ -5,6 +5,7 @@ import beyond.samdasoo.common.response.BaseResponse;
 import beyond.samdasoo.common.utils.CookieUtil;
 import beyond.samdasoo.common.utils.JwtUtil;
 import beyond.samdasoo.customer.dto.CustomersGetRes;
+import beyond.samdasoo.potentialcustomer.dto.PotentialCustomersGetRes;
 import beyond.samdasoo.user.dto.*;
 import beyond.samdasoo.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -183,6 +184,15 @@ public class UserController {
     public BaseResponse<List<CustomersGetRes>> getCustomers(){
         String loginUserEmail = getLoginUserEmail();
         List<CustomersGetRes> result = userService.getCustomers(loginUserEmail);
+        return new BaseResponse<>(result);
+
+    }
+
+    @Operation(summary = "내 잠재고객 목록 조회", description = "로그인한 영업사원이 담당하는 잠재 고객들 목록 조회")
+    @GetMapping("/pcustomers")
+    public BaseResponse<List<PotentialCustomersGetRes>> getPCustomers(){
+        String loginUserEmail = getLoginUserEmail();
+        List<PotentialCustomersGetRes> result = userService.getPCustomers(loginUserEmail);
         return new BaseResponse<>(result);
 
     }

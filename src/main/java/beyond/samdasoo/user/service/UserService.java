@@ -17,6 +17,9 @@ import beyond.samdasoo.common.response.BaseResponse;
 import beyond.samdasoo.customer.dto.CustomersGetRes;
 import beyond.samdasoo.customer.entity.Customer;
 import beyond.samdasoo.customer.repository.CustomerRepository;
+import beyond.samdasoo.potentialcustomer.dto.PotentialCustomersGetRes;
+import beyond.samdasoo.potentialcustomer.entity.PotentialCustomer;
+import beyond.samdasoo.potentialcustomer.repository.PotentialCustomerRepository;
 import beyond.samdasoo.user.dto.*;
 import beyond.samdasoo.user.entity.User;
 import beyond.samdasoo.user.repository.UpdatePasswordTokenRedisRepository;
@@ -34,6 +37,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static beyond.samdasoo.common.response.BaseResponseStatus.*;
 
@@ -51,6 +55,7 @@ public class UserService {
     private final EmailVerificationUserRedisRepository emailVerificationUserRedisRepository;
     private final CalendarService calendarService;
     private final CustomerRepository customerRepository;
+    private final PotentialCustomerRepository potentialCustomerRepository;
     private final UpdatePasswordTokenRedisRepository updatePasswordTokenRedisRepository;
 
     @Value("${frontend.origin}")
@@ -220,6 +225,22 @@ public class UserService {
 
     }
 
+
+    public List<PotentialCustomersGetRes> getPCustomers(String loginUserEmail) {
+        User user  = userRepository.findByEmail(loginUserEmail).get();
+        List<PotentialCustomer> pCustomers = potentialCustomerRepository.findPotentialCustomersByUser(user);
+
+        return pCustomers.stream().map(p -> PotentialCustomersGetRes.builder()
+                .id(p.getId())
+                .name(p.getName())
+                .company(p.getCompany())
+                .cls(p.getCls())
+                .status(p.getContactStatus().getMessage())
+                .phone(p.getPhone())
+                .email(p.getEmail())
+                .registerDate(p.getRegisterDate())
+                .build()).collect(Collectors.toList());
+    }
     public void updatePasswordRequest(String email) {
 
         boolean exists = userRepository.existsByEmail(email);
@@ -265,4 +286,5 @@ public class UserService {
 
         updatePasswordTokenRedisRepository.deleteById(email); // 저장된 토큰값 날림
     }
+
 }

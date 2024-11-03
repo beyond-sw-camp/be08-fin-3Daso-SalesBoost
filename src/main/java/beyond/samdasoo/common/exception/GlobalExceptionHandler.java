@@ -16,9 +16,9 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(BaseException.class)
     public BaseResponse<BaseResponseStatus> baseExceptionHandle(BaseException e) {
-         log.warn("BaseException. error message: {}", e.getMessage());
-         return new BaseResponse<>(e.getStatus());
-     }
+        log.warn("BaseException. error message: {}", e.getMessage());
+        return new BaseResponse<>(e.getStatus());
+    }
 
     @ExceptionHandler(Exception.class)
     public BaseResponse<BaseResponseStatus> exceptionHandle(Exception exception) {
