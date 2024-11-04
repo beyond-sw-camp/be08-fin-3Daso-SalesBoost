@@ -41,7 +41,8 @@ public class S3Uploader {
 
     private String putS3(MultipartFile uploadFile, String fileName) {
         ObjectMetadata metadata = new ObjectMetadata();
-        metadata.setContentType(uploadFile.getContentType());
+      //  metadata.setContentType(uploadFile.getContentType());
+        metadata.setContentType("image/jpeg");
         metadata.setContentLength(uploadFile.getSize());
         try {
             amazonS3Client.putObject(new PutObjectRequest(bucket, fileName, uploadFile.getInputStream(), metadata));

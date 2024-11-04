@@ -15,6 +15,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @Configuration
 public class RedisConfig {
 
+
     // Redis 서버와의 연결 정보를 저장하는 객체
     private final RedisProperties redisProperties;
 
