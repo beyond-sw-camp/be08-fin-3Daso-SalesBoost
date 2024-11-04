@@ -39,6 +39,9 @@ public class User extends BaseEntity {
     @Column(nullable = false,name="employee_id",unique = true)
     private String employeeId; // 사번
 
+    @Column(name = "profile_url")
+    private String profileUrl;
+
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "dept_id", nullable = false)

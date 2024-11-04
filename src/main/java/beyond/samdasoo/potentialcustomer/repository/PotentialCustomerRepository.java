@@ -1,6 +1,7 @@
 package beyond.samdasoo.potentialcustomer.repository;
 
 import beyond.samdasoo.potentialcustomer.entity.PotentialCustomer;
+import beyond.samdasoo.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -24,5 +25,7 @@ public interface PotentialCustomerRepository extends JpaRepository<PotentialCust
             @Param("searchQuery") String searchQuery,
             @Param("selectedContact") PotentialCustomer.ContactStatus selectedContact
     );
+
+    List<PotentialCustomer> findPotentialCustomersByUser(User user);
 
 }

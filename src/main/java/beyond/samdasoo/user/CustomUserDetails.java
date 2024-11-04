@@ -43,6 +43,8 @@ public class CustomUserDetails implements UserDetails {
         return user.getEmployeeId();
     }
 
+    public String getProfileUrl(){return user.getProfileUrl();}
+
 //    public String getDept(){
 //        return user.getDepartment().getDeptName();
 //    }

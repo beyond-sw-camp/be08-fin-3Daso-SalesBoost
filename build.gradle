@@ -16,6 +16,11 @@ java {
 repositories {
     mavenCentral()
 }
+dependencyManagement {
+    imports {
+        mavenBom "software.amazon.awssdk:bom:2.17.100" // AWS SDK v2 버전
+    }
+}
 
 dependencies {
 
@@ -71,6 +76,14 @@ dependencies {
     
     // mail
     implementation 'org.springframework.boot:spring-boot-starter-mail'
+
+    // AWS S3
+    implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+    implementation 'software.amazon.awssdk:s3' // 필요한 AWS SDK 모듈 추가
+    implementation("com.amazonaws:aws-java-sdk-s3:1.12.174")
+    implementation 'net.java.dev.jets3t:jets3t:0.9.4'
+    implementation 'org.bouncycastle:bcprov-jdk16:1.46'
+
 }
 
 tasks.named('test') {

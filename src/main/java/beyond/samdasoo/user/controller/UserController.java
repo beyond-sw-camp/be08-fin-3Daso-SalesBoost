@@ -5,6 +5,7 @@ import beyond.samdasoo.common.response.BaseResponse;
 import beyond.samdasoo.common.utils.CookieUtil;
 import beyond.samdasoo.common.utils.JwtUtil;
 import beyond.samdasoo.customer.dto.CustomersGetRes;
+import beyond.samdasoo.potentialcustomer.dto.PotentialCustomersGetRes;
 import beyond.samdasoo.user.dto.*;
 import beyond.samdasoo.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -15,6 +16,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.regex.Matcher;
@@ -132,6 +134,13 @@ public class UserController {
         return new BaseResponse<>("메일 인증에 성공하였습니다.");
     }
 
+    @PostMapping("/upload")
+    public BaseResponse<String> uploadImage(@RequestParam("file")MultipartFile file){
+        String imageUrl = userService.uploadImage(file);
+        return new BaseResponse<>(imageUrl);
+    }
+
+
     /**
      * 유저 (영업사원) 목록 반환
      */
@@ -142,6 +151,31 @@ public class UserController {
         return new BaseResponse<>(result);
     }
 
+
+    @GetMapping("/by-dept/{deptNo}")
+    @Operation(summary = "부서별 유저 조회;", description = "해당 부서의 하위 모든 유저 조회")
+    public BaseResponse<List<FilterUserDto>> getUsersByDepartmentAndSubDepartments(@PathVariable Long deptNo) {
+        List<FilterUserDto> users = userService.getUsersByDepartmentAndSubDepartments(deptNo);
+        return new BaseResponse<>(users);
+    }
+
+    @Operation(summary = "내 고객 목록 조회", description = "로그인한 영업사원이 담당하는 고객들 목록 조회")
+    @GetMapping("/customers")
+    public BaseResponse<List<CustomersGetRes>> getCustomers(){
+        String loginUserEmail = getLoginUserEmail();
+        List<CustomersGetRes> result = userService.getCustomers(loginUserEmail);
+        return new BaseResponse<>(result);
+
+    }
+
+    @Operation(summary = "내 잠재고객 목록 조회", description = "로그인한 영업사원이 담당하는 잠재 고객들 목록 조회")
+    @GetMapping("/pcustomers")
+    public BaseResponse<List<PotentialCustomersGetRes>> getPCustomers(){
+        String loginUserEmail = getLoginUserEmail();
+        List<PotentialCustomersGetRes> result = userService.getPCustomers(loginUserEmail);
+        return new BaseResponse<>(result);
+
+    }
 
 
     private void validateInputEmptySignup(JoinUserReq req) {
@@ -168,22 +202,6 @@ public class UserController {
         if (!matcher.find()) {
             throw new BaseException(EMAIL_REGEX_ERROR);
         }
-
-    }
-
-    @GetMapping("/by-dept/{deptNo}")
-    @Operation(summary = "부서별 유저 조회;", description = "해당 부서의 하위 모든 유저 조회")
-    public BaseResponse<List<FilterUserDto>> getUsersByDepartmentAndSubDepartments(@PathVariable Long deptNo) {
-        List<FilterUserDto> users = userService.getUsersByDepartmentAndSubDepartments(deptNo);
-        return new BaseResponse<>(users);
-    }
-
-    @Operation(summary = "내 고객 목록 조회", description = "로그인한 영업사원이 담당하는 고객들 목록 조회")
-    @GetMapping("/customers")
-    public BaseResponse<List<CustomersGetRes>> getCustomers(){
-        String loginUserEmail = getLoginUserEmail();
-        List<CustomersGetRes> result = userService.getCustomers(loginUserEmail);
-        return new BaseResponse<>(result);
 
     }
 }
