@@ -40,6 +40,13 @@ public class TargetSaleController {
         return new BaseResponse<>(response);
     }
 
+    @GetMapping("/dept/{deptName}")
+    @Operation(summary = "목표 매출 금액 조회", description = "특정 부서의 특정 년도 목표 매출 금액 조회")
+    public BaseResponse<Map<Integer, Integer>> getTargetSaleByDeptName(@PathVariable("deptName") String deptName, @RequestParam("year") int year) {
+        Map<Integer, Integer> response = targetSaleService.getTargetSaleByDeptName(deptName, year);
+        return new BaseResponse<>(response);
+    }
+
     @PostMapping("/status/main")
     public BaseResponse<TargetSalesStatusDto> getSalesStatus(@RequestBody SearchCond searchCond) {
         TargetSalesStatusDto targetSalesStatus = targetSaleService.getTargetSalesStatus(searchCond);
@@ -49,6 +56,12 @@ public class TargetSaleController {
     @GetMapping("/status/monthly")
     public BaseResponse<Map<Integer, Integer>> getMonthlyTargetSales(@RequestParam("year") int year) {
         Map<Integer, Integer> monthlyTargetSales = targetSaleService.getMonthlyTargetSalesData(year);
+        return new BaseResponse<>(monthlyTargetSales);
+    }
+
+    @GetMapping("/status/user/{userName}")
+    public BaseResponse<Map<Integer, Integer>> getMonthlyTargetSalesByuserName(@PathVariable("userName") String userName, @RequestParam("year") int year){
+        Map<Integer, Integer> monthlyTargetSales = targetSaleService.getMonthlyTargetSalesByuserName(userName, year);
         return new BaseResponse<>(monthlyTargetSales);
     }
 }
