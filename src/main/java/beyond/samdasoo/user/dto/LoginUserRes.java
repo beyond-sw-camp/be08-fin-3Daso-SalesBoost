@@ -12,7 +12,9 @@ public class LoginUserRes {
     private String name;
     private String email;
     private UserRole role;
+    private String profileUrl;
     private String accessToken;
+
 
 
 }

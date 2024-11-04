@@ -118,4 +118,18 @@ public class SalesController {
     public BaseResponse<SalesResponseDto> getContractByLead(@PathVariable Long leadNo) {
         return new BaseResponse<>(salesService.getSalesByLead(leadNo));
     }
+
+    @GetMapping("/status/dept/{deptName}")
+    public BaseResponse<Map<String, Integer>> getSalesByDept(@PathVariable String deptName, int year){
+        Map<String, Integer> result = salesService.getSalesByDept(deptName, year);
+
+        return new BaseResponse<>(result);
+    }
+
+    @GetMapping("/status/user/{userName}")
+    public BaseResponse<Map<String, Integer>> getMonthlySalesBySalesperson(@PathVariable("userName") String userName, @RequestParam int year) {
+        Map<String, Integer> result = salesService.getMonthlySalesByUserId(userName, year);
+
+        return new BaseResponse<>(result);
+    }
 }

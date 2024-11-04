@@ -37,4 +37,7 @@ public class PlanUpdateDto {
 
     @Schema(description = "일정명", defaultValue = "일정 내용")
     private String content;
+
+    @Schema(description = "도메인 No", defaultValue = "1")
+    private Long domainNo;
 }

@@ -20,6 +20,7 @@ public class PlanResponseDto {
     private String startTime;
     private String endTime;
     private String content;
+    private Long domainNo;
 
     public PlanResponseDto(Plan plan) {
         this.planNo = plan.getNo();
@@ -31,5 +32,6 @@ public class PlanResponseDto {
         this.startTime = plan.getStartTime();
         this.endTime = plan.getEndTime();
         this.content = plan.getContent();
+        this.domainNo = plan.getDomainNo();
     }
 }

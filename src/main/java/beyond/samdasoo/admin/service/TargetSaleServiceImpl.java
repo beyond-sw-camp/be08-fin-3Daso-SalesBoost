@@ -3,8 +3,10 @@ package beyond.samdasoo.admin.service;
 import beyond.samdasoo.admin.dto.TargetSaleRequestDto;
 import beyond.samdasoo.admin.dto.TargetSaleResponseDto;
 import beyond.samdasoo.admin.dto.TargetSalesStatusDto;
+import beyond.samdasoo.admin.entity.Department;
 import beyond.samdasoo.admin.entity.Product;
 import beyond.samdasoo.admin.entity.TargetSale;
+import beyond.samdasoo.admin.repository.DepartmentRepository;
 import beyond.samdasoo.admin.repository.ProductRepository;
 import beyond.samdasoo.admin.repository.TargetSaleRepository;
 import beyond.samdasoo.common.dto.SearchCond;
@@ -18,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static beyond.samdasoo.common.response.BaseResponseStatus.Product_NOT_EXIST;
@@ -31,6 +34,7 @@ public class TargetSaleServiceImpl implements TargetSaleService {
     private final TargetSaleRepository targetSaleRepository;
     private final UserRepository userRepository;
     private final ProductRepository productRepository;
+    private final DepartmentRepository departmentRepository;
 
     @Override
     public void addTargetSale(TargetSaleRequestDto request) {
@@ -132,6 +136,7 @@ public class TargetSaleServiceImpl implements TargetSaleService {
         return targetSaleRepository.findTargetSalesStatus(searchCond);
     }
 
+    @Transactional(readOnly = true)
     public Map<Integer, Integer> getMonthlyTargetSalesData(int year) {
         Map<Integer, Integer> monthlySales = new HashMap<>();
 
@@ -145,4 +150,41 @@ public class TargetSaleServiceImpl implements TargetSaleService {
         return monthlySales;
     }
 
+    @Override
+    public Map<Integer, Integer> getTargetSaleByDeptName(String deptName, int year) {
+        Map<Integer, Integer> deptSales = new HashMap<>();
+
+        Optional<Department> department = departmentRepository.findByDeptName(deptName);
+
+        List<Object[]> results = targetSaleRepository.findMonthlyTargetSalesByYearAndDeptId(department.get().getDeptNo(), year);
+
+        if (results.isEmpty()) {
+            for (int month = 1; month <= 12; month++) {
+                deptSales.put(month, 0);
+            }
+        } else {
+            for (Object[] result : results) {
+                Integer month = (Integer) result[0];
+                Integer totalSales = ((Number) result[1]).intValue();
+                deptSales.put(month, totalSales);
+            }
+        }
+        return deptSales;
+    }
+
+    @Transactional(readOnly = true)
+    public Map<Integer, Integer> getMonthlyTargetSalesByuserName(String userName, int year) {
+        List<TargetSale> targetSales = targetSaleRepository.findByUserNameAndYear(userName, year);
+
+        Map<Integer, Integer> monthlyTargetSales = new HashMap<>();
+
+        for (TargetSale targetSale : targetSales) {
+            int month = targetSale.getMonth();
+            int monthTarget = targetSale.getMonthTarget();
+
+            monthlyTargetSales.put(month, monthlyTargetSales.getOrDefault(month, 0) + monthTarget);
+        }
+
+        return monthlyTargetSales;
+    }
 }
