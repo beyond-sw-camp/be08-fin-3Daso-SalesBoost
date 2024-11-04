@@ -14,6 +14,7 @@ import beyond.samdasoo.common.exception.BaseException;
 import beyond.samdasoo.common.jwt.JwtTokenProvider;
 import beyond.samdasoo.common.jwt.service.RefreshTokenService;
 import beyond.samdasoo.common.response.BaseResponse;
+import beyond.samdasoo.common.utils.S3Uploader;
 import beyond.samdasoo.customer.dto.CustomersGetRes;
 import beyond.samdasoo.customer.entity.Customer;
 import beyond.samdasoo.customer.repository.CustomerRepository;
@@ -33,6 +34,7 @@ import org.hibernate.sql.Update;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -57,6 +59,7 @@ public class UserService {
     private final CustomerRepository customerRepository;
     private final PotentialCustomerRepository potentialCustomerRepository;
     private final UpdatePasswordTokenRedisRepository updatePasswordTokenRedisRepository;
+    private final S3Uploader s3Uploader;
 
     @Value("${frontend.origin}")
     private String frontOrigin;
@@ -287,4 +290,9 @@ public class UserService {
         updatePasswordTokenRedisRepository.deleteById(email); // 저장된 토큰값 날림
     }
 
+    public String uploadImage(MultipartFile file) {
+
+     //   s3Uploader.uploadImage(file);
+        return "success";
+    }
 }

@@ -2,11 +2,10 @@ package beyond.samdasoo.test;
 
 
 import beyond.samdasoo.common.jwt.RefreshTokenRepository;
+import beyond.samdasoo.common.utils.S3Uploader;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,6 +14,8 @@ import java.util.Optional;
 @RestController
 @RequiredArgsConstructor
 public class TestController {
+
+    private final S3Uploader s3Uploader;
 
     private final RefreshTokenRepository refreshTokenRepository;
 
