@@ -2,10 +2,7 @@ package beyond.samdasoo.lead.controller;
 
 import beyond.samdasoo.common.dto.SearchCond;
 import beyond.samdasoo.common.response.BaseResponse;
-import beyond.samdasoo.lead.dto.LeadRequestDto;
-import beyond.samdasoo.lead.dto.LeadResponseDto;
-import beyond.samdasoo.lead.dto.LeadSearchCond;
-import beyond.samdasoo.lead.dto.LeadStatusDto;
+import beyond.samdasoo.lead.dto.*;
 import beyond.samdasoo.lead.service.LeadService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -68,5 +65,23 @@ public class LeadController {
     public BaseResponse<List<LeadStatusDto>> getLeadStatusMain(@RequestBody SearchCond searchCond) {
         List<LeadStatusDto> leadStatus = leadService.getLeadStatusGroupedByStatus(searchCond);
         return new BaseResponse<>(leadStatus);
+    }
+
+    @PostMapping("/chart/month")
+    public BaseResponse<MonthResponseDto> getMonthlyChart(@RequestBody SearchCond searchCond) {
+        MonthResponseDto monthResponse = leadService.getMonthlyChart(searchCond);
+        return new BaseResponse<>(monthResponse);
+    }
+
+    @PostMapping("/chart/success")
+    public BaseResponse<List<SuccessChartDto>> getSuccessChart(@RequestBody SearchCond searchCond) {
+        List<SuccessChartDto> successChartDto = leadService.getSuccessChart(searchCond);
+        return new BaseResponse<>(successChartDto);
+    }
+
+    @PostMapping("/chart/path")
+    public BaseResponse<List<AwarePathResponseDto>> getPathChart(@RequestBody SearchCond searchCond) {
+        List<AwarePathResponseDto> pathChartDto = leadService.getPathChart(searchCond);
+        return new BaseResponse<>(pathChartDto);
     }
 }

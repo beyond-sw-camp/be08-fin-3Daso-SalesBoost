@@ -56,6 +56,7 @@ public class PlanService {
                 .startTime(planRequestDto.getStartTime())
                 .endTime(planRequestDto.getEndTime())
                 .content(planRequestDto.getContent())
+                .domainNo(planRequestDto.getDomainNo())
                 .build();
 
         planRepository.save(plan);
@@ -74,6 +75,7 @@ public class PlanService {
         Optional.ofNullable(planUpdateDto.getStartTime()).ifPresent(plan::setStartTime);
         Optional.ofNullable(planUpdateDto.getEndTime()).ifPresent(plan::setEndTime);
         Optional.ofNullable(planUpdateDto.getContent()).ifPresent(plan::setContent);
+        Optional.ofNullable(planUpdateDto.getDomainNo()).ifPresent(plan::setDomainNo);
 
         planRepository.save(plan);
         return new PlanResponseDto(plan);

@@ -4,7 +4,9 @@ import beyond.samdasoo.common.response.BaseResponse;
 import beyond.samdasoo.estimate.dto.CreateEstimateDto;
 import beyond.samdasoo.estimate.dto.EstimateRequestDto;
 import beyond.samdasoo.estimate.dto.EstimateResponseDto;
+import beyond.samdasoo.estimate.dto.EstimateSearchDto;
 import beyond.samdasoo.estimate.service.EstimateService;
+import com.fasterxml.jackson.databind.ser.Serializers;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,4 +74,12 @@ public class EstimateController {
     public BaseResponse<List<EstimateResponseDto>> getEstimatesWithoutContract() {
         return new BaseResponse<>(estimateService.getEstimatesWithoutContract());
     }
-}
+
+    @PostMapping("/search")
+    @Operation(summary = "견적 검색", description = "검색조건(견정명, 제안명, 견적일)에 맞는 제안을 조회")
+    public BaseResponse<List<EstimateResponseDto>> searchEstimates(@RequestBody EstimateSearchDto estimateSearchDto) {
+        List<EstimateResponseDto> result = estimateService.searchEstimates(estimateSearchDto);
+        return new BaseResponse<>(result);
+    }
+    }
+

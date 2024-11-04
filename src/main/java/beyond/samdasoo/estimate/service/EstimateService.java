@@ -6,10 +6,7 @@ import beyond.samdasoo.admin.repository.ProductRepository;
 import beyond.samdasoo.admin.repository.SubProcessRepository;
 import beyond.samdasoo.common.exception.BaseException;
 import beyond.samdasoo.common.response.BaseResponseStatus;
-import beyond.samdasoo.estimate.dto.CreateEstProductDto;
-import beyond.samdasoo.estimate.dto.CreateEstimateDto;
-import beyond.samdasoo.estimate.dto.EstimateRequestDto;
-import beyond.samdasoo.estimate.dto.EstimateResponseDto;
+import beyond.samdasoo.estimate.dto.*;
 import beyond.samdasoo.estimate.entity.EstProduct;
 import beyond.samdasoo.estimate.entity.Estimate;
 import beyond.samdasoo.estimate.repository.EstProductRepository;
@@ -184,4 +181,10 @@ public class EstimateService {
     public List<EstimateResponseDto> getEstimatesWithoutContract() {
         return estimateRepository.findEstimatesWithoutContract();
     }
+
+    @Transactional(readOnly = true)
+    public List<EstimateResponseDto> searchEstimates(EstimateSearchDto searchDto) {
+        return estimateRepository.searchEstimates(searchDto);
+    }
+
 }

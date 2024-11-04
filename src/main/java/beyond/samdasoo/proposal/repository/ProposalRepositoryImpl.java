@@ -2,6 +2,7 @@ package beyond.samdasoo.proposal.repository;
 
 import beyond.samdasoo.estimate.entity.QEstimate;
 import beyond.samdasoo.proposal.dto.ProposalResponseDto;
+import beyond.samdasoo.proposal.dto.ProposalSearchCriteriaDTO;
 import beyond.samdasoo.proposal.dto.QProposalResponseDto;
 import beyond.samdasoo.proposal.entity.QProposal;
 import com.querydsl.core.BooleanBuilder;
@@ -43,5 +44,26 @@ public class ProposalRepositoryImpl implements ProposalRepositoryCustom {
                 .orderBy(proposal.prDate.desc())
                 .limit(1)
                 .fetchOne();
+    }
+
+    @Override
+    public List<ProposalResponseDto> searchProposals(ProposalSearchCriteriaDTO searchDto) {
+        BooleanBuilder builder = new BooleanBuilder();
+
+        if (searchDto.getPropName() != null && !searchDto.getPropName().isEmpty()) {
+            builder.and(proposal.name.containsIgnoreCase(searchDto.getPropName()));
+        }
+        if (searchDto.getReqDate() != null) {
+            builder.and(proposal.reqDate.eq(searchDto.getReqDate()));
+        }
+        if (searchDto.getStartDate() != null) {
+            builder.and(proposal.startDate.eq(searchDto.getStartDate()));
+        }
+
+        return queryFactory
+                .select(new QProposalResponseDto(proposal))
+                .from(proposal)
+                .where(builder)
+                .fetch();
     }
 }

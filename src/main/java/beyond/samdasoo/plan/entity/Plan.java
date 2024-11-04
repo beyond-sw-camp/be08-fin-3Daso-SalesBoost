@@ -48,4 +48,7 @@ public class Plan extends BaseEntity {
 
     @Column(name = "content")
     private String content;
+
+    @Column(name = "domain_no")
+    private Long domainNo;
 }
