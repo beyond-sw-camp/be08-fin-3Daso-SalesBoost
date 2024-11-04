@@ -1,5 +1,7 @@
 package beyond.samdasoo.sales.service;
 
+import beyond.samdasoo.admin.entity.Department;
+import beyond.samdasoo.admin.repository.DepartmentRepository;
 import beyond.samdasoo.common.dto.SearchCond;
 import beyond.samdasoo.common.exception.BaseException;
 import beyond.samdasoo.common.response.BaseResponseStatus;
@@ -11,6 +13,8 @@ import beyond.samdasoo.sales.dto.SalesResponseDto;
 import beyond.samdasoo.sales.dto.SalesStatusDto;
 import beyond.samdasoo.sales.entity.Sales;
 import beyond.samdasoo.sales.repository.SalesRepository;
+import beyond.samdasoo.user.entity.User;
+import beyond.samdasoo.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
@@ -23,11 +27,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Service
 @RequiredArgsConstructor
@@ -40,6 +42,10 @@ public class SalesService {
     private final SalesRepository salesRepository;
 
     private final ContractRepository contractRepository;
+
+    private final DepartmentRepository departmentRepository;
+
+    private final UserRepository userRepository;
 
     // 전체 매출 조회
     public List<SalesResponseDto> getAllSales() {
@@ -243,5 +249,34 @@ public class SalesService {
     @Transactional(readOnly = true)
     public SalesResponseDto getSalesByLead(Long leadNo) {
         return salesRepository.findSalesByLead(leadNo);
+    }
+
+    @Transactional(readOnly = true)
+    public Map<String, Integer> getSalesByDept(String deptName, int year) {
+        Optional<Department> department = departmentRepository.findByDeptName(deptName);
+
+        Map<String, Integer> monthlySales = new HashMap<>();
+
+        for (int i = 1; i <= 12; i++) {
+            String yearMonth = String.format("%s-%02d", year, i);
+            Integer salesCount = salesRepository.findMonthlySalesByDepartmentAndYear(department.get().getDeptNo(), yearMonth).orElse(0);
+            monthlySales.put(yearMonth, salesCount);
+        }
+        return monthlySales;
+    }
+
+
+    @Transactional(readOnly = true)
+    public Map<String, Integer> getMonthlySalesByUserId(String userName, int year) {
+        User user = userRepository.getUserByName(userName);
+
+        Map<String, Integer> monthlySales = new HashMap<>();
+
+        for (int i = 1; i <= 12; i++) {
+            String yearMonth = String.format("%s-%02d", year, i);
+            Integer salesCount = salesRepository.findMonthlySalesByUserIdAndYear(user.getId(), yearMonth).orElse(0);
+            monthlySales.put(yearMonth, salesCount);
+        }
+        return monthlySales;
     }
 }

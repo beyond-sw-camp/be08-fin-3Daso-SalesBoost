@@ -5,8 +5,6 @@ import beyond.samdasoo.admin.dto.TargetSaleRequestDto;
 import beyond.samdasoo.admin.dto.TargetSaleResponseDto;
 import beyond.samdasoo.admin.dto.TargetSalesStatusDto;
 import beyond.samdasoo.common.dto.SearchCond;
-import beyond.samdasoo.sales.dto.SalesStatusDto;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -20,4 +18,8 @@ public interface TargetSaleService {
     TargetSalesStatusDto getTargetSalesStatus(SearchCond searchCond);
 
     Map<Integer, Integer> getMonthlyTargetSalesData(int year);
+
+    Map<Integer, Integer> getTargetSaleByDeptName(String deptName, int year);
+
+    Map<Integer, Integer> getMonthlyTargetSalesByuserName(String userName, int year);
 }
