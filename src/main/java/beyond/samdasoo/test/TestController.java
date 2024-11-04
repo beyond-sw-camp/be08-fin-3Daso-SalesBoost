@@ -24,4 +24,11 @@ public class TestController {
         return "test";
     }
 
+    @PostMapping("/images")
+    public String createImage(MultipartFile file){
+        String url = "";
+        if(file!=null) url = s3Uploader.uploadFileToS3(file,"static/ex-image");
+        return url;
+    }
+
 }
