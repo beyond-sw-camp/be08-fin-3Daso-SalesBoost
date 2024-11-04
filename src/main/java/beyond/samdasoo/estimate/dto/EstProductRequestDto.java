@@ -4,13 +4,13 @@ import lombok.Data;
 
 @Data
 public class EstProductRequestDto {
-    private int unitAmt;
+    private Long unitAmt;
     private int discount;
-    private int unitPropAmt;
+    private Long unitPropAmt;
     private int qty;
-    private int supplyPrice;
-    private int tax;
-    private int totalAmt;
+    private Long supplyPrice;
+    private Long tax;
+    private Long totalAmt;
     private Long estNo;
     private Long prodNo;
 }

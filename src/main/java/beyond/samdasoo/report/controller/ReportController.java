@@ -26,7 +26,7 @@ public class ReportController {
 
             HttpHeaders headers = new HttpHeaders();
             headers.set(HttpHeaders.CONTENT_TYPE, "application/pdf");
-            headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=estimate.pdf");
+            headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=estimate.pdf");
 
             return new ResponseEntity<>(pdfData, headers, HttpStatus.OK);
         } catch (Exception e) {

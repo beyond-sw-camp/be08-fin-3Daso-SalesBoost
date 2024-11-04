@@ -6,5 +6,5 @@ import lombok.ToString;
 @Getter
 @ToString
 public class PdfEstimateDto {
-    private Long estimateNo;
+    private Long estNo;
 }

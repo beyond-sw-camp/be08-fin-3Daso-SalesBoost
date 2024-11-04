@@ -2,6 +2,7 @@ package beyond.samdasoo.report.service;
 
 import beyond.samdasoo.common.exception.BaseException;
 import beyond.samdasoo.common.response.BaseResponseStatus;
+import beyond.samdasoo.customer.entity.Customer;
 import beyond.samdasoo.estimate.entity.EstProduct;
 import beyond.samdasoo.estimate.entity.Estimate;
 import beyond.samdasoo.estimate.repository.EstProductRepository;
@@ -32,19 +33,20 @@ public class ReportService {
 
     public byte[] generateEstReport(String templateName, PdfEstimateDto dto) {
         try {
-            Estimate estimate = estimateRepository.findById(dto.getEstimateNo())
+            Estimate estimate = estimateRepository.findById(dto.getEstNo())
                     .orElseThrow(() -> new BaseException(BaseResponseStatus.ESTIMATE_NOT_EXIST));
             List<EstProduct> estProducts = estProductRepository.findByEstimate(estimate);
+            Customer customer = estimate.getProposal().getLead().getCustomer();
+            System.out.println(estProducts.size() + "@@@@@");
 
             Map<String, Object> parameters = new HashMap<>();
             parameters.put("estimateName", estimate.getName());
             parameters.put("estimateDate", Date.from(estimate.getEstDate().atStartOfDay(ZoneId.systemDefault()).toInstant()));
-            // 아래 부분은 lead, cust 연결되면 가져다 쓰기
-            parameters.put("company", "3DASOO");
-            parameters.put("companyAddress", "서울 동작구 보라매로 87 빌딩");
-            parameters.put("customerName", "고객명");
-            parameters.put("customerPosition", "고객직책");
-            parameters.put("employeeName", "담당사원명");
+            parameters.put("company", customer.getCompany());
+//            parameters.put("companyAddress", "서울 동작구 보라매로 87 빌딩");
+            parameters.put("customerName", customer.getName());
+            parameters.put("customerPosition", customer.getPosition());
+            parameters.put("employeeName", customer.getUser().getName());
             parameters.put("totalPrice", estimate.getTotalPrice());
 
             JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(estProducts);

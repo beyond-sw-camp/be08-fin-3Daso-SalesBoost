@@ -95,7 +95,6 @@ public class LeadService {
 
     @Transactional
     public void updateLead(Long no, LeadRequestDto leadRequestDto) {
-        System.out.println("@@@leadRequestDto : " + leadRequestDto);
         Lead lead = findLeadById(no);
         Customer customer = findCustomerById(leadRequestDto.getCustNo());
 
