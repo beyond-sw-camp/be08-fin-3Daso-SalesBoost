@@ -171,13 +171,12 @@ VALUES
     (4, NOW(), NOW(), 'PRD004', 4, 'Product D', '사무용품', '제품 D', 15000, 'P004', 150, '2024-08-01', 14000, 7, '개', '사무용품'),
     (5, NOW(), NOW(), 'PRD005', 5, 'Product E', '의류', '제품 E', 20000, 'P005', 120, '2024-09-01', 18000, 6, '벌', '의류');
 
-INSERT INTO tb_est_prod (est_prod_no, created_at, updated_at, discount, qty, supply_price, tax, total_amt, unit_amt, unit_prop_amt, est_no, prod_no)
-VALUES
-    (1, NOW(), NOW(), 5, 10, 1000, 100, 11000, 1000, 900, 1, 1),
-    (2, NOW(), NOW(), 10, 5, 2000, 200, 11000, 2000, 1800, 2, 2),
-    (3, NOW(), NOW(), 15, 8, 1500, 150, 13200, 1500, 1350, 3, 3),
-    (4, NOW(), NOW(), 7, 12, 1200, 120, 14400, 1200, 1100, 4, 4),
-    (5, NOW(), NOW(), 20, 6, 2500, 250, 16500, 2500, 2200, 5, 5);
+INSERT INTO tb_est_prod (est_prod_no, created_at, updated_at, discount, qty, supply_price, tax_rate, tax, total_amt, unit_amt, unit_prop_amt, est_no, prod_no)
+VALUES (1, NOW(), NOW(), 5, 10, 1000, 10, 100, 11000, 1000, 900, 1, 1),
+       (2, NOW(), NOW(), 10, 5, 2000, 10, 200, 11000, 2000, 1800, 2, 2),
+       (3, NOW(), NOW(), 15, 8, 1500, 10, 150, 13200, 1500, 1350, 3, 3),
+       (4, NOW(), NOW(), 7, 12, 1200, 10, 120, 14400, 1200, 1100, 4, 4),
+       (5, NOW(), NOW(), 20, 6, 2500, 10, 250, 16500, 2500, 2200, 5, 5);
 
 
 INSERT INTO tb_sales (created_at, updated_at, busi_type, busi_type_detail, exp_arrival_date, note, price, prod_cnt, sales_name, sales_date, supply_price, surtax_yn, tax, tax_cls, contract_no)

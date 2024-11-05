@@ -1,12 +1,15 @@
 package beyond.samdasoo.estimate.repository;
 
 import beyond.samdasoo.contract.entity.QContract;
+import beyond.samdasoo.customer.entity.QCustomer;
 import beyond.samdasoo.estimate.dto.EstimateResponseDto;
 import beyond.samdasoo.estimate.dto.EstimateSearchDto;
 import beyond.samdasoo.estimate.dto.QEstimateResponseDto;
 import beyond.samdasoo.estimate.entity.Estimate;
 import beyond.samdasoo.estimate.entity.QEstimate;
+import beyond.samdasoo.lead.Entity.QLead;
 import beyond.samdasoo.proposal.entity.QProposal;
+import beyond.samdasoo.user.repository.UserRepository;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class EstimateRepositoryImpl implements EstimateRepositoryCustom {
     private final JPAQueryFactory queryFactory;
+    private final UserRepository userRepository;
 
     QContract contract = QContract.contract;
     QEstimate estimate = QEstimate.estimate;
@@ -61,7 +65,28 @@ public class EstimateRepositoryImpl implements EstimateRepositoryCustom {
 
     @Override
     public List<EstimateResponseDto> searchEstimates(EstimateSearchDto searchDto) {
+        QLead lead = QLead.lead;
+        QCustomer customer = QCustomer.customer;
+
         BooleanBuilder builder = new BooleanBuilder();
+
+        if (searchDto.getStartDate() != null) {
+            builder.and(estimate.estDate.goe(searchDto.getStartDate()));
+        }
+
+        if (searchDto.getEndDate() != null) {
+            builder.and(estimate.estDate.loe(searchDto.getEndDate()));
+        }
+
+        if (searchDto.getDeptNo() != null && searchDto.getDeptNo() > 0) {
+            List<Long> deptNos = userRepository.findAllSubDepartments(searchDto.getDeptNo());
+
+            builder.and(customer.user.department.deptNo.in(deptNos));
+        }
+
+        if (searchDto.getUserNo() != null && searchDto.getUserNo() > 0) {
+            builder.and(customer.user.id.eq(searchDto.getUserNo()));
+        }
 
         if (searchDto.getEstName() != null && !searchDto.getEstName().isEmpty()) {
             builder.and(estimate.name.contains(searchDto.getEstName()));
@@ -71,14 +96,12 @@ public class EstimateRepositoryImpl implements EstimateRepositoryCustom {
             builder.and(proposal.name.contains(searchDto.getPropName()));
         }
 
-        if (searchDto.getEstDate() != null) {
-            builder.and(estimate.estDate.eq(searchDto.getEstDate()));
-        }
-
         return queryFactory
                 .select(new QEstimateResponseDto(estimate))
                 .from(estimate)
-                .leftJoin(estimate.proposal, proposal)
+                .join(estimate.proposal, proposal)
+                .join(proposal.lead, lead)
+                .join(lead.customer, customer)
                 .where(builder)
                 .fetch();
     }
