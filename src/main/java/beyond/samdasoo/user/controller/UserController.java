@@ -4,6 +4,7 @@ import beyond.samdasoo.common.exception.BaseException;
 import beyond.samdasoo.common.response.BaseResponse;
 import beyond.samdasoo.common.utils.CookieUtil;
 import beyond.samdasoo.common.utils.JwtUtil;
+import beyond.samdasoo.common.utils.UserUtil;
 import beyond.samdasoo.customer.dto.CustomersGetRes;
 import beyond.samdasoo.potentialcustomer.dto.PotentialCustomersGetRes;
 import beyond.samdasoo.user.dto.*;
@@ -135,8 +136,9 @@ public class UserController {
     }
 
     @PostMapping("/upload")
-    public BaseResponse<String> uploadImage(@RequestParam("file")MultipartFile file){
-        String imageUrl = userService.uploadImage(file);
+    public BaseResponse<String> uploadImage(@RequestParam("file") MultipartFile file){
+        String email = getLoginUserEmail();
+        String imageUrl = userService.uploadImage(email,file);
         return new BaseResponse<>(imageUrl);
     }
 
