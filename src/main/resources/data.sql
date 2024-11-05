@@ -1,81 +1,24 @@
-INSERT INTO `tb_department` (dept_no, dept_code,dept_name,eng_name,created_at,updated_at, dept_head)
-SELECT 1,'001','영업부','dept_sales',now(),now(), '테스트'
+INSERT INTO `tb_department` (dept_no, dept_code,dept_name,eng_name,created_at,updated_at)
+SELECT 1,'SALES-001','영업부','dept_sales',now(),now()
 WHERE NOT EXISTS (SELECT 1 FROM tb_department WHERE dept_no = 1);
 
-INSERT INTO `tb_department` (dept_no, dept_code,dept_name,eng_name,created_at,updated_at, dept_head)
-SELECT 2,'002','개발부','dept_coding',now(),now(), '삼다수'
-WHERE NOT EXISTS (SELECT 1 FROM tb_department WHERE dept_no = 2);
+INSERT INTO `tb_department` (dept_no, dept_code,dept_name,eng_name,created_at,updated_at)
+SELECT 2,'SS-001','영업 지원부','dept_sales_support',now(),now()
+WHERE NOT EXISTS (SELECT 2 FROM tb_department WHERE dept_no = 2);
 
-INSERT INTO `tb_department` (dept_no, dept_code,dept_name,eng_name,created_at,updated_at, dept_head)
-SELECT 3,'003','인사부','dept_people',now(),now(), '관리자'
+INSERT INTO `tb_department` (dept_no, dept_code,dept_name,eng_name,created_at,updated_at, parent_id)
+SELECT 3,'SALES-002','영업 1팀','dept_sales_1',now(),now(), 1
 WHERE NOT EXISTS (SELECT 1 FROM tb_department WHERE dept_no = 3);
 
-INSERT INTO `tb_department` (dept_no, dept_code,dept_name,eng_name,created_at,updated_at)
-SELECT 4,'004','총무부','dept_generalAffairs',now(),now()
+INSERT INTO `tb_department` (dept_no, dept_code,dept_name,eng_name,created_at,updated_at, parent_id)
+SELECT 4,'SALES-003','영업 2팀','dept_sales_2',now(),now(), 1
 WHERE NOT EXISTS (SELECT 1 FROM tb_department WHERE dept_no = 4);
 
-INSERT INTO `tb_department` (dept_no, dept_code,dept_name,eng_name,created_at,updated_at)
-SELECT 5,'005','기획부','dept_plan',now(),now()
+INSERT INTO `tb_department` (dept_no, dept_code,dept_name,eng_name,created_at,updated_at, parent_id)
+SELECT 5,'SALES-004','영업 3팀','dept_sales_3',now(),now(), 1
 WHERE NOT EXISTS (SELECT 1 FROM tb_department WHERE dept_no = 5);
 
-INSERT INTO `tb_department` (dept_no, dept_code,dept_name,eng_name,created_at,updated_at)
-SELECT 6,'006','전산,IT부','dept_IT',now(),now()
-WHERE NOT EXISTS (SELECT 1 FROM tb_department WHERE dept_no = 6);
 
-INSERT INTO `tb_department` (dept_no, dept_code,dept_name,eng_name,created_at,updated_at, parent_id)
-SELECT 7,'007','영업 지원부','dept_sales_support',now(),now(), 1
-WHERE NOT EXISTS (SELECT 1 FROM tb_department WHERE dept_no = 7);
-
-INSERT INTO `tb_department` (dept_no, dept_code,dept_name,eng_name,created_at,updated_at, parent_id)
-SELECT 8,'008','영업 지원 1팀','dept_sales_support_1',now(),now(), 7
-WHERE NOT EXISTS (SELECT 1 FROM tb_department WHERE dept_no = 8);
-
-INSERT INTO `tb_department` (dept_no, dept_code,dept_name,eng_name,created_at,updated_at, parent_id)
-SELECT 9,'009','영업 지원 2팀','dept_sales_support_2',now(),now(), 7
-WHERE NOT EXISTS (SELECT 1 FROM tb_department WHERE dept_no = 9);
-
-INSERT INTO `tb_department` (dept_no, dept_code,dept_name,eng_name,created_at,updated_at, parent_id)
-SELECT 10,'010','영업 지원 3팀','dept_sales_support_3',now(),now(), 7
-WHERE NOT EXISTS (SELECT 1 FROM tb_department WHERE dept_no = 10);
-
-INSERT INTO `tb_department` (dept_no, dept_code,dept_name,eng_name,created_at,updated_at, parent_id)
-SELECT 11,'011','영업 관리부','dept_sales_management',now(),now(), 1
-WHERE NOT EXISTS (SELECT 1 FROM tb_department WHERE dept_no = 11);
-
-INSERT INTO `tb_department` (dept_no, dept_code,dept_name,eng_name,created_at,updated_at, parent_id)
-SELECT 12,'012','개발 1팀','dept_coding_1',now(),now(), 2
-WHERE NOT EXISTS (SELECT 1 FROM tb_department WHERE dept_no = 12);
-
-INSERT INTO `tb_department` (dept_no, dept_code,dept_name,eng_name,created_at,updated_at, parent_id)
-SELECT 13,'013','개발 2팀','dept_coding_2',now(),now(), 2
-WHERE NOT EXISTS (SELECT 1 FROM tb_department WHERE dept_no = 13);
-
-INSERT INTO `tb_department` (dept_no, dept_code,dept_name,eng_name,created_at,updated_at, parent_id)
-SELECT 14,'014','개발 3팀','dept_coding_3',now(),now(), 2
-WHERE NOT EXISTS (SELECT 1 FROM tb_department WHERE dept_no = 14);
-
-INSERT INTO `tb_department` (dept_no, dept_code,dept_name,eng_name,created_at,updated_at, parent_id)
-SELECT 15,'015','총무 1팀','dept_generalAffairs_1',now(),now(), 4
-WHERE NOT EXISTS (SELECT 1 FROM tb_department WHERE dept_no = 15);
-
-INSERT INTO `tb_department` (dept_no, dept_code,dept_name,eng_name,created_at,updated_at, parent_id)
-SELECT 16,'016','총무 2팀','dept_generalAffairs_2',now(),now(), 4
-WHERE NOT EXISTS (SELECT 1 FROM tb_department WHERE dept_no = 16);
-
-
-
-
-INSERT INTO `tb_user` (user_no,name,email,password,employee_id,dept_id,role,created_at,updated_at,join_date,profile_url)
-SELECT 1,'테스트','test@naver.com','$2a$10$NQ5nj6.3UnFxec0idKxma.pn2mq5L5qIjouO4oueMRzjH/5tPX84e','20241011001','001','USER',now(),now(),now(),'https://s3.ap-northeast-2.amazonaws.com/salesboost-image/static/profile/1667e3a4-85b4-4408-98e7-4464c003d3c1.jpg'
-WHERE NOT EXISTS (SELECT 1 FROM tb_user WHERE email = 'test@naver.com');
-
-INSERT INTO `tb_user` (user_no,name,email,password,employee_id,dept_id,role,created_at,updated_at,join_date,profile_url)
-SELECT 2,'삼다수','samdasoo@naver.com','$2a$10$NQ5nj6.3UnFxec0idKxma.pn2mq5L5qIjouO4oueMRzjH/5tPX84e','20241011005','006','USER',now(),now(),now(),'https://s3.ap-northeast-2.amazonaws.com/salesboost-image/static/profile/3a4bff9e-7e94-4cc4-876b-c19068850269.png'
-WHERE NOT EXISTS (SELECT 1 FROM tb_user WHERE email = 'samdasoo@naver.com');
-
-INSERT INTO `tb_user` (user_no,name,email,password,employee_id,dept_id,role,created_at,updated_at,join_date,profile_url)
-SELECT 3,'관리자','admin@naver.com','$2a$10$NQ5nj6.3UnFxec0idKxma.pn2mq5L5qIjouO4oueMRzjH/5tPX84e','20200711002','003','ADMIN',now(),now(),now(),'https://s3.ap-northeast-2.amazonaws.com/salesboost-image/static/profile/cc3d78d8-3bc4-4c73-bff6-cf69b3bebbe5.jpg'
-WHERE NOT EXISTS (SELECT 1 FROM tb_user WHERE email = 'admin@naver.com');
 
 INSERT INTO `tb_customer` (customer_no,name,company,dept,position,email,phone,tel,grade,is_keyman,user_no,created_at,updated_at)
 SELECT 1, '김은경', '네이버','개발1팀','과장','abc@naver.com','010-1234-8888','03-1344-5999','S',true,1,now(),now()
