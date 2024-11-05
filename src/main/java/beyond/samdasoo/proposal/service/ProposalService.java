@@ -8,6 +8,7 @@ import beyond.samdasoo.lead.Entity.Lead;
 import beyond.samdasoo.lead.dto.LeadRequestDto;
 import beyond.samdasoo.lead.repository.LeadRepository;
 import beyond.samdasoo.lead.service.LeadService;
+import beyond.samdasoo.proposal.dto.ProposalPopResponseDto;
 import beyond.samdasoo.proposal.dto.ProposalRequestDto;
 import beyond.samdasoo.proposal.dto.ProposalResponseDto;
 import beyond.samdasoo.proposal.dto.ProposalSearchCriteriaDTO;
@@ -75,6 +76,14 @@ public class ProposalService {
     }
 
     @Transactional(readOnly = true)
+    public List<ProposalPopResponseDto> getAllProposals2() {
+        List<Proposal> proposals = proposalRepository.findAll();
+        return proposals.stream()
+                .map(ProposalPopResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
     public ProposalResponseDto getProposalById(Long propNo) {
         Proposal proposal = proposalRepository.findById(propNo)
                 .orElseThrow(() -> new BaseException(BaseResponseStatus.PROPOSAL_NOT_EXIST));
@@ -94,6 +103,12 @@ public class ProposalService {
         proposal.setSubmitDate(proposalRequestDto.getSubmitDate());
         proposal.setPrDate(proposalRequestDto.getPrDate());
         proposal.setNote(proposalRequestDto.getNote());
+
+        if (proposalRequestDto.getLeadNo() != null) {
+            Lead lead = leadRepository.findById(proposalRequestDto.getLeadNo())
+                    .orElseThrow(() -> new BaseException(BaseResponseStatus.LEAD_NOT_EXIST));
+            proposal.setLead(lead);
+        }
 
         proposal = proposalRepository.save(proposal);
 

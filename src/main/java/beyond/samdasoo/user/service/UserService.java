@@ -290,9 +290,11 @@ public class UserService {
         updatePasswordTokenRedisRepository.deleteById(email); // 저장된 토큰값 날림
     }
 
-    public String uploadImage(MultipartFile file) {
-
-     //   s3Uploader.uploadImage(file);
-        return "success";
+    @Transactional
+    public String uploadImage(String userEmail,MultipartFile file) {
+        User user = userRepository.findByEmail(userEmail).get();
+        String uploadUrl = s3Uploader.uploadFileToS3(file, "static/profile");
+        user.setProfileUrl(uploadUrl);
+        return uploadUrl;
     }
 }

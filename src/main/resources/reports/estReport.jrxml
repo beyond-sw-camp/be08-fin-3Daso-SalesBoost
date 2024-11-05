@@ -8,20 +8,20 @@
 	<parameter name="estimateName" class="java.lang.String"/>
 	<parameter name="estimateDate" class="java.util.Date"/>
 	<parameter name="company" class="java.lang.String"/>
-	<parameter name="companyAddress" class="java.lang.String"/>
+<!--	<parameter name="companyAddress" class="java.lang.String"/>-->
 	<parameter name="customerName" class="java.lang.String"/>
 	<parameter name="customerPosition" class="java.lang.String"/>
 	<parameter name="employeeName" class="java.lang.String"/>
-	<parameter name="totalPrice" class="java.lang.Integer"/>
+	<parameter name="totalPrice" class="java.lang.Long"/>
 	<field name="product.name" class="java.lang.String"/>
 	<field name="product.field" class="java.lang.String"/>
-	<field name="unitAmt" class="java.lang.Integer"/>
+	<field name="unitAmt" class="java.lang.Long"/>
 	<field name="discount" class="java.lang.Integer"/>
-	<field name="unitPropAmt" class="java.lang.Integer"/>
+	<field name="unitPropAmt" class="java.lang.Long"/>
 	<field name="qty" class="java.lang.Integer"/>
-	<field name="supplyPrice" class="java.lang.Integer"/>
-	<field name="tax" class="java.lang.Integer"/>
-	<field name="totalAmt" class="java.lang.Integer"/>
+	<field name="supplyPrice" class="java.lang.Long"/>
+	<field name="tax" class="java.lang.Long"/>
+	<field name="totalAmt" class="java.lang.Long"/>
 	<title>
 		<band height="50">
 			<staticText>
@@ -80,15 +80,15 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{company}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="280" y="20" width="274" height="20" uuid="7098fedc-6c5f-4ed5-bc91-31be60b7f005">
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Right">
-					<font fontName="KR_나눔고딕" size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{companyAddress}]]></textFieldExpression>
-			</textField>
+<!--			<textField>-->
+<!--				<reportElement x="280" y="20" width="274" height="20" uuid="7098fedc-6c5f-4ed5-bc91-31be60b7f005">-->
+<!--					<property name="com.jaspersoft.studio.unit.x" value="px"/>-->
+<!--				</reportElement>-->
+<!--				<textElement textAlignment="Right">-->
+<!--					<font fontName="KR_나눔고딕" size="12"/>-->
+<!--				</textElement>-->
+<!--				<textFieldExpression><![CDATA[$P{companyAddress}]]></textFieldExpression>-->
+<!--			</textField>-->
 			<textField>
 				<reportElement x="140" y="20" width="140" height="20" uuid="354a1ab2-c19e-4bc0-9278-1c1f12d459dc">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>

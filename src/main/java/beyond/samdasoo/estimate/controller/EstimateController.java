@@ -1,12 +1,11 @@
 package beyond.samdasoo.estimate.controller;
 
 import beyond.samdasoo.common.response.BaseResponse;
-import beyond.samdasoo.estimate.dto.CreateEstimateDto;
-import beyond.samdasoo.estimate.dto.EstimateRequestDto;
+import beyond.samdasoo.estimate.dto.CreateEstRequestDto;
+import beyond.samdasoo.estimate.dto.EstimateDtlResponseDto;
 import beyond.samdasoo.estimate.dto.EstimateResponseDto;
 import beyond.samdasoo.estimate.dto.EstimateSearchDto;
 import beyond.samdasoo.estimate.service.EstimateService;
-import com.fasterxml.jackson.databind.ser.Serializers;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +27,7 @@ public class EstimateController {
 
     @PostMapping
     @Operation(summary = "견적 등록", description = "새로운 견적 건을 등록")
-    public BaseResponse<EstimateResponseDto> createEstimate(@RequestBody CreateEstimateDto createEstimateDto) {
+    public BaseResponse<EstimateResponseDto> createEstimate(@RequestBody CreateEstRequestDto createEstimateDto) {
         EstimateResponseDto responseDto = estimateService.createEstimate(createEstimateDto);
         return new BaseResponse<>(responseDto);
     }
@@ -44,15 +43,15 @@ public class EstimateController {
 
     @GetMapping("/{no}")
     @Operation(summary = "특정 견적 조회", description = "견적 번호로 특정 제안 조회")
-    public BaseResponse<EstimateResponseDto> getEstimateById(@PathVariable("no") Long estNo) {
-        EstimateResponseDto responseDto = estimateService.getEstimateById(estNo);
+    public BaseResponse<EstimateDtlResponseDto> getEstimateById(@PathVariable("no") Long estNo) {
+        EstimateDtlResponseDto responseDto = estimateService.getEstimateById(estNo);
         return new BaseResponse<>(responseDto);
     }
 
     @PatchMapping("/{no}")
     @Operation(summary = "견적 수정", description = "견적 번호로 특정 제안 수정")
     public BaseResponse<EstimateResponseDto> patchUpdateEstimate(@PathVariable("no") Long estNo,
-                                                                 @RequestBody EstimateRequestDto estimateRequestDto) {
+                                                                 @RequestBody CreateEstRequestDto estimateRequestDto) {
         EstimateResponseDto responseDto = estimateService.updateEstimate(estNo, estimateRequestDto);
         return new BaseResponse<>(responseDto);
     }
@@ -61,7 +60,7 @@ public class EstimateController {
     @Operation(summary = "견적 삭제", description = "견적 번호로 특정 제안 삭제")
     public BaseResponse<String> deleteEstimate(@PathVariable("no") Long estNo) {
         estimateService.deleteEstimate(estNo);
-        return new BaseResponse<>("견적이 삭제되었습니다.");
+        return new BaseResponse<>("견적이 삭제됐습니다.");
     }
 
     @GetMapping("/timeline/{leadNo}")
@@ -81,5 +80,5 @@ public class EstimateController {
         List<EstimateResponseDto> result = estimateService.searchEstimates(estimateSearchDto);
         return new BaseResponse<>(result);
     }
-    }
+}
 

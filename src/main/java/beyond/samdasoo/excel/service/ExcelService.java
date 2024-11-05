@@ -4,10 +4,7 @@ import beyond.samdasoo.common.exception.BaseException;
 import beyond.samdasoo.common.response.BaseResponseStatus;
 import beyond.samdasoo.excel.dto.ExcelDto;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
 
@@ -54,5 +51,47 @@ public class ExcelService {
                 }
             }
         }
+    }
+
+    public byte[] generateExcel(ExcelDto excelDto) throws IOException {
+        try (Workbook workbook = new XSSFWorkbook(); ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+            Sheet sheet = workbook.createSheet(excelDto.getSheetName());
+            List<Map<String, Object>> data = excelDto.getTableData();
+
+            if (data.isEmpty()) {
+                return new byte[0];
+            }
+
+            // Create header row
+            Row headerRow = sheet.createRow(0);
+            int headerIndex = 0;
+            for (String key : data.get(0).keySet()) {
+                Cell cell = headerRow.createCell(headerIndex++);
+                cell.setCellValue(key);
+                cell.setCellStyle(createHeaderCellStyle(workbook));
+            }
+
+            // Populate data rows
+            int rowIndex = 1;
+            for (Map<String, Object> rowData : data) {
+                Row row = sheet.createRow(rowIndex++);
+                int cellIndex = 0;
+                for (Object value : rowData.values()) {
+                    Cell cell = row.createCell(cellIndex++);
+                    cell.setCellValue(value != null ? value.toString() : "");
+                }
+            }
+
+            workbook.write(out);
+            return out.toByteArray();
+        }
+    }
+
+    private CellStyle createHeaderCellStyle(Workbook workbook) {
+        CellStyle style = workbook.createCellStyle();
+        Font font = workbook.createFont();
+        font.setBold(true);
+        style.setFont(font);
+        return style;
     }
 }

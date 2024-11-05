@@ -15,9 +15,9 @@ public class EstimateResponseDto {
     private String taxCls;  // 과세구분
     private String surtaxYn;  // 단가구분
     private int prodCnt;  // 수량
-    private int supplyPrice;  // 공급가액
-    private int tax;  // 세액
-    private int totalPrice;  // 합계금액
+    private Long supplyPrice;  // 공급가액
+    private Long tax;  // 세액
+    private Long totalPrice;  // 합계금액
     private String note;  // 비고 (optional)
     private Long propNo;  // 제안번호 (FK)
     private String propName;

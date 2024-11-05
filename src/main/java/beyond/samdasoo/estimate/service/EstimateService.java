@@ -47,7 +47,7 @@ public class EstimateService {
     }
 
     @Transactional
-    public EstimateResponseDto createEstimate(CreateEstimateDto createEstimateDto) {
+    public EstimateResponseDto createEstimate(CreateEstRequestDto createEstimateDto) {
 
         Proposal proposal = proposalRepository.findById(createEstimateDto.getPropNo())
                 .orElseThrow(() -> new BaseException(BaseResponseStatus.PROPOSAL_NOT_EXIST));
@@ -64,29 +64,10 @@ public class EstimateService {
         estimate.setNote(createEstimateDto.getNote());
         estimate.setProposal(proposal);
 
-        estimateRepository.save(estimate);
+        Estimate createEst = estimateRepository.save(estimate);
 
-        if (!createEstimateDto.getEstProducts().isEmpty()) {
-            for (CreateEstProductDto estProductDto : createEstimateDto.getEstProducts()) {
-
-                Long prodNo = estProductDto.getProdNo();
-                Product product = productRepository.findById(prodNo)
-                        .orElseThrow(() -> new BaseException(BaseResponseStatus.Product_NOT_EXIST));
-
-                EstProduct estProduct = new EstProduct();
-                estProduct.setUnitAmt(estProductDto.getUnitAmt());
-                estProduct.setDiscount(estProductDto.getDiscount());
-                estProduct.setUnitPropAmt(estProductDto.getUnitPropAmt());
-                estProduct.setQty(estProductDto.getQty());
-                estProduct.setSupplyPrice(estProductDto.getSupplyPrice());
-                estProduct.setTax(estProductDto.getTax());
-                estProduct.setTotalAmt(estProductDto.getTotalAmt());
-
-                estProduct.setEstimate(estimate);
-                estProduct.setProduct(product);
-
-                estimate.getEstProducts().add(estProduct);
-            }
+        if (!createEstimateDto.getProducts().isEmpty()) {
+            createEstProd(createEst, createEstimateDto);
         }
 
         SubProcess subProcess = subProcessRepository.searchSubProcesses(proposal.getLead().getProcess(), "협상");
@@ -97,7 +78,7 @@ public class EstimateService {
 
         leadService.updateLead(proposal.getLead().getNo(), leadRequestDto);
 
-        return new EstimateResponseDto(estimate);
+        return new EstimateResponseDto(createEst);
     }
 
     public List<EstimateResponseDto> getAllEstimates() {
@@ -108,58 +89,38 @@ public class EstimateService {
     }
 
     @Transactional(readOnly = true)
-    public EstimateResponseDto getEstimateById(Long estNo) {
+    public EstimateDtlResponseDto getEstimateById(Long estNo) {
         Estimate estimate = estimateRepository.findById(estNo)
                 .orElseThrow(() -> new BaseException(BaseResponseStatus.ESTIMATE_NOT_EXIST));
-        return new EstimateResponseDto(estimate);
+        return new EstimateDtlResponseDto(estimate);
     }
 
     @Transactional
-    public EstimateResponseDto updateEstimate(Long estNo, EstimateRequestDto estimateRequestDto) {
+    public EstimateResponseDto updateEstimate(Long estNo, CreateEstRequestDto estimateRequestDto) {
 
         Estimate estimate = estimateRepository.findById(estNo)
                 .orElseThrow(() -> new BaseException(BaseResponseStatus.ESTIMATE_NOT_EXIST));
 
+        Proposal proposal = proposalRepository.findById(estimateRequestDto.getPropNo())
+                .orElseThrow(() -> new BaseException(BaseResponseStatus.PROPOSAL_NOT_EXIST));
+
+        estimate.setProposal(proposal);
         Optional.ofNullable(estimateRequestDto.getName()).ifPresent(estimate::setName);
         Optional.ofNullable(estimateRequestDto.getEstDate()).ifPresent(estimate::setEstDate);
         Optional.ofNullable(estimateRequestDto.getTaxCls()).ifPresent(estimate::setTaxCls);
         Optional.ofNullable(estimateRequestDto.getSurtaxYn()).ifPresent(estimate::setSurtaxYn);
-        Optional.ofNullable(estimateRequestDto.getProdCnt()).ifPresent(estimate::setProdCnt);
+        Optional.of(estimateRequestDto.getProdCnt()).ifPresent(estimate::setProdCnt);
         Optional.ofNullable(estimateRequestDto.getSupplyPrice()).ifPresent(estimate::setSupplyPrice);
         Optional.ofNullable(estimateRequestDto.getTax()).ifPresent(estimate::setTax);
         Optional.ofNullable(estimateRequestDto.getTotalPrice()).ifPresent(estimate::setTotalPrice);
         Optional.of(estimateRequestDto.getNote()).ifPresent(estimate::setNote);
 
 
-        if (estimateRequestDto.getEstProducts() != null) {
-            List<EstProduct> existingEstProducts = estimate.getEstProducts();
-            estProductRepository.deleteAll(existingEstProducts);
+        if (!estimateRequestDto.getProducts().isEmpty()) {
+            estProductRepository.deleteByEstimate(estimate);
 
-            estimate.getEstProducts().clear();
-
-            for (CreateEstProductDto estProductDto : estimateRequestDto.getEstProducts()) {
-                Product product = productRepository.findById(estProductDto.getProdNo())
-                        .orElseThrow(() -> new BaseException(BaseResponseStatus.Product_NOT_EXIST));
-
-                EstProduct estProduct = new EstProduct();
-
-                Optional.ofNullable(estProductDto.getUnitAmt()).ifPresent(estProduct::setUnitAmt);
-                Optional.ofNullable(estProductDto.getDiscount()).ifPresent(estProduct::setDiscount);
-                Optional.ofNullable(estProductDto.getUnitPropAmt()).ifPresent(estProduct::setUnitPropAmt);
-                Optional.ofNullable(estProductDto.getQty()).ifPresent(estProduct::setQty);
-                Optional.ofNullable(estProductDto.getSupplyPrice()).ifPresent(estProduct::setSupplyPrice);
-                Optional.ofNullable(estProductDto.getTax()).ifPresent(estProduct::setTax);
-                Optional.ofNullable(estProductDto.getTotalAmt()).ifPresent(estProduct::setTotalAmt);
-
-                estProduct.setEstimate(estimate);
-                estProduct.setProduct(product);
-
-                estProductRepository.save(estProduct);
-                estimate.getEstProducts().add(estProduct);
-            }
+            createEstProd(estimate, estimateRequestDto);
         }
-
-        estimate = estimateRepository.save(estimate);
 
         return new EstimateResponseDto(estimate);
     }
@@ -187,4 +148,29 @@ public class EstimateService {
         return estimateRepository.searchEstimates(searchDto);
     }
 
+    void createEstProd(Estimate estimate, CreateEstRequestDto createEstimateDto) {
+        System.out.println(createEstimateDto.getProducts());
+
+        for (CreateProdRequestDto estProductDto : createEstimateDto.getProducts()) {
+
+            Long prodNo = estProductDto.getProdNo();
+            Product product = productRepository.findById(prodNo)
+                    .orElseThrow(() -> new BaseException(BaseResponseStatus.Product_NOT_EXIST));
+
+            EstProduct estProduct = new EstProduct();
+            estProduct.setUnitAmt(estProductDto.getUnitAmt());
+            estProduct.setDiscount(estProductDto.getDiscount());
+            estProduct.setUnitPropAmt(estProductDto.getUnitPropAmt());
+            estProduct.setQty(estProductDto.getQty());
+            estProduct.setSupplyPrice(estProductDto.getSupplyPrice());
+            estProduct.setTaxRate(estProductDto.getTaxRate());
+            estProduct.setTax(estProductDto.getTax());
+            estProduct.setTotalAmt(estProductDto.getTotalAmt());
+            estProduct.setEstimate(estimate);
+            estProduct.setProduct(product);
+
+            EstProduct newEstProduct = estProductRepository.save(estProduct);
+            estimate.getEstProducts().add(newEstProduct);
+        }
+    }
 }

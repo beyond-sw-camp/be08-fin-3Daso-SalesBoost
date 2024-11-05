@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface EstProductRepository extends JpaRepository<EstProduct, Long> {
     List<EstProduct> findByEstimate(Estimate estimate);
+
+    void deleteByEstimate(Estimate estimate);
 }
