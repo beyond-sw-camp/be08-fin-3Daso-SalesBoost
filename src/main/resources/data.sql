@@ -1,4 +1,3 @@
--- >>>>>>>>>>>> 부서 <<<<<<<<<<<<<<
 INSERT INTO `tb_department` (dept_no, dept_code,dept_name,eng_name,created_at,updated_at)
 SELECT 1,'SALES-001','영업부','dept_sales',now(),now()
 WHERE NOT EXISTS (SELECT 1 FROM tb_department WHERE dept_no = 1);
@@ -88,9 +87,6 @@ WHERE NOT EXISTS (SELECT 1 FROM tb_user WHERE email = 'haeun@company.com');
 INSERT INTO `tb_user` (user_no, name, email, password, employee_id, dept_id, role, created_at, updated_at, join_date, profile_url)
 SELECT 13, '조성호', 'seongho@company.com', '$2a$10$NQ5nj6.3UnFxec0idKxma.pn2mq5L5qIjouO4oueMRzjH/5tPX84e', '20241011012', 4, 'USER', now(), now(), now(), null
 WHERE NOT EXISTS (SELECT 1 FROM tb_user WHERE email = 'seongho@company.com');
-
---
-
 
 -- >>>>>>>>>>>> 고객 <<<<<<<<<<<<<<
 
