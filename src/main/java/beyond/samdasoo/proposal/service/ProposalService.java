@@ -8,6 +8,7 @@ import beyond.samdasoo.lead.Entity.Lead;
 import beyond.samdasoo.lead.dto.LeadRequestDto;
 import beyond.samdasoo.lead.repository.LeadRepository;
 import beyond.samdasoo.lead.service.LeadService;
+import beyond.samdasoo.proposal.dto.ProposalPopResponseDto;
 import beyond.samdasoo.proposal.dto.ProposalRequestDto;
 import beyond.samdasoo.proposal.dto.ProposalResponseDto;
 import beyond.samdasoo.proposal.dto.ProposalSearchCriteriaDTO;
@@ -71,6 +72,14 @@ public class ProposalService {
         List<Proposal> proposals = proposalRepository.findAll();
         return proposals.stream()
                 .map(proposal -> new ProposalResponseDto(proposal))
+                .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<ProposalPopResponseDto> getAllProposals2() {
+        List<Proposal> proposals = proposalRepository.findAll();
+        return proposals.stream()
+                .map(ProposalPopResponseDto::new)
                 .collect(Collectors.toList());
     }
 

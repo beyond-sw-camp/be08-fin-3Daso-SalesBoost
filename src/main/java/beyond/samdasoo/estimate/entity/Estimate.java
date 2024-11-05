@@ -45,13 +45,13 @@ public class Estimate extends BaseEntity {
     private int prodCnt;  // 수량
 
     @Column(name = "supply_price", nullable = false)
-    private int supplyPrice;  // 공급가액
+    private Long supplyPrice;  // 공급가액
 
     @Column(name = "tax", nullable = false)
-    private int tax;  // 세액
+    private Long tax;  // 세액
 
     @Column(name = "total_price", nullable = false)
-    private int totalPrice;  // 합계금액
+    private Long totalPrice;  // 합계금액
 
     @Column(name = "note")
     private String note;  // 비고 (optional)
