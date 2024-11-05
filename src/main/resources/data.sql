@@ -88,12 +88,6 @@ INSERT INTO `tb_user` (user_no, name, email, password, employee_id, dept_id, rol
 SELECT 13, '조성호', 'seongho@company.com', '$2a$10$NQ5nj6.3UnFxec0idKxma.pn2mq5L5qIjouO4oueMRzjH/5tPX84e', '20241011012', 4, 'USER', now(), now(), now(), null
 WHERE NOT EXISTS (SELECT 1 FROM tb_user WHERE email = 'seongho@company.com');
 
---
-
-INSERT INTO `tb_customer` (customer_no,name,company,dept,position,email,phone,tel,grade,is_keyman,user_no,created_at,updated_at)
-SELECT 1, '김은경', '네이버','개발1팀','과장','abc@naver.com','010-1234-8888','03-1344-5999','S',true,1,now(),now()
-WHERE NOT EXISTS (SELECT 1 FROM tb_customer WHERE customer_no=1);
-
 -- >>>>>>>>>>>> 고객 <<<<<<<<<<<<<<
 
 -- 고객 데이터 생성 (총 50개)
