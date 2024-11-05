@@ -104,6 +104,12 @@ public class ProposalService {
         proposal.setPrDate(proposalRequestDto.getPrDate());
         proposal.setNote(proposalRequestDto.getNote());
 
+        if (proposalRequestDto.getLeadNo() != null) {
+            Lead lead = leadRepository.findById(proposalRequestDto.getLeadNo())
+                    .orElseThrow(() -> new BaseException(BaseResponseStatus.LEAD_NOT_EXIST));
+            proposal.setLead(lead);
+        }
+
         proposal = proposalRepository.save(proposal);
 
         return new ProposalResponseDto(proposal);
