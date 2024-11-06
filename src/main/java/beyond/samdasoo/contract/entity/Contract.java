@@ -45,16 +45,16 @@ public class Contract extends BaseEntity {
     private String surtaxYn;
 
     @Column(name = "prod_cnt")
-    private Integer productCount;
+    private int productCount;
 
     @Column(name = "supply_price")
-    private Integer supplyPrice;
+    private int supplyPrice;
 
     @Column(name = "tax")
-    private Integer tax;
+    private int tax;
 
     @Column(name = "price")
-    private Integer totalPrice;
+    private int totalPrice;
 
     @Column(name = "payment_terms")
     private String paymentTerms;

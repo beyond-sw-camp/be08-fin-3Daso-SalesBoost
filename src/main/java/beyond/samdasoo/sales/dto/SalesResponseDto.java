@@ -26,6 +26,7 @@ public class SalesResponseDto {
     private String busiTypeDetail;
     private String note;
     private Long contractNo;
+    private String contractName;
 
     @QueryProjection
     public SalesResponseDto(Sales sales) {
@@ -43,6 +44,7 @@ public class SalesResponseDto {
         this.busiTypeDetail = sales.getBusiTypeDetail();
         this.note = sales.getNote();
         this.contractNo = sales.getContract().getContractNo();
+        this.contractName = sales.getContract().getName();
     }
 
 }

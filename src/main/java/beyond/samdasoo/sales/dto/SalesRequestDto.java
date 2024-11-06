@@ -20,6 +20,7 @@ public class SalesRequestDto {
     private String busiTypeDetail;
     private String note;
     private Long contractNo;
+    private String contractName;
 
 
 }

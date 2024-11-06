@@ -94,4 +94,5 @@ public class ContractController {
     public BaseResponse<List<ContractResponseDto>> getEstimatesWithoutContract() {
         return new BaseResponse<>(contractService.getContractsWithoutSales());
     }
+
 }

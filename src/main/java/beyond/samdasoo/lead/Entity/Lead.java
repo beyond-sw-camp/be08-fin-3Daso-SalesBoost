@@ -49,7 +49,7 @@ public class Lead extends BaseEntity {
     @Column(name = "sub_process", nullable = false)
     private Long subProcess; // 서브프로세스
 
-    @Column(name = "sucess_per")
+    @Column(name = "success_per")
     private int successPer;  // 성공확률
 
     @Column(name = "start_date")

@@ -37,4 +37,12 @@ public interface SalesRepository extends JpaRepository<Sales, Long >,SalesReposi
             "WHERE u.id = :userId " +
             "AND FUNCTION('DATE_FORMAT', s.salesDate, '%Y-%m') = :yearMonth")
     Optional<Integer> findMonthlySalesByUserIdAndYear(@Param("userId") Long userId, @Param("yearMonth") String yearMonth);
+
+    // 특정 연도의 매출 총합
+    @Query("SELECT SUM(s.price) FROM Sales s WHERE YEAR(s.salesDate) = :year")
+    Integer findTotalSalesByYear(int year);
+
+    // 특정 연도 및 월의 매출 총합
+    @Query("SELECT SUM(s.price) FROM Sales s WHERE YEAR(s.salesDate) = :year AND MONTH(s.salesDate) = :month")
+    Integer findTotalSalesByYearAndMonth(int year, int month);
 }
