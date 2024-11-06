@@ -17,18 +17,18 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
 
     private final JPAQueryFactory queryFactory;
 
-    @Override
-    public List<FilterUserDto> findUsersByDepartmentAndSubDepartments(Long deptNo) {
-        QUser user = QUser.user;
-
-        List<Long> deptNos = findAllSubDepartments(deptNo);
-
-        return queryFactory
-                .select(Projections.constructor(FilterUserDto.class, user.id, user.name))
-                .from(user)
-                .where(user.department.deptNo.in(deptNos))
-                .fetch();
-    }
+//    @Override
+//    public List<FilterUserDto> findUsersByDepartmentAndSubDepartments(Long deptNo) {
+//        QUser user = QUser.user;
+//
+//        List<Long> deptNos = findAllSubDepartments(deptNo);
+//
+//        return queryFactory
+//                .select(Projections.constructor(FilterUserDto.class, user.id, user.name))
+//                .from(user)
+//                .where(user.department.deptNo.in(deptNos))
+//                .fetch();
+//    }
 
     // 주어진 deptNo를 포함한 모든 하위 부서까지의 deptNo 리스트를 재귀적으로 조회
     public List<Long> findAllSubDepartments(Long deptNo) {
