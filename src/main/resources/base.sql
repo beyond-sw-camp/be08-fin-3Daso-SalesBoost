@@ -21,12 +21,12 @@ VALUES (1, '기회인지', '인지', 0, '인지', 5, CURDATE(), CURDATE(), 1),
        (7, '협상', '협상', 30, '견적', 5, CURDATE(), CURDATE(), 2),
        (8, '계약', '계약', 100, '계약', 20, CURDATE(), CURDATE(), 2);
 
-# INSERT INTO tb_lead (created_at, updated_at, start_date, end_date, exp_margin, exp_profit, exp_sales, name, note, process, status, sub_process, sucess_per, customer_no)
-# VALUES (CURDATE(), CURDATE(), '2024-03-01', '2024-04-11', 20, 2000, 10000, '고객 A 영업', 'A에 대한 활동 메모', 1, 'SUCCESS', 5, 100, 1),
-#        (CURDATE(), CURDATE(), '2024-05-01', '2024-06-11', 10, 800, 8000, '고객 B 영업', 'B에 대한 활동 메모', 1, 'SUCCESS', 5, 100,2),
-#        (CURDATE(), CURDATE(), '2024-07-01', '2024-08-11', 20, 1000, 5000, '고객 C 영업', 'C에 대한 활동 메모', 1, 'SUCCESS', 5, 100, 3),
-#        (CURDATE(), CURDATE(), '2024-09-01', '2024-10-11', 30, 1800, 6000, '고객 D 영업', 'D에 대한 활동 메모', 1, 'SUCCESS', 5, 100, 4),
-#        (CURDATE(), CURDATE(), '2024-10-01', '2024-11-11', 30, 1800, 6000, '고객 E 영업', 'E에 대한 활동 메모', 1, 'SUCCESS', 3, 100, 5);
+INSERT INTO tb_lead (created_at, updated_at, start_date, end_date, exp_margin, exp_profit, exp_sales, name, note, process, status, sub_process, sucess_per, customer_no)
+VALUES (CURDATE(), CURDATE(), '2024-03-01', '2024-04-11', 20, 2000, 10000, '고객 A 영업', 'A에 대한 활동 메모', 1, 'SUCCESS', 5, 100, 1),
+       (CURDATE(), CURDATE(), '2024-05-01', '2024-06-11', 10, 800, 8000, '고객 B 영업', 'B에 대한 활동 메모', 1, 'SUCCESS', 5, 100,2),
+       (CURDATE(), CURDATE(), '2024-07-01', '2024-08-11', 20, 1000, 5000, '고객 C 영업', 'C에 대한 활동 메모', 1, 'SUCCESS', 5, 100, 3),
+       (CURDATE(), CURDATE(), '2024-09-01', '2024-10-11', 30, 1800, 6000, '고객 D 영업', 'D에 대한 활동 메모', 1, 'SUCCESS', 5, 100, 4),
+       (CURDATE(), CURDATE(), '2024-10-01', '2024-11-11', 30, 1800, 6000, '고객 E 영업', 'E에 대한 활동 메모', 1, 'SUCCESS', 3, 100, 5);
 
 INSERT INTO tb_step(step_no, complete_yn, complete_date, LEVEL, lead_no, sub_process_no)
 VALUES (1, 'Y', '2024-03-01', 0, 1, 1) ,
