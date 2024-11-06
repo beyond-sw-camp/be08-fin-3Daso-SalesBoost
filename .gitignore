@@ -6,6 +6,7 @@
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
 /src/main/resources/application.yml
+/src/main/resources/application-prod.yml
 /src/main/resources/application-sercret.yml
 /src/test/resources/application-test.yml
 /src/test/resources/application-test.properties

@@ -84,7 +84,7 @@ public class Contract extends BaseEntity {
     private String note;
 
     @JoinColumn(name = "est_no", nullable = false)
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Estimate estimate;
 
     @OneToMany(mappedBy = "contract", cascade = CascadeType.ALL)

@@ -64,6 +64,10 @@ public class LeadRepositoryImpl implements LeadRepositoryCustom {
             builder.and(customer.user.id.eq(searchCond.getUserNo()));
         }
 
+        if (searchCond.getName() != null && !searchCond.getName().isEmpty()) {
+            builder.and(lead.name.containsIgnoreCase(searchCond.getName()));
+        }
+
         List<Lead> leads = queryFactory
                 .selectFrom(lead)
                 .where(builder)  // 동적 조건

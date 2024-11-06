@@ -9,7 +9,7 @@ VALUES
 
 INSERT INTO tb_process(process_no, process_name, is_default, DESCRIPTION, created_at, updated_at, expected_duration)
 VALUES (1, '기본영업프로세스', 1, '기회인지-상담-제안-협상-계약', CURDATE(), CURDATE(), 45),
-       (2, '테스트영업프로세스', 0, '제안-협상-계약', CURDATE(), CURDATE(), 30);
+       (2, '커피머신 영업 프로세스', 0, '제안-협상-계약', CURDATE(), CURDATE(), 30);
 
 INSERT INTO tb_sub_process(sub_process_no, sub_process_name, progress_step, success_rate, ACTION, expected_duration, created_at, updated_at, process_no)
 VALUES (1, '기회인지', '인지', 0, '인지', 5, CURDATE(), CURDATE(), 1),
@@ -21,12 +21,12 @@ VALUES (1, '기회인지', '인지', 0, '인지', 5, CURDATE(), CURDATE(), 1),
        (7, '협상', '협상', 30, '견적', 5, CURDATE(), CURDATE(), 2),
        (8, '계약', '계약', 100, '계약', 20, CURDATE(), CURDATE(), 2);
 
-# INSERT INTO tb_lead (created_at, updated_at, start_date, end_date, exp_margin, exp_profit, exp_sales, name, note, process, status, sub_process, sucess_per, customer_no)
-# VALUES (CURDATE(), CURDATE(), '2024-03-01', '2024-04-11', 20, 2000, 10000, '고객 A 영업', 'A에 대한 활동 메모', 1, 'SUCCESS', 5, 100, 1),
-#        (CURDATE(), CURDATE(), '2024-05-01', '2024-06-11', 10, 800, 8000, '고객 B 영업', 'B에 대한 활동 메모', 1, 'SUCCESS', 5, 100,2),
-#        (CURDATE(), CURDATE(), '2024-07-01', '2024-08-11', 20, 1000, 5000, '고객 C 영업', 'C에 대한 활동 메모', 1, 'SUCCESS', 5, 100, 3),
-#        (CURDATE(), CURDATE(), '2024-09-01', '2024-10-11', 30, 1800, 6000, '고객 D 영업', 'D에 대한 활동 메모', 1, 'SUCCESS', 5, 100, 4),
-#        (CURDATE(), CURDATE(), '2024-10-01', '2024-11-11', 30, 1800, 6000, '고객 E 영업', 'E에 대한 활동 메모', 1, 'SUCCESS', 3, 100, 5);
+INSERT INTO tb_lead (created_at, updated_at, start_date, end_date, exp_margin, exp_profit, exp_sales, name, note, process, status, sub_process, sucess_per, customer_no)
+VALUES (CURDATE(), CURDATE(), '2024-03-01', '2024-04-11', 20, 2000, 10000, '고객 A 영업', 'A에 대한 활동 메모', 1, 'SUCCESS', 5, 100, 1),
+       (CURDATE(), CURDATE(), '2024-05-01', '2024-06-11', 10, 800, 8000, '고객 B 영업', 'B에 대한 활동 메모', 1, 'SUCCESS', 5, 100,2),
+       (CURDATE(), CURDATE(), '2024-07-01', '2024-08-11', 20, 1000, 5000, '고객 C 영업', 'C에 대한 활동 메모', 1, 'SUCCESS', 5, 100, 3),
+       (CURDATE(), CURDATE(), '2024-09-01', '2024-10-11', 30, 1800, 6000, '고객 D 영업', 'D에 대한 활동 메모', 1, 'SUCCESS', 5, 100, 4),
+       (CURDATE(), CURDATE(), '2024-10-01', '2024-11-11', 30, 1800, 6000, '고객 E 영업', 'E에 대한 활동 메모', 1, 'SUCCESS', 3, 100, 5);
 
 INSERT INTO tb_step(step_no, complete_yn, complete_date, LEVEL, lead_no, sub_process_no)
 VALUES (1, 'Y', '2024-03-01', 0, 1, 1) ,
@@ -165,19 +165,28 @@ VALUES
 
 INSERT INTO tb_product (prod_no, created_at, updated_at, abbr_name, dept_id, eng_name, field, name, price, prod_code, quantity, release_date, supply_price, tax_rate, unit, upp_group)
 VALUES
-    (1, NOW(), NOW(), 'PRD001', 1, 'Product A', '전자기기', '제품 A', 50000, 'P001', 100, '2024-05-01', 45000, 10, '개', '전자'),
-    (2, NOW(), NOW(), 'PRD002', 2, 'Product B', '소프트웨어', '제품 B', 30000, 'P002', 50, '2024-06-01', 27000, 8, '카피', '소프트웨어'),
-    (3, NOW(), NOW(), 'PRD003', 3, 'Product C', '소모품', '제품 C', 10000, 'P003', 200, '2024-07-01', 9000, 5, '박스', '소모품'),
-    (4, NOW(), NOW(), 'PRD004', 4, 'Product D', '사무용품', '제품 D', 15000, 'P004', 150, '2024-08-01', 14000, 7, '개', '사무용품'),
-    (5, NOW(), NOW(), 'PRD005', 5, 'Product E', '의류', '제품 E', 20000, 'P005', 120, '2024-09-01', 18000, 6, '벌', '의류');
+    -- 커피 원두 제품
+    (1, NOW(), NOW(), 'COFBRA001', 1, 'Rubia Dark Brown', '원두', '루비아 다크 브라운', 65000, 'BRA001', 100, '2024-05-01', 58670, 11, '봉지', '브라질 원두'),
+    (2, NOW(), NOW(), 'COFCOL001', 2, 'Supremo Nariño', '원두', '수프레모 나리뇨', 46000, 'COL001', 90, '2024-07-01', 42779, 8, '봉지', '콜롬비아 원두'),
+    (3, NOW(), NOW(), 'COFETH001', 3, 'Sidamo', '원두', '시다모', 45500, 'ETH001', 75, '2025-01-01', 40463, 	12, '봉지', '에티오피아 원두'),
+    (4, NOW(), NOW(), 'COFETH001', 3, 'Yirgacheffe Abaya Geisha', '원두', '예가체프 아바야 게이샤', 65500, 'ETH001', 95, '2025-01-01', 57886, 13, '봉지', '에티오피아 원두'),
+    (5, NOW(), NOW(), 'COFCOL001', 1, 'Melparai shouts', '원두', '멜파라이 소리치', 76000, 'COL001', 90, '2024-07-01', 71185, 7, '봉지', '콜롬비아 원두'),
 
-INSERT INTO tb_est_prod (est_prod_no, created_at, updated_at, discount, qty, supply_price, tax, total_amt, unit_amt, unit_prop_amt, est_no, prod_no)
-VALUES
-    (1, NOW(), NOW(), 5, 10, 1000, 100, 11000, 1000, 900, 1, 1),
-    (2, NOW(), NOW(), 10, 5, 2000, 200, 11000, 2000, 1800, 2, 2),
-    (3, NOW(), NOW(), 15, 8, 1500, 150, 13200, 1500, 1350, 3, 3),
-    (4, NOW(), NOW(), 7, 12, 1200, 120, 14400, 1200, 1100, 4, 4),
-    (5, NOW(), NOW(), 20, 6, 2500, 250, 16500, 2500, 2200, 5, 5);
+    -- 커피 머신 제품
+    (6, NOW(), NOW(), 'MCHESP001', 4, 'Espresso Groove Machine', '커피머신', '에스프레소 그루브 머신', 	1250000, 'ESP001', 20, '2024-06-01', 1181427, 6, '대', '에스프레소 머신'),
+    (7, NOW(), NOW(), 'MCHDRP001', 4, 'Latte Twist Maker', '커피머신', '라떼 트위스트 메이커', 890000, 'DRP001', 15, '2024-07-01', 778981, 14, '대', '드립 커피 머신'),
+    (8, NOW(), NOW(), 'MCHGRD001', 2, 'Divide Grinder', '그라인더', '갈려라 그라인더', 15000, 'GRD001', 30, '2024-08-01', 13566, 11, '대', '커피 그라인더'),
+
+    -- 커피 관련 액세서리 제품
+    (9, NOW(), NOW(), 'ACCFLT001', 5, 'Hang Coffee Filter', '액세서리', '걸려라 커피 필터', 12000, 'FLT001', 200, '2024-05-15', 10554, 14, '팩', '커피 필터'),
+    (10, NOW(), NOW(), 'ACCTMB001', 5, 'Put It In Coffee Tumbler', '액세서리', '담아라 텀블러',	18000, 'TMB001', 50, '2024-09-01', 15754, 14, '개', '커피 텀블러');
+
+INSERT INTO tb_est_prod (est_prod_no, created_at, updated_at, discount, qty, supply_price, tax_rate, tax, total_amt, unit_amt, unit_prop_amt, est_no, prod_no)
+VALUES (1, NOW(), NOW(), 5, 10, 1000, 10, 100, 11000, 1000, 900, 1, 1),
+       (2, NOW(), NOW(), 10, 5, 2000, 10, 200, 11000, 2000, 1800, 2, 2),
+       (3, NOW(), NOW(), 15, 8, 1500, 10, 150, 13200, 1500, 1350, 3, 3),
+       (4, NOW(), NOW(), 7, 12, 1200, 10, 120, 14400, 1200, 1100, 4, 4),
+       (5, NOW(), NOW(), 20, 6, 2500, 10, 250, 16500, 2500, 2200, 5, 5);
 
 
 INSERT INTO tb_sales (created_at, updated_at, busi_type, busi_type_detail, exp_arrival_date, note, price, prod_cnt, sales_name, sales_date, supply_price, surtax_yn, tax, tax_cls, contract_no)
