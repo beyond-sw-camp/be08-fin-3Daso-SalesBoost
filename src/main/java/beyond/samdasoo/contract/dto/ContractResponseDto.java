@@ -17,10 +17,10 @@ public class ContractResponseDto {
     private LocalDate endDate;
     private String taxCls;
     private String surtaxYn;
-    private Integer productCount;
-    private Integer supplyPrice;
-    private Integer tax;
-    private Integer totalPrice;
+    private int productCount;
+    private int supplyPrice;
+    private int tax;
+    private int totalPrice;
     private String paymentTerms;
     private Integer warrenty;
     private String contractCls;
@@ -31,6 +31,7 @@ public class ContractResponseDto {
     private String renewalNotificationDay;
     private String note;
     private Long estimateNo;
+    private String estimateName;
 
     @QueryProjection
     public ContractResponseDto(Contract contract) {
@@ -55,5 +56,6 @@ public class ContractResponseDto {
         this.renewalNotificationDay = contract.getRenewalNotificationDay();
         this.note = contract.getNote();
         this.estimateNo = contract.getEstimate().getEstNo();
+        this.estimateName = contract.getEstimate().getName();
     }
 }

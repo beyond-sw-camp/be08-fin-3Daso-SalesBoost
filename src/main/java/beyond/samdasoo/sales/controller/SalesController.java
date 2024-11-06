@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -132,4 +133,32 @@ public class SalesController {
 
         return new BaseResponse<>(result);
     }
+
+    // 올해 매출 총합
+    @GetMapping("/status/yearly")
+    public BaseResponse<Integer> getYearlyTotalSales(@RequestParam(value = "year", required = false) Integer year) {
+        LocalDate now = LocalDate.now();
+        int currentYear = year != null ? year : now.getYear();
+
+        int totalSales = salesService.getYearlyTotalSales(currentYear);
+        return new BaseResponse<>(totalSales);
+    }
+
+    // 이번 달 매출 총합
+    @GetMapping("/status/monthly")
+    public BaseResponse<Integer> getMonthlyTotalSales(
+            @RequestParam(value = "year", required = false) Integer year,
+            @RequestParam(value = "month", required = false) Integer month) {
+
+        // 현재 연도와 월을 기본값으로 설정
+        LocalDate now = LocalDate.now();
+        int currentYear = year != null ? year : now.getYear();
+        int currentMonth = month != null ? month : now.getMonthValue();
+
+        // 서비스 호출
+        int totalSales = salesService.getMonthlyTotalSales(currentYear, currentMonth);
+        return new BaseResponse<>(totalSales);
+    }
+
+
 }

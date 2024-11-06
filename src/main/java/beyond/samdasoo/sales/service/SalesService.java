@@ -82,9 +82,8 @@ public class SalesService {
 
         // 1:1 관계로 수정되면 아래거 조건문 지우고 주석 해제
 //        if (contract.getSales() != null) {
-        if (!contract.getSalesList().isEmpty()) {
-            throw new BaseException(BaseResponseStatus.CONTRACT_ALREADY_HAVEN_SALES);
-        }
+//            throw new BaseException(BaseResponseStatus.CONTRACT_ALREADY_HAVEN_SALES);
+//        }
 
         Sales sales = Sales.builder()
                 .salesName(requestDto.getSalesName())
@@ -278,5 +277,17 @@ public class SalesService {
             monthlySales.put(yearMonth, salesCount);
         }
         return monthlySales;
+    }
+
+    // 특정 연도의 매출 총합을 구하는 메서드
+    public int getYearlyTotalSales(int year) {
+        Integer totalSales = salesRepository.findTotalSalesByYear(year);
+        return totalSales != null ? totalSales : 0;
+    }
+
+    // 특정 연도 및 월의 매출 총합을 구하는 메서드
+    public int getMonthlyTotalSales(int year, int month) {
+        Integer totalSales = salesRepository.findTotalSalesByYearAndMonth(year, month);
+        return totalSales != null ? totalSales : 0;
     }
 }
