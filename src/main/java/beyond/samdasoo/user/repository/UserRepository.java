@@ -1,5 +1,6 @@
 package beyond.samdasoo.user.repository;
 
+import beyond.samdasoo.user.dto.FilterUserDto;
 import beyond.samdasoo.user.dto.UserDepartmentDto;
 import beyond.samdasoo.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -27,4 +28,7 @@ public interface UserRepository extends JpaRepository<User, Long>, QuerydslPredi
     List<UserDepartmentDto> findAllUsersWithDepartmentNames();
   
     User getUserByName(String userName);
+
+    @Query("SELECT u FROM User u WHERE u.department.id = :departmentId")
+    List<FilterUserDto> findUsersByDepartment(Long departmentId);
 }

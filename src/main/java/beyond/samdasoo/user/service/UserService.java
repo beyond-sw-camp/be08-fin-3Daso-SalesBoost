@@ -213,8 +213,12 @@ public class UserService {
         return userRepository.findAllUsersWithDepartmentNames();
     }
 
-    public List<FilterUserDto> getUsersByDepartmentAndSubDepartments(Long deptNo) {
-        return userRepository.findUsersByDepartmentAndSubDepartments(deptNo);
+//    public List<FilterUserDto> getUsersByDepartmentAndSubDepartments(Long deptNo) {
+//        return userRepository.findUsersByDepartmentAndSubDepartments(deptNo);
+//    }
+
+    public List<FilterUserDto> getUsersByDepartment(Long deptNo) {
+        return userRepository.findUsersByDepartment(deptNo);
     }
 
     public List<CustomersGetRes> getCustomers(String loginUserEmail) {

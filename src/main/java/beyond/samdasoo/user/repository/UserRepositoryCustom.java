@@ -5,7 +5,7 @@ import beyond.samdasoo.user.dto.FilterUserDto;
 import java.util.List;
 
 public interface UserRepositoryCustom {
-    List<FilterUserDto> findUsersByDepartmentAndSubDepartments(Long deptNo);
+//    List<FilterUserDto> findUsersByDepartmentAndSubDepartments(Long deptNo);
 
     List<Long> findAllSubDepartments(Long deptNo);
 }

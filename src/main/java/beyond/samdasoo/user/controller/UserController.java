@@ -154,10 +154,17 @@ public class UserController {
     }
 
 
+//    @GetMapping("/by-dept/{deptNo}")
+//    @Operation(summary = "부서별 유저 조회;", description = "해당 부서의 하위 모든 유저 조회")
+//    public BaseResponse<List<FilterUserDto>> getUsersByDepartmentAndSubDepartments(@PathVariable Long deptNo) {
+//        List<FilterUserDto> users = userService.getUsersByDepartmentAndSubDepartments(deptNo);
+//        return new BaseResponse<>(users);
+//    }
+
     @GetMapping("/by-dept/{deptNo}")
     @Operation(summary = "부서별 유저 조회;", description = "해당 부서의 하위 모든 유저 조회")
-    public BaseResponse<List<FilterUserDto>> getUsersByDepartmentAndSubDepartments(@PathVariable Long deptNo) {
-        List<FilterUserDto> users = userService.getUsersByDepartmentAndSubDepartments(deptNo);
+    public BaseResponse<List<FilterUserDto>> getUsersByDepartment(@PathVariable Long deptNo) {
+        List<FilterUserDto> users = userService.getUsersByDepartment(deptNo);
         return new BaseResponse<>(users);
     }
 

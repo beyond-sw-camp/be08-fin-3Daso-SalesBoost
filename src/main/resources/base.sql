@@ -691,7 +691,7 @@ INSERT INTO tb_target_sale (month, month_target, year, created_at, product_no, t
     (7, 1560000, 2023, NOW(), 8, DEFAULT, NOW(), 3),
     (8, 561000, 2023, NOW(), 8, DEFAULT, NOW(), 3),
     (9, 651000, 2023, NOW(), 8, DEFAULT, NOW(), 3),
-    (10, 561000, 2024, NOW(), 8, DEFAULT, NOW(), 3),
+    (10, 561000, 2023, NOW(), 8, DEFAULT, NOW(), 3),
     (11, 295000, 2023, NOW(), 8, DEFAULT, NOW(), 3),
     (12, 894000, 2023, NOW(), 8, DEFAULT, NOW(), 3),
     -- 2022년 제품6
