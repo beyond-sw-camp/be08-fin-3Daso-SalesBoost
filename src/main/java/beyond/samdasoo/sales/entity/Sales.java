@@ -59,7 +59,7 @@ public class Sales extends BaseEntity {
     @Column(name = "note")
     private String note;
 
-    @JoinColumn(name = "contract_no", nullable = false)
+    @JoinColumn(name = "contract_no", nullable = true)
     @ManyToOne
     private Contract contract;
 }
