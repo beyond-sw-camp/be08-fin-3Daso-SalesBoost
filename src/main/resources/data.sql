@@ -14,9 +14,6 @@ INSERT INTO `tb_department` (dept_no, dept_code,dept_name,eng_name,created_at,up
 SELECT 4,'SALES-003','영업 2팀','dept_sales_2',now(),now(), 1
 WHERE NOT EXISTS (SELECT 1 FROM tb_department WHERE dept_no = 4);
 
-INSERT INTO `tb_department` (dept_no, dept_code,dept_name,eng_name,created_at,updated_at, parent_id)
-SELECT 5,'SALES-004','영업 3팀','dept_sales_3',now(),now(), 1
-WHERE NOT EXISTS (SELECT 1 FROM tb_department WHERE dept_no = 5);
 
 -- >>>>>>>>>>>> 유저 <<<<<<<<<<<<<<
 -- (비번은 1234로 통일 )
