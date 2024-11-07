@@ -34,6 +34,14 @@ jobs:
           echo "${{ secrets.APP_SET }}" > ./application.yml
         shell: bash
 
+      - name: Download JAR from S3
+        run: |
+          mkdir -p ./src/main/resources/lib          
+          aws s3 cp s3://salesboost-font/font-extension.jar ./src/main/resources/lib/font-extension.jar
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
       - name: Gradle Build
         run: ./gradlew clean build -x test
 
