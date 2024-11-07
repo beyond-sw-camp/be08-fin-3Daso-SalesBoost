@@ -6,6 +6,7 @@ import beyond.samdasoo.admin.dto.DepartmentResponseDto;
 import beyond.samdasoo.admin.entity.Department;
 import beyond.samdasoo.admin.repository.DepartmentRepository;
 import beyond.samdasoo.common.exception.BaseException;
+import beyond.samdasoo.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,7 @@ import static beyond.samdasoo.common.response.BaseResponseStatus.*;
 public class DepartmentServiceImpl implements DepartmentService {
     @Autowired
     private final DepartmentRepository departmentRepository;
+    private final UserRepository userRepository;
 
     @Override
     public void addDepartment(DepartmentRequestDto request) {
@@ -119,7 +121,14 @@ public class DepartmentServiceImpl implements DepartmentService {
         if (optionalDepartment.isEmpty()) {
             throw new BaseException(DEPARTMENT_NOT_EXIST);
         }
-        setDeletedFlag(optionalDepartment.get());
+
+        if(userRepository.findUsersByDepartment(optionalDepartment.get().getDeptNo()) != null){
+            throw new BaseException(DEPARTMENT_IS_USING);
+        }else{
+            setDeletedFlag(optionalDepartment.get());
+        }
+
+
     }
 
     private void setDeletedFlag(Department department) {

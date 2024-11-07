@@ -69,7 +69,7 @@ public enum BaseResponseStatus {
     DEPARTMENT_ALREADY_EXIST(false, HttpStatus.BAD_REQUEST.value(), "이미 등록된 부서입니다."),
     DEPARTMENT_NOT_EXIST(false, HttpStatus.BAD_REQUEST.value(), "등록되지 않은 부서입니다."),
     UPPER_DEPARTMENT_NOT_EXIST(false, HttpStatus.BAD_REQUEST.value(), "등록되지 않은 상위 부서입니다."),
-
+    DEPARTMENT_IS_USING(false, HttpStatus.BAD_REQUEST.value(), "현재 부서의 영업사원이 존재하여 삭제가 불가합니다    ."),
     /**
      * act 관련
      */
