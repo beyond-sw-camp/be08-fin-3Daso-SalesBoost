@@ -198,7 +198,7 @@ VALUES
     (11, '2024-10-13', 'CHANNEL_TALK', '고객 문의사항 응대', 11, 11, now(), now()),
     (12, '2024-10-14', 'ETC', '계약 관련 추가 문의', 12, 12, now(), now()),
     (13, '2024-10-15', 'CALL', '계약 진행 상황 업데이트', 1, 13, now(), now()),
-    (14, '2024-10-16', 'EMAIL', '견적서 이메일 발송', 2, 14, now(), now()),
+    (14, '2024-10-16', 'EMAIL', '견적서 이메일 발송', 2, 9, NOW(), now()),
     (15, '2024-10-17', 'VISIT', '고객사 방문 및 계약 협의', 3, 15, now(), now()),
     (16, '2024-10-18', 'ONLINE_MEET', '화상 회의로 서비스 데모', 4, 16, now(), now()),
     (17, '2024-10-19', 'CHANNEL_TALK', '서비스 관련 상담', 5, 17, now(), now()),
@@ -324,7 +324,7 @@ WHERE NOT EXISTS (SELECT 1 FROM tb_calendar WHERE user_no = 13);
 -- >>>>>>>>>>>> 할 일 @uzz99 <<<<<<<<<<<<<<
 -- 관리자 일정 (calendar_no: 1)
 INSERT INTO `tb_todo` (due_date, private_yn, calendar_no, created_at, updated_at, content, priority, title, todo_cls, status)
-SELECT '2024-11-05', 'Y', 1, NOW(), NOW(), '팀 회의 준비', '높음', '주간 팀 회의', '회의', 'TODO'
+SELECT '2024-11-02', 'Y', 1, NOW(), NOW(), '팀 회의 준비', '높음', '주간 팀 회의', '회의', 'TODO'
 WHERE NOT EXISTS (SELECT 1 FROM tb_todo WHERE due_date = '2024-11-05' AND calendar_no = 1 AND title = '주간 팀 회의');
 
 INSERT INTO `tb_todo` (due_date, private_yn, calendar_no, created_at, updated_at, content, priority, title, todo_cls, status)
@@ -334,346 +334,162 @@ WHERE NOT EXISTS (SELECT 1 FROM tb_todo WHERE due_date = '2024-11-12' AND calend
 INSERT INTO `tb_todo` (due_date, private_yn, calendar_no, created_at, updated_at, content, priority, title, todo_cls, status)
 SELECT '2024-11-20', 'Y', 1, NOW(), NOW(), '내년 목표 설정', '높음', '목표 설정 회의', '회의', 'DONE'
 WHERE NOT EXISTS (SELECT 1 FROM tb_todo WHERE due_date = '2024-11-20' AND calendar_no = 1 AND title = '목표 설정 회의');
--- 테스트 일정 (calendar_no: 14)
+-- calendar_no: 11(user_no 9)
 INSERT INTO `tb_todo` (due_date, private_yn, calendar_no, created_at, updated_at, content, priority, title, todo_cls, status)
-SELECT '2024-01-10', 'Y', 14, NOW(), NOW(), '연간 목표 설정', '높음', '목표 설정', '목표', 'TODO'
+SELECT '2024-01-10', 'Y', 11, NOW(), NOW(), '연간 목표 설정', '높음', '목표 설정', '목표', 'TODO'
 WHERE NOT EXISTS (SELECT 1 FROM tb_todo WHERE due_date = '2024-01-10' AND calendar_no = 14 AND title = '목표 설정');
 
 INSERT INTO `tb_todo` (due_date, private_yn, calendar_no, created_at, updated_at, content, priority, title, todo_cls, status)
-SELECT '2024-02-15', 'Y', 14, NOW(), NOW(), '개인 개발 프로젝트 계획', '중간', '개발 계획', '개발', 'INPROGRESS'
+SELECT '2024-02-15', 'Y', 11, NOW(), NOW(), '개인 개발 프로젝트 계획', '중간', '개발 계획', '개발', 'INPROGRESS'
 WHERE NOT EXISTS (SELECT 1 FROM tb_todo WHERE due_date = '2024-02-15' AND calendar_no = 14 AND title = '개발 계획');
 
 INSERT INTO `tb_todo` (due_date, private_yn, calendar_no, created_at, updated_at, content, priority, title, todo_cls, status)
-SELECT '2024-03-22', 'Y', 14, NOW(), NOW(), '시스템 유지보수 계획 수립', '낮음', '유지보수 계획', '유지보수', 'DONE'
+SELECT '2024-03-22', 'Y', 11, NOW(), NOW(), '시스템 유지보수 계획 수립', '낮음', '유지보수 계획', '유지보수', 'DONE'
 WHERE NOT EXISTS (SELECT 1 FROM tb_todo WHERE due_date = '2024-03-22' AND calendar_no = 14 AND title = '유지보수 계획');
 
--- 삼다수 일정 (calendar_no: 15)
+-- calendar_no: 12(user_no 10)
 INSERT INTO `tb_todo` (due_date, private_yn, calendar_no, created_at, updated_at, content, priority, title, todo_cls, status)
-SELECT '2024-04-10', 'Y', 15, NOW(), NOW(), '회사 정책 검토 회의', '높음', '정책 회의', '회의', 'TODO'
+SELECT '2024-04-10', 'Y', 12, NOW(), NOW(), '회사 정책 검토 회의', '높음', '정책 회의', '회의', 'TODO'
 WHERE NOT EXISTS (SELECT 1 FROM tb_todo WHERE due_date = '2024-04-10' AND calendar_no = 15 AND title = '정책 회의');
 
 INSERT INTO `tb_todo` (due_date, private_yn, calendar_no, created_at, updated_at, content, priority, title, todo_cls, status)
-SELECT '2024-05-12', 'Y', 15, NOW(), NOW(), '신규 프로젝트 조사', '중간', '프로젝트 조사', '조사', 'INPROGRESS'
+SELECT '2024-05-12', 'Y', 12, NOW(), NOW(), '신규 프로젝트 조사', '중간', '프로젝트 조사', '조사', 'INPROGRESS'
 WHERE NOT EXISTS (SELECT 1 FROM tb_todo WHERE due_date = '2024-05-12' AND calendar_no = 15 AND title = '프로젝트 조사');
 
 INSERT INTO `tb_todo` (due_date, private_yn, calendar_no, created_at, updated_at, content, priority, title, todo_cls, status)
-SELECT '2024-06-18', 'Y', 15, NOW(), NOW(), '외부 강사 초청 교육 준비', '높음', '교육 준비', '교육', 'DONE'
+SELECT '2024-06-18', 'Y', 12, NOW(), NOW(), '외부 강사 초청 교육 준비', '높음', '교육 준비', '교육', 'DONE'
 WHERE NOT EXISTS (SELECT 1 FROM tb_todo WHERE due_date = '2024-06-18' AND calendar_no = 15 AND title = '교육 준비');
 
 INSERT INTO `tb_todo` (due_date, private_yn, calendar_no, created_at, updated_at, content, priority, title, todo_cls, status)
-SELECT '2024-07-05', 'Y', 2, NOW(), NOW(), '하반기 영업 전략 수립', '높음', '영업 전략', '전략', 'TODO'
+SELECT '2024-09-05', 'Y', 11, NOW(), NOW(), '하반기 영업 전략 수립', '높음', '영업 전략', '전략', 'TODO'
 WHERE NOT EXISTS (SELECT 1 FROM tb_todo WHERE due_date = '2024-07-05' AND calendar_no = 2 AND title = '영업 전략');
 
 INSERT INTO `tb_todo` (due_date, private_yn, calendar_no, created_at, updated_at, content, priority, title, todo_cls, status)
-SELECT '2024-08-14', 'Y', 2, NOW(), NOW(), '고객 분석 및 관리 계획', '중간', '고객 관리 계획', '관리', 'INPROGRESS'
+SELECT '2024-09-14', 'Y', 1, NOW(), NOW(), '고객 분석 및 관리 계획', '중간', '고객 관리 계획', '관리', 'INPROGRESS'
 WHERE NOT EXISTS (SELECT 1 FROM tb_todo WHERE due_date = '2024-08-14' AND calendar_no = 2 AND title = '고객 관리 계획');
 
 INSERT INTO `tb_todo` (due_date, private_yn, calendar_no, created_at, updated_at, content, priority, title, todo_cls, status)
-SELECT '2024-09-20', 'Y', 3, NOW(), NOW(), '고객 초청 행사 준비', '높음', '행사 준비', '이벤트', 'DONE'
+SELECT '2024-11-20', 'Y', 12, NOW(), NOW(), '고객 초청 행사 준비', '높음', '행사 준비', '이벤트', 'DONE'
 WHERE NOT EXISTS (SELECT 1 FROM tb_todo WHERE due_date = '2024-09-20' AND calendar_no = 2 AND title = '행사 준비');
 
 INSERT INTO `tb_todo` (due_date, private_yn, calendar_no, created_at, updated_at, content, priority, title, todo_cls, status)
-SELECT '2024-10-05', 'Y', 5, NOW(), NOW(), '고객 지원 계획 수립', '높음', '지원 계획', '계획', 'TODO'
+SELECT '2024-10-05', 'Y', 11, NOW(), NOW(), '고객 지원 계획 수립', '높음', '지원 계획', '계획', 'TODO'
 WHERE NOT EXISTS (SELECT 1 FROM tb_todo WHERE due_date = '2024-10-05' AND calendar_no = 5 AND title = '지원 계획');
 
 INSERT INTO `tb_todo` (due_date, private_yn, calendar_no, created_at, updated_at, content, priority, title, todo_cls, status)
-SELECT '2024-11-10', 'Y', 5, NOW(), NOW(), '고객 만족도 조사 준비', '중간', '만족도 조사', '조사', 'INPROGRESS'
+SELECT '2024-11-10', 'Y', 11, NOW(), NOW(), '고객 만족도 조사 준비', '중간', '만족도 조사', '조사', 'INPROGRESS'
 WHERE NOT EXISTS (SELECT 1 FROM tb_todo WHERE due_date = '2024-11-10' AND calendar_no = 5 AND title = '만족도 조사');
 
 INSERT INTO `tb_todo` (due_date, private_yn, calendar_no, created_at, updated_at, content, priority, title, todo_cls, status)
-SELECT '2024-12-15', 'Y', 5, NOW(), NOW(), '고객 피드백 분석', '높음', '피드백 분석', '분석', 'DONE'
+SELECT '2024-12-15', 'Y', 1, NOW(), NOW(), '고객 피드백 분석', '높음', '피드백 분석', '분석', 'DONE'
 WHERE NOT EXISTS (SELECT 1 FROM tb_todo WHERE due_date = '2024-12-15' AND calendar_no = 5 AND title = '피드백 분석');
 
 
 -- >>>>>>>>>>>> 일정 @uzz99 <<<<<<<<<<<<<<
--- 관리자 전사 일정
+-- 전사 일정
 INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, content, start_time, end_time, title, plan_cls)
 SELECT 'N', '2024-10-15', 1, NOW(), NOW(), '전사 미팅', '09:00', '11:00', 'Q4 전사 미팅', 'COMPANY'
 WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-10-15' AND calendar_no = 1 AND title = 'Q4 전사 미팅');
 
--- 테스트 전사 일정
 INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, content, start_time, end_time, title, plan_cls)
-SELECT 'N', '2024-11-25', 14, NOW(), NOW(), '사업 전략 발표', '09:00', '11:00', '전략 발표', 'COMPANY'
+SELECT 'N', '2024-11-25', 11, NOW(), NOW(), '사업 전략 발표', '09:00', '11:00', '전략 발표', 'COMPANY'
 WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-11-25' AND calendar_no = 14 AND title = '전략 발표');
 
--- 삼다수 전사 일정
 INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, content, start_time, end_time, title, plan_cls)
-SELECT 'N', '2024-12-10', 15, NOW(), NOW(), '연말 결산 회의', '14:00', '17:00', '결산 회의', 'COMPANY'
+SELECT 'N', '2024-12-10', 12, NOW(), NOW(), '연말 결산 회의', '14:00', '17:00', '결산 회의', 'COMPANY'
 WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-11-10' AND calendar_no = 15 AND title = '결산 회의');
 
--- 7~9월 1, 14, 15
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'Y', '2024-07-10', 1, NOW(), NOW(), NULL, '개인 업무 준비', '09:00', '10:00', '개인 준비', 'PERSONAL'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-01-10' AND calendar_no = 1 AND title = '개인 준비');
-
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'Y', '2024-07-15', 14, NOW(), NOW(), FLOOR(1 + (RAND() * 30)), '제안서 작성', '10:00', '12:00', '제안 준비', 'PROPOSAL'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-02-15' AND calendar_no = 14 AND title = '제안 준비');
-
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'Y', '2024-08-22', 15, NOW(), NOW(), FLOOR(1 + (RAND() * 30)), '신규 계약 체결', '14:00', '15:30', '계약 체결', 'CONTRACT'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-03-22' AND calendar_no = 15 AND title = '계약 체결');
-
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'Y', '2024-08-10', 1, NOW(), NOW(), FLOOR(1 + (RAND() * 30)), '고객 영업 활동', '13:00', '15:00', '영업 활동', 'SALES'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-04-10' AND calendar_no = 1 AND title = '영업 활동');
-
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'Y', '2024-08-18', 14, NOW(), NOW(), FLOOR(1 + (RAND() * 30)), '견적서 작성', '10:00', '12:00', '견적 작성', 'ESTIMATE'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-04-18' AND calendar_no = 14 AND title = '견적 작성');
-
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'Y', '2024-09-15', 1, NOW(), NOW(), NULL, '개인 프로젝트 계획', '08:30', '09:30', '프로젝트 계획', 'PERSONAL'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-05-15' AND calendar_no = 1 AND title = '프로젝트 계획');
-
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'Y', '2024-09-20', 14, NOW(), NOW(), NULL, '개인 연간 계획', '11:00', '12:30', '연간 계획', 'PERSONAL'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-06-20' AND calendar_no = 14 AND title = '연간 계획');
-
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'Y', '2024-09-10', 15, NOW(), NOW(), FLOOR(1 + (RAND() * 30)), '신규 제안서 작성', '09:00', '11:00', '제안서 작성', 'PROPOSAL'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-07-10' AND calendar_no = 15 AND title = '제안서 작성');
-
--- PERSONAL 일정
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'Y', '2024-10-03', 1, NOW(), NOW(), NULL, '개인 학습 진도 체크', '09:00', '10:00', '학습 체크', 'PERSONAL'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-10-03' AND calendar_no = 1 AND title = '학습 체크');
-
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'Y', '2024-10-15', 14, NOW(), NOW(), NULL, '개인 목표 재검토', '10:30', '11:30', '목표 검토', 'PERSONAL'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-10-15' AND calendar_no = 14 AND title = '목표 검토');
-
--- PROPOSAL 일정
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'Y', '2024-10-08', 15, NOW(), NOW(), FLOOR(1 + (RAND() * 30)), '신규 제안서 작성', '13:00', '15:00', '제안서 작성', 'PROPOSAL'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-10-08' AND calendar_no = 15 AND title = '제안서 작성');
-
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'Y', '2024-10-20', 1, NOW(), NOW(), FLOOR(1 + (RAND() * 30)), '연말 제안 검토', '10:00', '12:00', '제안 검토', 'PROPOSAL'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-10-20' AND calendar_no = 1 AND title = '제안 검토');
-
--- CONTRACT 일정
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'Y', '2024-10-12', 14, NOW(), NOW(), FLOOR(1 + (RAND() * 30)), '계약 검토 회의', '11:00', '13:00', '계약 검토', 'CONTRACT'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-10-12' AND calendar_no = 14 AND title = '계약 검토');
-
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'Y', '2024-10-25', 15, NOW(), NOW(), FLOOR(1 + (RAND() * 30)), '연말 계약 조건 논의', '09:30', '11:30', '계약 조건 논의', 'CONTRACT'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-10-25' AND calendar_no = 15 AND title = '계약 조건 논의');
-
--- SALES 일정
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'N', '2024-10-28', 1, NOW(), NOW(), FLOOR(1 + (RAND() * 30)), '분기 매출 검토', '13:00', '16:00', '매출 검토', 'SALES'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-10-28' AND calendar_no = 1 AND title = '매출 검토');
-
--- ESTIMATE 일정
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'Y', '2024-10-30', 14, NOW(), NOW(), FLOOR(1 + (RAND() * 30)), '연말 견적 작성', '10:00', '12:00', '견적 작성', 'ESTIMATE'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-10-30' AND calendar_no = 14 AND title = '견적 작성');
-
--- 2024년 11월 일정
--- PROPOSAL 일정
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'Y', '2024-11-10', 15, NOW(), NOW(), FLOOR(1 + (RAND() * 30)), '제안서 수정 및 보완', '13:00', '15:00', '제안 보완', 'PROPOSAL'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-11-10' AND calendar_no = 15 AND title = '제안 보완');
-
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'Y', '2024-11-23', 1, NOW(), NOW(), FLOOR(1 + (RAND() * 30)), '신규 제안 검토', '10:00', '12:00', '제안 검토', 'PROPOSAL'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-11-23' AND calendar_no = 1 AND title = '제안 검토');
-
--- CONTRACT 일정
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'Y', '2024-11-05', 14, NOW(), NOW(), FLOOR(1 + (RAND() * 30)), '계약 조건 검토', '09:00', '11:00', '계약 검토', 'CONTRACT'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-11-05' AND calendar_no = 14 AND title = '계약 검토');
-
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'Y', '2024-11-20', 15, NOW(), NOW(), FLOOR(1 + (RAND() * 30)), '계약서 작성', '13:00', '15:00', '계약 작성', 'CONTRACT'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-11-20' AND calendar_no = 15 AND title = '계약 작성');
-
--- SALES 일정
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'Y', '2024-11-15', 1, NOW(), NOW(), FLOOR(1 + (RAND() * 30)), '연말 매출 실적 분석', '10:00', '12:30', '매출 분석', 'SALES'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-11-15' AND calendar_no = 1 AND title = '매출 분석');
-
--- ESTIMATE 일정
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'Y', '2024-11-28', 14, NOW(), NOW(), FLOOR(1 + (RAND() * 30)), '연말 견적서 검토', '10:00', '12:00', '견적 검토', 'ESTIMATE'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-11-28' AND calendar_no = 14 AND title = '견적 검토');
-
--- 2024년 12월 일정
--- PERSONAL 일정
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'Y', '2024-12-05', 1, NOW(), NOW(), NULL, '개인 연말 결산', '09:00', '10:30', '연말 결산', 'PERSONAL'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-12-05' AND calendar_no = 1 AND title = '연말 결산');
-
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'Y', '2024-12-15', 14, NOW(), NOW(), NULL, '내년도 목표 설정', '10:00', '12:00', '목표 설정', 'PERSONAL'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-12-15' AND calendar_no = 14 AND title = '목표 설정');
-
--- PROPOSAL 일정
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'Y', '2024-12-10', 15, NOW(), NOW(), FLOOR(1 + (RAND() * 30)), '신규 제안서 초안 작성', '09:30', '11:30', '제안 초안 작성', 'PROPOSAL'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-12-10' AND calendar_no = 15 AND title = '제안 초안 작성');
-
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'Y', '2024-12-22', 1, NOW(), NOW(), FLOOR(1 + (RAND() * 30)), '연말 제안서 최종 검토', '14:00', '16:00', '제안 검토', 'PROPOSAL'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-12-22' AND calendar_no = 1 AND title = '제안 검토');
-
--- CONTRACT 일정
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'Y', '2024-12-18', 14, NOW(), NOW(), FLOOR(1 + (RAND() * 30)), '계약 갱신 회의', '10:00', '11:30', '계약 갱신', 'CONTRACT'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-12-18' AND calendar_no = 14 AND title = '계약 갱신');
-
--- SALES 일정
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'Y', '2024-12-12', 15, NOW(), NOW(), FLOOR(1 + (RAND() * 30)), '연말 매출 실적 보고', '10:00', '12:00', '실적 보고', 'SALES'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-12-12' AND calendar_no = 15 AND title = '실적 보고');
-
--- 1번 캘린더 2024년 10월
--- PERSONAL 일정
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'Y', '2024-10-05', 1, NOW(), NOW(), NULL, '개인 목표 리뷰', '09:00', '10:00', '목표 리뷰', 'PERSONAL'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-10-05' AND calendar_no = 1 AND title = '목표 리뷰');
-
--- PROPOSAL 일정
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'Y', '2024-10-18', 1, NOW(), NOW(), FLOOR(1 + (RAND() * 30)), '연말 제안서 작성', '10:00', '12:00', '제안서 작성', 'PROPOSAL'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-10-18' AND calendar_no = 1 AND title = '제안서 작성');
-
--- CONTRACT 일정
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'Y', '2024-10-22', 1, NOW(), NOW(), FLOOR(1 + (RAND() * 30)), '계약 검토 미팅', '11:00', '13:00', '계약 검토', 'CONTRACT'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-10-22' AND calendar_no = 1 AND title = '계약 검토');
-
--- ESTIMATE 일정
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'Y', '2024-10-29', 1, NOW(), NOW(), FLOOR(1 + (RAND() * 30)), '연말 견적서 준비', '10:30', '12:30', '견적 준비', 'ESTIMATE'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-10-29' AND calendar_no = 1 AND title = '견적 준비');
-
--- 1번 캘린더 2024년 11월
--- PERSONAL 일정
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'Y', '2024-11-03', 1, NOW(), NOW(), NULL, '개인 회고 정리', '09:00', '10:30', '회고 정리', 'PERSONAL'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-11-03' AND calendar_no = 1 AND title = '회고 정리');
-
--- PROPOSAL 일정
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'Y', '2024-11-12', 1, NOW(), NOW(), FLOOR(1 + (RAND() * 30)), '프로젝트 제안서 보완', '10:00', '12:00', '제안서 보완', 'PROPOSAL'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-11-12' AND calendar_no = 1 AND title = '제안서 보완');
-
--- CONTRACT 일정
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'Y', '2024-11-18', 1, NOW(), NOW(), FLOOR(1 + (RAND() * 30)), '연말 계약 검토', '14:00', '16:00', '계약 검토', 'CONTRACT'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-11-18' AND calendar_no = 1 AND title = '계약 검토');
-
--- SALES 일정
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'Y', '2024-11-25', 1, NOW(), NOW(), FLOOR(1 + (RAND() * 30)), '연말 매출 정산', '11:00', '13:00', '매출 정산', 'SALES'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-11-25' AND calendar_no = 1 AND title = '매출 정산');
-
--- 1번 캘린더 2024년 12월
--- PERSONAL 일정
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'Y', '2024-12-03', 1, NOW(), NOW(), NULL, '연말 개인 목표 리뷰', '09:00', '10:30', '개인 목표 리뷰', 'PERSONAL'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-12-03' AND calendar_no = 1 AND title = '개인 목표 리뷰');
-
--- PROPOSAL 일정
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'Y', '2024-12-08', 1, NOW(), NOW(), FLOOR(1 + (RAND() * 30)), '신규 제안서 제출', '13:00', '15:00', '제안서 제출', 'PROPOSAL'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-12-08' AND calendar_no = 1 AND title = '제안서 제출');
-
--- CONTRACT 일정
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'Y', '2024-12-15', 1, NOW(), NOW(), FLOOR(1 + (RAND() * 30)), '연말 계약서 보완', '10:00', '11:30', '계약서 보완', 'CONTRACT'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-12-15' AND calendar_no = 1 AND title = '계약서 보완');
-
--- SALES 일정
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'Y', '2024-12-20', 1, NOW(), NOW(), FLOOR(1 + (RAND() * 30)), '연말 매출 분석', '10:00', '12:00', '매출 분석', 'SALES'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-12-20' AND calendar_no = 1 AND title = '매출 분석');
-
--- ESTIMATE 일정
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'Y', '2024-12-27', 1, NOW(), NOW(), FLOOR(1 + (RAND() * 30)), '최종 견적서 작성', '13:00', '15:00', '견적서 작성', 'ESTIMATE'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-12-27' AND calendar_no = 1 AND title = '견적서 작성');
-
--- 15번 캘린더 2024년 10월
--- PERSONAL 일정
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'Y', '2024-10-06', 15, NOW(), NOW(), NULL, '개인 목표 점검', '09:30', '10:30', '목표 점검', 'PERSONAL'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-10-06' AND calendar_no = 15 AND title = '목표 점검');
-
--- PROPOSAL 일정
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'Y', '2024-10-14', 15, NOW(), NOW(), FLOOR(1 + (RAND() * 30)), '신규 프로젝트 제안 준비', '11:00', '13:00', '프로젝트 제안 준비', 'PROPOSAL'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-10-14' AND calendar_no = 15 AND title = '프로젝트 제안 준비');
-
--- CONTRACT 일정
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'N', '2024-10-19', 15, NOW(), NOW(), FLOOR(1 + (RAND() * 30)), '연말 계약 검토 회의', '14:00', '16:00', '계약 검토 회의', 'CONTRACT'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-10-19' AND calendar_no = 15 AND title = '계약 검토 회의');
-
--- SALES 일정
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'Y', '2024-10-23', 15, NOW(), NOW(), FLOOR(1 + (RAND() * 30)), 'Q4 매출 보고 준비', '09:00', '11:30', '매출 보고 준비', 'SALES'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-10-23' AND calendar_no = 15 AND title = '매출 보고 준비');
-
--- ESTIMATE 일정
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'Y', '2024-10-28', 15, NOW(), NOW(), FLOOR(1 + (RAND() * 30)), '신규 견적서 초안 작성', '10:30', '12:30', '견적서 초안 작성', 'ESTIMATE'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-10-28' AND calendar_no = 15 AND title = '견적서 초안 작성');
-
--- 15번 캘린더 2024년 11월
--- PERSONAL 일정
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'Y', '2024-11-04', 15, NOW(), NOW(), NULL, '개인 프로젝트 계획 점검', '10:00', '11:00', '프로젝트 계획 점검', 'PERSONAL'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-11-04' AND calendar_no = 15 AND title = '프로젝트 계획 점검');
-
--- PROPOSAL 일정
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'Y', '2024-11-12', 15, NOW(), NOW(), FLOOR(1 + (RAND() * 30)), '프로젝트 제안서 보완 작업', '09:30', '11:30', '제안서 보완', 'PROPOSAL'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-11-12' AND calendar_no = 15 AND title = '제안서 보완');
-
--- CONTRACT 일정
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'N', '2024-11-18', 15, NOW(), NOW(), FLOOR(1 + (RAND() * 30)), '계약 갱신 미팅', '13:00', '15:00', '계약 갱신', 'CONTRACT'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-11-18' AND calendar_no = 15 AND title = '계약 갱신');
-
--- SALES 일정
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'N', '2024-11-22', 15, NOW(), NOW(), FLOOR(1 + (RAND() * 30)), '연말 매출 목표 설정', '11:00', '12:30', '매출 목표 설정', 'SALES'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-11-22' AND calendar_no = 15 AND title = '매출 목표 설정');
-
--- ESTIMATE 일정
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'Y', '2024-11-28', 15, NOW(), NOW(), FLOOR(1 + (RAND() * 30)), '연말 견적서 최종 검토', '10:00', '12:00', '견적서 검토', 'ESTIMATE'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-11-28' AND calendar_no = 15 AND title = '견적서 검토');
-
--- 15번 캘린더 2024년 12월
--- PERSONAL 일정
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'Y', '2024-12-04', 15, NOW(), NOW(), NULL, '연말 개인 목표 점검', '10:00', '11:00', '개인 목표 점검', 'PERSONAL'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-12-04' AND calendar_no = 15 AND title = '개인 목표 점검');
-
--- PROPOSAL 일정
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'Y', '2024-12-10', 15, NOW(), NOW(), FLOOR(1 + (RAND() * 30)), '내년도 제안서 초안 작성', '09:30', '11:00', '제안 초안 작성', 'PROPOSAL'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-12-10' AND calendar_no = 15 AND title = '제안 초안 작성');
-
--- CONTRACT 일정
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'Y', '2024-12-15', 15, NOW(), NOW(), FLOOR(1 + (RAND() * 30)), '계약서 최종 검토', '10:30', '12:00', '계약 검토', 'CONTRACT'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-12-15' AND calendar_no = 15 AND title = '계약 검토');
-
--- SALES 일정
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'N', '2024-12-18', 15, NOW(), NOW(), FLOOR(1 + (RAND() * 30)), '연말 매출 보고서 작성', '09:00', '10:30', '매출 보고서 작성', 'SALES'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-12-18' AND calendar_no = 15 AND title = '매출 보고서 작성');
-
--- ESTIMATE 일정
-INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, updated_at, domain_no, content, start_time, end_time, title, plan_cls)
-SELECT 'Y', '2024-12-27', 15, NOW(), NOW(), FLOOR(1 + (RAND() * 30)), '최종 견적서 제출', '13:30', '15:00', '견적서 제출', 'ESTIMATE'
-WHERE NOT EXISTS (SELECT 1 FROM tb_plan WHERE plan_date = '2024-12-27' AND calendar_no = 15 AND title = '견적서 제출');
+INSERT INTO `tb_plan` (personal_yn, plan_date, calendar_no, created_at, domain_no, updated_at, content, end_time, start_time, title, plan_cls) VALUES
+('Y', '2024-10-25', 1, '2024-11-06 15:35:33.627', 4, '2024-11-06 15:35:33.627', '개인 일정 조정', '04:30', '03:30', '개인 일정 조정', 'PERSONAL'),
+('Y', '2024-10-11', 1, '2024-11-06 15:35:33.627', 18, '2024-11-06 15:35:33.627', '개인 프로젝트 작업', '15:30', '14:30', '개인 프로젝트 활동', 'PERSONAL'),
+('Y', '2024-10-04', 1, '2024-11-06 15:35:33.627', 24, '2024-11-06 15:35:33.627', '제안서 초안 작성', '08:30', '06:30', '제안서 초안 작성', 'PROPOSAL'),
+('Y', '2024-10-19', 1, '2024-11-06 15:35:33.627', 22, '2024-11-06 15:35:33.627', '제안서 검토 회의', '10:30', '09:00', '제안서 토론 미팅', 'PROPOSAL'),
+('Y', '2024-10-03', 1, '2024-11-06 15:35:33.627', 26, '2024-11-06 15:35:33.627', '견적 작성 작업', '22:00', '20:00', '견적 작성 활동', 'ESTIMATE'),
+('Y', '2024-10-11', 1, '2024-11-06 15:35:33.627', 12, '2024-11-06 15:35:33.627', '견적서 업데이트', '14:30', '13:00', '견적서 업데이트', 'ESTIMATE'),
+('Y', '2024-10-04', 1, '2024-11-06 15:35:33.627', 15, '2024-11-06 15:35:33.627', '영업 전략 검토', '08:00', '06:30', '영업 전략 토론', 'SALES'),
+('Y', '2024-10-10', 1, '2024-11-06 15:35:33.627', 12, '2024-11-06 15:35:33.627', '클라이언트 미팅 준비', '21:30', '20:30', '클라이언트 미팅 준비', 'SALES'),
+('Y', '2024-10-01', 1, '2024-11-06 15:35:33.627', 21, '2024-11-06 15:35:33.627', '계약서 검토', '05:00', '03:00', '계약서 토론', 'CONTRACT'),
+('Y', '2024-10-16', 1, '2024-11-06 15:35:33.627', 14, '2024-11-06 15:35:33.627', '계약 조건 조정', '04:30', '02:30', '계약 조건 조정', 'CONTRACT'),
+('Y', '2024-10-05', 11, '2024-11-06 15:35:33.627', 12, '2024-11-06 15:35:33.627', '가족 모임 준비', '16:00', '14:30', '가족 모임 준비', 'PERSONAL'),
+('Y', '2024-10-16', 11, '2024-11-06 15:35:33.627', 20, '2024-11-06 15:35:33.627', '개인 프로젝트 작업', '00:30', '22:30', '개인 프로젝트 활동', 'PERSONAL'),
+('Y', '2024-10-23', 11, '2024-11-06 15:35:33.627', 16, '2024-11-06 15:35:33.627', '제안서 초안 작성', '03:00', '01:30', '제안서 초안 작성', 'PROPOSAL'),
+('Y', '2024-10-28', 11, '2024-11-06 15:35:33.627', 12, '2024-11-06 15:35:33.627', '제안서 초안 작성', '08:00', '06:00', '제안서 초안 작성', 'PROPOSAL'),
+('Y', '2024-10-14', 11, '2024-11-06 15:35:33.627', 15, '2024-11-06 15:35:33.627', '견적 작성 작업', '14:00', '13:00', '견적 작성 활동', 'ESTIMATE'),
+('Y', '2024-10-11', 11, '2024-11-06 15:35:33.627', 8, '2024-11-06 15:35:33.627', '견적서 업데이트', '11:00', '09:30', '견적서 업데이트', 'ESTIMATE'),
+('Y', '2024-10-23', 11, '2024-11-06 15:35:33.627', 15, '2024-11-06 15:35:33.627', '클라이언트 미팅 준비', '22:30', '21:00', '클라이언트 미팅 준비', 'SALES'),
+('Y', '2024-10-07', 11, '2024-11-06 15:35:33.627', 27, '2024-11-06 15:35:33.627', '영업 전략 검토', '07:30', '06:30', '영업 전략 토론', 'SALES'),
+('Y', '2024-10-17', 11, '2024-11-06 15:35:33.627', 16, '2024-11-06 15:35:33.627', '계약서 검토', '19:00', '17:30', '계약서 토론', 'CONTRACT'),
+('Y', '2024-10-20', 11, '2024-11-06 15:35:33.627', 29, '2024-11-06 15:35:33.627', '계약서 검토', '11:00', '09:30', '계약서 토론', 'CONTRACT'),
+('Y', '2024-10-06', 12, '2024-11-06 15:35:33.627', 2, '2024-11-06 15:35:33.627', '가족 모임 준비', '07:30', '06:00', '가족 모임 준비', 'PERSONAL'),
+('Y', '2024-10-23', 12, '2024-11-06 15:35:33.627', 1, '2024-11-06 15:35:33.627', '개인 프로젝트 작업', '03:00', '01:00', '개인 프로젝트 활동', 'PERSONAL'),
+('Y', '2024-10-22', 12, '2024-11-06 15:35:33.627', 21, '2024-11-06 15:35:33.627', '제안서 초안 작성', '10:30', '08:30', '제안서 초안 작성', 'PROPOSAL'),
+('Y', '2024-10-06', 12, '2024-11-06 15:35:33.627', 5, '2024-11-06 15:35:33.627', '제안서 검토 회의', '11:00', '10:00', '제안서 토론 미팅', 'PROPOSAL'),
+('Y', '2024-10-28', 12, '2024-11-06 15:35:33.627', 28, '2024-11-06 15:35:33.627', '견적서 업데이트', '15:30', '14:00', '견적서 업데이트', 'ESTIMATE'),
+('Y', '2024-10-05', 12, '2024-11-06 15:35:33.627', 19, '2024-11-06 15:35:33.627', '견적 작성 작업', '21:00', '20:00', '견적 작성 활동', 'ESTIMATE'),
+('Y', '2024-10-06', 12, '2024-11-06 15:35:33.627', 17, '2024-11-06 15:35:33.627', '영업 관련 미팅', '13:30', '12:30', '영업 관련 미팅', 'SALES'),
+('Y', '2024-10-07', 12, '2024-11-06 15:35:33.627', 13, '2024-11-06 15:35:33.627', '영업 관련 미팅', '08:30', '06:30', '영업 관련 미팅', 'SALES'),
+('Y', '2024-10-25', 12, '2024-11-06 15:35:33.627', 24, '2024-11-06 15:35:33.627', '계약 협상 회의', '07:00', '06:00', '계약 협상 미팅', 'CONTRACT'),
+('Y', '2024-10-16', 12, '2024-11-06 15:35:33.627', 8, '2024-11-06 15:35:33.627', '계약 협상 회의', '08:00', '06:30', '계약 협상 미팅', 'CONTRACT'),
+('Y', '2024-11-20', 1, '2024-11-06 15:35:33.628', 15, '2024-11-06 15:35:33.628', '개인 일정 조정', '13:00', '11:00', '개인 일정 조정', 'PERSONAL'),
+('Y', '2024-11-23', 1, '2024-11-06 15:35:33.628', 18, '2024-11-06 15:35:33.628', '개인 프로젝트 작업', '16:00', '09:00', '개인 프로젝트 활동', 'PERSONAL'),
+('Y', '2024-11-07', 1, '2024-11-06 15:35:33.628', 1, '2024-11-06 15:35:33.628', '제안서 초안 작성', '22:00', '20:00', '제안서 초안 작성', 'PROPOSAL'),
+('Y', '2024-11-18', 1, '2024-11-06 15:35:33.628', 12, '2024-11-06 15:35:33.628', '제안서 초안 작성', '01:00', '23:00', '제안서 초안 작성', 'PROPOSAL'),
+('Y', '2024-11-17', 1, '2024-11-06 15:35:33.628', 16, '2024-11-06 15:35:33.628', '예산 검토', '04:00', '02:00', '예산 토론', 'ESTIMATE'),
+('Y', '2024-11-14', 1, '2024-11-06 15:35:33.628', 11, '2024-11-06 15:35:33.628', '예산 검토', '16:00', '14:00', '예산 토론', 'ESTIMATE'),
+('Y', '2024-11-12', 1, '2024-11-06 15:35:33.628', 6, '2024-11-06 15:35:33.628', '클라이언트 미팅 준비', '23:30', '21:30', '클라이언트 미팅 준비', 'SALES'),
+('Y', '2024-11-08', 1, '2024-11-06 15:35:33.628', 27, '2024-11-06 15:35:33.628', '클라이언트 미팅 준비', '14:00', '12:00', '클라이언트 미팅 준비', 'SALES'),
+('Y', '2024-11-14', 1, '2024-11-06 15:35:33.628', 11, '2024-11-06 15:35:33.628', '계약 협상 회의', '18:00', '16:30', '계약 협상 미팅', 'CONTRACT'),
+('Y', '2024-11-04', 1, '2024-11-06 15:35:33.628', 15, '2024-11-06 15:35:33.628', '계약서 검토', '07:00', '05:00', '계약서 토론', 'CONTRACT'),
+('Y', '2024-11-12', 11, '2024-11-06 15:35:33.628', 21, '2024-11-06 15:35:33.628', '개인 일정 조정', '13:30', '12:00', '개인 일정 조정', 'PERSONAL'),
+('Y', '2024-11-17', 11, '2024-11-06 15:35:33.628', 3, '2024-11-06 15:35:33.628', '개인 일정 조정', '04:00', '02:00', '개인 일정 조정', 'PERSONAL'),
+('Y', '2024-11-18', 11, '2024-11-06 15:35:33.628', 16, '2024-11-06 15:35:33.628', '제안서 검토 회의', '15:00', '13:30', '제안서 토론 미팅', 'PROPOSAL'),
+('Y', '2024-11-03', 11, '2024-11-06 15:35:33.628', 6, '2024-11-06 15:35:33.628', '제안서 초안 작성', '06:00', '04:00', '제안서 초안 작성', 'PROPOSAL'),
+('Y', '2024-11-06', 11, '2024-11-06 15:35:33.628', 9, '2024-11-06 15:35:33.628', '견적 작성 작업', '10:00', '08:30', '견적 작성 활동', 'ESTIMATE'),
+('Y', '2024-11-23', 11, '2024-11-06 15:35:33.628', 2, '2024-11-06 15:35:33.628', '견적서 업데이트', '08:30', '07:30', '견적서 업데이트', 'ESTIMATE'),
+('Y', '2024-11-14', 11, '2024-11-06 15:35:33.628', 23, '2024-11-06 15:35:33.628', '클라이언트 미팅 준비', '14:00', '12:30', '클라이언트 미팅 준비', 'SALES'),
+('Y', '2024-11-14', 11, '2024-11-06 15:35:33.628', 22, '2024-11-06 15:35:33.628', '클라이언트 미팅 준비', '14:00', '12:30', '클라이언트 미팅 준비', 'SALES'),
+('Y', '2024-11-12', 11, '2024-11-06 15:35:33.628', 1, '2024-11-06 15:35:33.628', '계약 조건 조정', '22:00', '20:00', '계약 조건 조정', 'CONTRACT'),
+('Y', '2024-11-20', 11, '2024-11-06 15:35:33.628', 1, '2024-11-06 15:35:33.628', '계약 협상 회의', '17:30', '16:30', '계약 협상 미팅', 'CONTRACT'),
+('Y', '2024-11-25', 12, '2024-11-06 15:35:33.628', 13, '2024-11-06 15:35:33.628', '개인 프로젝트 작업', '18:00', '16:00', '개인 프로젝트 활동', 'PERSONAL'),
+('Y', '2024-11-01', 12, '2024-11-06 15:35:33.628', 30, '2024-11-06 15:35:33.628', '가족 모임 준비', '06:30', '05:30', '가족 모임 준비', 'PERSONAL'),
+('Y', '2024-11-24', 12, '2024-11-06 15:35:33.628', 4, '2024-11-06 15:35:33.628', '제안서 검토 회의', '22:30', '21:30', '제안서 토론 미팅', 'PROPOSAL'),
+('Y', '2024-11-05', 12, '2024-11-06 15:35:33.628', 18, '2024-11-06 15:35:33.628', '제안서 검토 회의', '10:30', '08:30', '제안서 토론 미팅', 'PROPOSAL'),
+('Y', '2024-11-09', 12, '2024-11-06 15:35:33.628', 15, '2024-11-06 15:35:33.628', '견적서 업데이트', '10:00', '08:00', '견적서 업데이트', 'ESTIMATE'),
+('Y', '2024-11-13', 12, '2024-11-06 15:35:33.628', 17, '2024-11-06 15:35:33.628', '견적 작성 작업', '09:30', '08:30', '견적 작성 활동', 'ESTIMATE'),
+('Y', '2024-11-02', 12, '2024-11-06 15:35:33.628', 16, '2024-11-06 15:35:33.628', '영업 관련 미팅', '03:00', '01:30', '영업 관련 미팅', 'SALES'),
+('Y', '2024-11-08', 12, '2024-11-06 15:35:33.628', 29, '2024-11-06 15:35:33.628', '영업 관련 미팅', '01:00', '00:00', '영업 관련 미팅', 'SALES'),
+('Y', '2024-11-10', 12, '2024-11-06 15:35:33.628', 15, '2024-11-06 15:35:33.628', '계약서 검토', '22:00', '21:00', '계약서 토론', 'CONTRACT'),
+('Y', '2024-11-11', 12, '2024-11-06 15:35:33.628', 17, '2024-11-06 15:35:33.628', '계약서 검토', '02:30', '00:30', '계약서 토론', 'CONTRACT'),
+('Y', '2024-12-26', 1, '2024-11-06 15:35:33.628', 19, '2024-11-06 15:35:33.628', '가족 모임 준비', '11:30', '10:30', '가족 모임 준비', 'PERSONAL'),
+('Y', '2024-12-19', 1, '2024-11-06 15:35:33.628', 22, '2024-11-06 15:35:33.628', '개인 일정 조정', '02:00', '00:30', '개인 일정 조정', 'PERSONAL'),
+('Y', '2024-12-09', 1, '2024-11-06 15:35:33.628', 1, '2024-11-06 15:35:33.628', '제안서 초안 작성', '00:00', '22:00', '제안서 초안 작성', 'PROPOSAL'),
+('Y', '2024-12-22', 1, '2024-11-06 15:35:33.628', 15, '2024-11-06 15:35:33.628', '제안서 초안 작성', '01:30', '00:30', '제안서 초안 작성', 'PROPOSAL'),
+('Y', '2024-12-08', 1, '2024-11-06 15:35:33.628', 17, '2024-11-06 15:35:33.628', '견적 작성 작업', '17:00', '15:00', '견적 작성 활동', 'ESTIMATE'),
+('Y', '2024-12-13', 1, '2024-11-06 15:35:33.628', 17, '2024-11-06 15:35:33.628', '예산 검토', '16:30', '15:30', '예산 토론', 'ESTIMATE'),
+('Y', '2024-12-05', 1, '2024-11-06 15:35:33.628', 16, '2024-11-06 15:35:33.628', '클라이언트 미팅 준비', '19:30', '18:30', '클라이언트 미팅 준비', 'SALES'),
+('Y', '2024-12-17', 1, '2024-11-06 15:35:33.628', 1, '2024-11-06 15:35:33.628', '영업 관련 미팅', '05:00', '03:00', '영업 관련 미팅', 'SALES'),
+('Y', '2024-12-19', 1, '2024-11-06 15:35:33.628', 15, '2024-11-06 15:35:33.628', '계약 조건 조정', '09:30', '08:30', '계약 조건 조정', 'CONTRACT'),
+('Y', '2024-12-23', 1, '2024-11-06 15:35:33.628', 20, '2024-11-06 15:35:33.629', '계약서 검토', '20:30', '19:30', '계약서 토론', 'CONTRACT'),
+('Y', '2024-12-22', 11, '2024-11-06 15:35:33.629', 25, '2024-11-06 15:35:33.629', '가족 모임 준비', '23:00', '21:00', '가족 모임 준비', 'PERSONAL'),
+('Y', '2024-12-03', 11, '2024-11-06 15:35:33.629', 15, '2024-11-06 15:35:33.629', '개인 프로젝트 작업', '05:30', '03:30', '개인 프로젝트 활동', 'PERSONAL'),
+('Y', '2024-12-12', 11, '2024-11-06 15:35:33.629', 12, '2024-11-06 15:35:33.629', '제안서 초안 작성', '05:00', '04:00', '제안서 초안 작성', 'PROPOSAL'),
+('Y', '2024-12-08', 11, '2024-11-06 15:35:33.629', 19, '2024-11-06 15:35:33.629', '새로운 제안 논의', '06:30', '04:30', '새로운 제안 논의', 'PROPOSAL'),
+('Y', '2024-12-15', 11, '2024-11-06 15:35:33.629', 23, '2024-11-06 15:35:33.629', '견적 작성 작업', '20:00', '18:00', '견적 작성 활동', 'ESTIMATE'),
+('Y', '2024-12-08', 11, '2024-11-06 15:35:33.629', 30, '2024-11-06 15:35:33.629', '견적 작성 작업', '16:30', '14:30', '견적 작성 활동', 'ESTIMATE'),
+('Y', '2024-12-03', 11, '2024-11-06 15:35:33.629', 6, '2024-11-06 15:35:33.629', '클라이언트 미팅 준비', '16:00', '14:30', '클라이언트 미팅 준비', 'SALES'),
+('Y', '2024-12-02', 11, '2024-11-06 15:35:33.629', 14, '2024-11-06 15:35:33.629', '영업 전략 검토', '05:30', '04:30', '영업 전략 토론', 'SALES'),
+('Y', '2024-12-15', 11, '2024-11-06 15:35:33.629', 25, '2024-11-06 15:35:33.629', '계약 조건 조정', '22:00', '20:00', '계약 조건 조정', 'CONTRACT'),
+('Y', '2024-12-21', 11, '2024-11-06 15:35:33.629', 15, '2024-11-06 15:35:33.629', '계약서 검토', '10:00', '09:00', '계약서 토론', 'CONTRACT'),
+('Y', '2024-12-17', 12, '2024-11-06 15:35:33.629', 10, '2024-11-06 15:35:33.629', '개인 일정 조정', '00:00', '22:30', '개인 일정 조정', 'PERSONAL'),
+('Y', '2024-12-11', 12, '2024-11-06 15:35:33.629', 2, '2024-11-06 15:35:33.629', '가족 모임 준비', '01:30', '00:00', '가족 모임 준비', 'PERSONAL'),
+('Y', '2024-12-02', 12, '2024-11-06 15:35:33.629', 23, '2024-11-06 15:35:33.629', '제안서 검토 회의', '23:30', '22:00', '제안서 토론 미팅', 'PROPOSAL'),
+('Y', '2024-12-28', 12, '2024-11-06 15:35:33.629', 22, '2024-11-06 15:35:33.629', '제안서 검토 회의', '17:30', '16:00', '제안서 토론 미팅', 'PROPOSAL'),
+('Y', '2024-12-16', 12, '2024-11-06 15:35:33.629', 23, '2024-11-06 15:35:33.629', '견적 작성 작업', '13:30', '12:30', '견적 작성 활동', 'ESTIMATE'),
+('Y', '2024-12-11', 12, '2024-11-06 15:35:33.629', 7, '2024-11-06 15:35:33.629', '견적 작성 작업', '04:00', '02:30', '견적 작성 활동', 'ESTIMATE'),
+('Y', '2024-12-26', 12, '2024-11-06 15:35:33.629', 8, '2024-11-06 15:35:33.629', '클라이언트 미팅 준비', '07:00', '06:00', '클라이언트 미팅 준비', 'SALES'),
+('Y', '2024-12-13', 12, '2024-11-06 15:35:33.629', 17, '2024-11-06 15:35:33.629', '클라이언트 미팅 준비', '14:00', '13:00', '클라이언트 미팅 준비', 'SALES'),
+('Y', '2024-12-12', 12, '2024-11-06 15:35:33.629', 2, '2024-11-06 15:35:33.629', '계약 조건 조정', '15:30', '14:30', '계약 조건 조정', 'CONTRACT'),
+('Y', '2024-12-09', 12, '2024-11-06 15:35:33.629', 30, '2024-11-06 15:35:33.629', '계약 협상 회의', '03:30', '02:00', '계약 협상 미팅', 'CONTRACT');
 
 -- >>>>>>>>>>>> 영업기회 <<<<<<<<<<<<<<
 -- 영업기회
@@ -1163,794 +979,104 @@ VALUES ('Y', '2023-12-05', 0, 1, 1),
        ('N', NULL, 4, 80, 5) ;
 
 -- >>>>>>>>>>>> 영업활동 @uzz99 <<<<<<<<<<<<<<
-
 INSERT INTO `tb_act` (act_date, calendar_no, created_at, lead_no, updated_at, act_cont, complete_yn, end_time, name, plan_cont, purpose, start_time, cls) VALUES
- ('2024-11-11', 15, '2024-11-06 02:07:03', 44, '2024-11-06 02:07:03', '제품 문의', 'N', '10:25', '프로모션 상담', '발송 준비', '문의 응대', '15:53', 'ONLINE'),
- ('2024-11-18', 4, '2024-11-06 02:07:03', 7, '2024-11-06 02:07:03', '후속 연락', 'Y', '15:47', '커피 시음회', '제품 테스트', '구매 상담', '10:56', 'ONLINE'),
- ('2024-11-18', 4, '2024-11-06 02:07:03', 25, '2024-11-06 02:07:03', '일정 조정', 'N', '14:37', '샘플 요청', '발송 준비', '문의 응대', '13:40', 'ONLINE'),
- ('2024-11-07', 4, '2024-11-06 02:07:03', 29, '2024-11-06 02:07:03', '서비스 요청', 'N', '16:16', '프로모션 상담', '발송 준비', '문의 응대', '13:34', 'EMAIL'),
- ('2024-11-21', 15, '2024-11-06 02:07:03', 43, '2024-11-06 02:07:03', '후속 연락', 'Y', '14:08', '재구매 상담', '발송 준비', '구매 상담', '10:28', 'OTHER'),
- ('2024-11-20', 4, '2024-11-06 02:07:03', 38, '2024-11-06 02:07:03', '상담 요청', 'N', '14:11', '프로모션 상담', '추가 상담 예정', '기타', '9:54', 'EMAIL'),
- ('2024-11-28', 1, '2024-11-06 02:07:03', 8, '2024-11-06 02:07:03', '제품 문의', 'Y', '17:51', '커피 시음회', '발송 준비', '구매 상담', '14:45', 'ONLINE'),
- ('2024-11-19', 15, '2024-11-06 02:07:03', 37, '2024-11-06 02:07:03', '서비스 요청', 'Y', '13:06', '신제품 발표', '제품 테스트', '기타', '15:14', 'EMAIL'),
- ('2024-11-18', 1, '2024-11-06 02:07:03', 29, '2024-11-06 02:07:03', '일정 조정', 'Y', '17:55', '신제품 발표', '추가 상담 예정', '기타', '14:02', 'EMAIL'),
- ('2023-09-04', 9, '2024-11-06 02:07:03', 26, '2024-11-06 02:07:03', '제품 문의', 'Y', '11:09', '샘플 요청', '추가 상담 예정', '기타', '18:50', 'ONLINE'),
- ('2023-08-02', 15, '2024-11-06 02:07:03', 5, '2024-11-06 02:07:03', '서비스 요청', 'Y', '11:38', '재구매 상담', '발송 준비', '구매 상담', '12:34', 'OTHER'),
- ('2024-07-18', 1, '2024-11-06 02:07:03', 47, '2024-11-06 02:07:03', '서비스 요청', 'N', '17:06', '커피 시음회', '제품 테스트', '기타', '12:13', 'VISIT'),
- ('2023-01-31', 1, '2024-11-06 02:07:03', 44, '2024-11-06 02:07:03', '상담 요청', 'Y', '13:18', '신제품 발표', '발송 준비', '기타', '8:32', 'ONLINE'),
- ('2022-05-23', 1, '2024-11-06 02:07:03', 18, '2024-11-06 02:07:03', '제품 문의', 'N', '16:28', '프로모션 상담', '발송 준비', '구매 상담', '18:14', 'EMAIL'),
- ('2024-02-15', 14, '2024-11-06 02:07:03', 34, '2024-11-06 02:07:03', '후속 연락', 'Y', '8:48', '샘플 요청', '제품 테스트', '기타', '18:25', 'OTHER'),
- ('2023-10-25', 9, '2024-11-06 02:07:03', 29, '2024-11-06 02:07:03', '일정 조정', 'Y', '10:01', '신제품 발표', '발송 준비', '기타', '12:26', 'PHONE'),
- ('2023-01-07', 1, '2024-11-06 02:07:03', 15, '2024-11-06 02:07:03', '서비스 요청', 'Y', '10:58', '신제품 발표', '추가 상담 예정', '문의 응대', '14:34', 'OTHER'),
- ('2022-06-28', 10, '2024-11-06 02:07:03', 39, '2024-11-06 02:07:03', '서비스 요청', 'N', '12:55', '프로모션 상담', '추가 상담 예정', '구매 상담', '12:40', 'PHONE'),
- ('2023-11-13', 8, '2024-11-06 02:07:03', 29, '2024-11-06 02:07:03', '서비스 요청', 'Y', '14:05', '재구매 상담', '발송 준비', '기타', '10:12', 'OTHER'),
- ('2022-12-16', 8, '2024-11-06 02:07:03', 42, '2024-11-06 02:07:03', '후속 연락', 'Y', '14:05', '신제품 발표', '추가 상담 예정', '구매 상담', '17:57', 'VISIT'),
- ('2023-06-09', 14, '2024-11-06 02:07:03', 12, '2024-11-06 02:07:03', '상담 요청', 'N', '17:25', '샘플 요청', '제품 테스트', '구매 상담', '13:12', 'VISIT'),
- ('2023-04-25', 1, '2024-11-06 02:07:03', 4, '2024-11-06 02:07:03', '서비스 요청', 'N', '13:26', '샘플 요청', '발송 준비', '문의 응대', '12:37', 'OTHER'),
- ('2023-05-14', 1, '2024-11-06 02:07:03', 17, '2024-11-06 02:07:03', '후속 연락', 'N', '11:48', '프로모션 상담', '발송 준비', '문의 응대', '13:30', 'PHONE'),
- ('2023-01-13', 1, '2024-11-06 02:07:03', 18, '2024-11-06 02:07:03', '후속 연락', 'Y', '18:05', '신제품 발표', '제품 테스트', '기타', '10:32', 'ONLINE'),
- ('2022-06-28', 4, '2024-11-06 02:07:03', 34, '2024-11-06 02:07:03', '상담 요청', 'N', '8:24', '커피 시음회', '제품 테스트', '구매 상담', '18:41', 'PHONE'),
- ('2024-07-17', 12, '2024-11-06 02:07:03', 3, '2024-11-06 02:07:03', '제품 문의', 'Y', '8:01', '커피 시음회', '발송 준비', '기타', '13:46', 'PHONE'),
- ('2022-03-09', 13, '2024-11-06 02:07:03', 9, '2024-11-06 02:07:03', '후속 연락', 'N', '11:36', '신제품 발표', '발송 준비', '문의 응대', '9:22', 'VISIT'),
- ('2022-04-06', 1, '2024-11-06 02:07:03', 7, '2024-11-06 02:07:03', '제품 문의', 'N', '8:51', '신제품 발표', '추가 상담 예정', '문의 응대', '8:35', 'VISIT'),
- ('2024-11-20', 2, '2024-11-06 02:07:03', 24, '2024-11-06 02:07:03', '서비스 요청', 'Y', '17:30', '커피 시음회', '추가 상담 예정', '문의 응대', '15:45', 'VISIT'),
- ('2022-12-13', 14, '2024-11-06 02:07:03', 22, '2024-11-06 02:07:03', '후속 연락', 'Y', '16:54', '프로모션 상담', '제품 테스트', '구매 상담', '12:06', 'OTHER'),
- ('2023-10-08', 1, '2024-11-06 02:07:03', 29, '2024-11-06 02:07:03', '일정 조정', 'Y', '11:52', '신제품 발표', '제품 테스트', '기타', '15:44', 'VISIT'),
- ('2023-10-21', 8, '2024-11-06 02:07:03', 9, '2024-11-06 02:07:03', '서비스 요청', 'N', '15:35', '신제품 발표', '발송 준비', '구매 상담', '17:33', 'ONLINE'),
- ('2024-11-16', 2, '2024-11-06 02:07:03', 10, '2024-11-06 02:07:03', '제품 문의', 'N', '17:57', '프로모션 상담', '발송 준비', '구매 상담', '18:15', 'PHONE'),
- ('2023-08-11', 10, '2024-11-06 02:07:03', 25, '2024-11-06 02:07:03', '서비스 요청', 'Y', '16:27', '커피 시음회', '제품 테스트', '구매 상담', '11:46', 'PHONE'),
- ('2022-01-30', 1, '2024-11-06 02:07:03', 34, '2024-11-06 02:07:03', '제품 문의', 'Y', '11:49', '샘플 요청', '추가 상담 예정', '구매 상담', '17:14', 'PHONE'),
- ('2024-03-25', 14, '2024-11-06 02:07:03', 45, '2024-11-06 02:07:03', '상담 요청', 'N', '15:44', '신제품 발표', '발송 준비', '기타', '15:19', 'PHONE'),
- ('2024-01-04', 14, '2024-11-06 02:07:03', 3, '2024-11-06 02:07:03', '일정 조정', 'N', '16:44', '샘플 요청', '추가 상담 예정', '구매 상담', '15:47', 'OTHER'),
- ('2022-08-28', 14, '2024-11-06 02:07:03', 5, '2024-11-06 02:07:03', '후속 연락', 'Y', '14:31', '샘플 요청', '추가 상담 예정', '기타', '14:19', 'VISIT'),
- ('2022-10-16', 3, '2024-11-06 02:07:03', 1, '2024-11-06 02:07:03', '일정 조정', 'N', '16:32', '신제품 발표', '추가 상담 예정', '기타', '18:19', 'ONLINE'),
- ('2022-09-26', 1, '2024-11-06 02:07:03', 36, '2024-11-06 02:07:03', '일정 조정', 'Y', '11:06', '프로모션 상담', '발송 준비', '구매 상담', '10:53', 'ONLINE'),
- ('2022-07-05', 14, '2024-11-06 02:07:03', 41, '2024-11-06 02:07:03', '일정 조정', 'N', '14:56', '커피 시음회', '추가 상담 예정', '문의 응대', '9:27', 'ONLINE'),
- ('2023-02-28', 1, '2024-11-06 02:07:03', 32, '2024-11-06 02:07:03', '서비스 요청', 'N', '17:04', '커피 시음회', '발송 준비', '기타', '10:40', 'PHONE'),
- ('2023-12-20', 10, '2024-11-06 02:07:03', 35, '2024-11-06 02:07:03', '일정 조정', 'Y', '11:42', '프로모션 상담', '추가 상담 예정', '기타', '10:24', 'EMAIL'),
- ('2024-11-27', 14, '2024-11-06 02:07:03', 44, '2024-11-06 02:07:03', '서비스 요청', 'N', '18:03', '신제품 발표', '제품 테스트', '기타', '14:26', 'ONLINE'),
- ('2024-09-15', 10, '2024-11-06 02:07:03', 11, '2024-11-06 02:07:03', '제품 문의', 'Y', '17:53', '샘플 요청', '추가 상담 예정', '기타', '12:08', 'PHONE'),
- ('2022-10-05', 1, '2024-11-06 02:07:03', 42, '2024-11-06 02:07:03', '상담 요청', 'Y', '13:07', '재구매 상담', '추가 상담 예정', '문의 응대', '9:32', 'PHONE'),
- ('2022-11-24', 14, '2024-11-06 02:07:03', 40, '2024-11-06 02:07:03', '후속 연락', 'Y', '15:49', '프로모션 상담', '발송 준비', '문의 응대', '18:05', 'OTHER'),
- ('2024-09-12', 5, '2024-11-06 02:07:03', 47, '2024-11-06 02:07:03', '후속 연락', 'N', '12:09', '재구매 상담', '추가 상담 예정', '구매 상담', '18:28', 'EMAIL'),
- ('2023-11-24', 5, '2024-11-06 02:07:03', 49, '2024-11-06 02:07:03', '서비스 요청', 'N', '8:03', '신제품 발표', '추가 상담 예정', '문의 응대', '16:09', 'VISIT'),
- ('2023-02-19', 15, '2024-11-06 02:07:03', 26, '2024-11-06 02:07:03', '후속 연락', 'Y', '11:42', '프로모션 상담', '발송 준비', '구매 상담', '12:52', 'VISIT'),
- ('2024-02-06', 15, '2024-11-06 02:07:03', 38, '2024-11-06 02:07:03', '일정 조정', 'Y', '10:18', '신제품 발표', '제품 테스트', '기타', '16:57', 'ONLINE'),
- ('2022-03-11', 15, '2024-11-06 02:07:03', 25, '2024-11-06 02:07:03', '제품 문의', 'N', '11:33', '재구매 상담', '제품 테스트', '구매 상담', '14:17', 'PHONE'),
- ('2024-09-27', 15, '2024-11-06 02:07:03', 24, '2024-11-06 02:07:03', '제품 문의', 'N', '16:15', '신제품 발표', '발송 준비', '기타', '9:32', 'OTHER'),
- ('2023-04-20', 1, '2024-11-06 02:07:03', 46, '2024-11-06 02:07:03', '후속 연락', 'N', '8:25', '재구매 상담', '발송 준비', '문의 응대', '11:39', 'VISIT'),
- ('2022-02-20', 14, '2024-11-06 02:07:03', 18, '2024-11-06 02:07:03', '서비스 요청', 'Y', '13:15', '프로모션 상담', '발송 준비', '구매 상담', '9:47', 'PHONE'),
- ('2022-09-10', 1, '2024-11-06 02:07:03', 5, '2024-11-06 02:07:03', '서비스 요청', 'N', '14:04', '프로모션 상담', '추가 상담 예정', '문의 응대', '14:15', 'ONLINE'),
- ('2022-10-30', 1, '2024-11-06 02:07:03', 42, '2024-11-06 02:07:03', '제품 문의', 'Y', '16:13', '프로모션 상담', '제품 테스트', '구매 상담', '8:15', 'OTHER'),
- ('2022-09-04', 5, '2024-11-06 02:07:03', 43, '2024-11-06 02:07:03', '상담 요청', 'Y', '16:14', '프로모션 상담', '추가 상담 예정', '구매 상담', '12:00', 'EMAIL'),
- ('2024-04-25', 14, '2024-11-06 02:07:03', 18, '2024-11-06 02:07:03', '제품 문의', 'N', '12:47', '커피 시음회', '추가 상담 예정', '구매 상담', '16:35', 'EMAIL'),
- ('2023-05-16', 6, '2024-11-06 02:07:03', 16, '2024-11-06 02:07:03', '서비스 요청', 'N', '16:44', '재구매 상담', '제품 테스트', '문의 응대', '14:24', 'VISIT'),
- ('2023-08-31', 14, '2024-11-06 02:07:03', 8, '2024-11-06 02:07:03', '제품 문의', 'N', '15:24', '커피 시음회', '제품 테스트', '기타', '12:19', 'EMAIL'),
- ('2024-10-19', 3, '2024-11-06 02:07:03', 32, '2024-11-06 02:07:03', '일정 조정', 'N', '8:39', '샘플 요청', '제품 테스트', '문의 응대', '9:40', 'ONLINE'),
- ('2023-05-20', 11, '2024-11-06 02:07:03', 48, '2024-11-06 02:07:03', '후속 연락', 'Y', '13:32', '샘플 요청', '추가 상담 예정', '기타', '12:00', 'OTHER'),
- ('2023-10-07', 3, '2024-11-06 02:07:03', 47, '2024-11-06 02:07:03', '일정 조정', 'Y', '8:59', '신제품 발표', '발송 준비', '문의 응대', '12:53', 'PHONE'),
- ('2024-10-27', 15, '2024-11-06 02:07:03', 1, '2024-11-06 02:07:03', '상담 요청', 'Y', '15:26', '샘플 요청', '발송 준비', '구매 상담', '14:16', 'PHONE'),
- ('2023-07-14', 12, '2024-11-06 02:07:03', 32, '2024-11-06 02:07:03', '후속 연락', 'Y', '15:12', '신제품 발표', '제품 테스트', '문의 응대', '15:19', 'EMAIL'),
- ('2023-11-30', 14, '2024-11-06 02:07:03', 1, '2024-11-06 02:07:03', '서비스 요청', 'N', '14:45', '재구매 상담', '제품 테스트', '문의 응대', '12:27', 'OTHER'),
- ('2023-11-16', 14, '2024-11-06 02:07:03', 18, '2024-11-06 02:07:03', '제품 문의', 'N', '15:56', '신제품 발표', '제품 테스트', '구매 상담', '9:15', 'VISIT'),
- ('2024-11-21', 14, '2024-11-06 02:07:03', 24, '2024-11-06 02:07:03', '상담 요청', 'Y', '16:34', '재구매 상담', '추가 상담 예정', '구매 상담', '10:54', 'EMAIL'),
- ('2022-06-05', 1, '2024-11-06 02:07:03', 10, '2024-11-06 02:07:03', '제품 문의', 'N', '12:09', '샘플 요청', '추가 상담 예정', '문의 응대', '9:05', 'ONLINE'),
- ('2024-01-22', 1, '2024-11-06 02:07:03', 9, '2024-11-06 02:07:03', '후속 연락', 'Y', '18:24', '샘플 요청', '발송 준비', '구매 상담', '13:17', 'EMAIL'),
- ('2022-04-27', 14, '2024-11-06 02:07:03', 26, '2024-11-06 02:07:03', '서비스 요청', 'N', '16:33', '커피 시음회', '제품 테스트', '문의 응대', '9:37', 'ONLINE'),
- ('2023-11-10', 15, '2024-11-06 02:07:03', 32, '2024-11-06 02:07:03', '서비스 요청', 'N', '15:18', '샘플 요청', '추가 상담 예정', '기타', '14:15', 'ONLINE'),
- ('2022-11-13', 5, '2024-11-06 02:07:03', 28, '2024-11-06 02:07:03', '일정 조정', 'N', '13:04', '재구매 상담', '발송 준비', '기타', '9:47', 'PHONE'),
- ('2024-06-17', 4, '2024-11-06 02:07:03', 21, '2024-11-06 02:07:03', '상담 요청', 'N', '16:03', '커피 시음회', '제품 테스트', '구매 상담', '13:19', 'ONLINE'),
- ('2024-01-15', 6, '2024-11-06 02:07:03', 10, '2024-11-06 02:07:03', '서비스 요청', 'N', '9:06', '커피 시음회', '추가 상담 예정', '기타', '12:25', 'PHONE'),
- ('2024-07-08', 14, '2024-11-06 02:07:03', 18, '2024-11-06 02:07:03', '서비스 요청', 'Y', '17:22', '샘플 요청', '제품 테스트', '문의 응대', '9:10', 'PHONE'),
- ('2022-06-16', 4, '2024-11-06 02:07:03', 25, '2024-11-06 02:07:03', '상담 요청', 'Y', '15:46', '커피 시음회', '추가 상담 예정', '구매 상담', '10:17', 'EMAIL'),
- ('2022-09-19', 1, '2024-11-06 02:07:03', 38, '2024-11-06 02:07:03', '상담 요청', 'Y', '16:17', '신제품 발표', '발송 준비', '기타', '14:58', 'PHONE'),
- ('2022-12-13', 11, '2024-11-06 02:07:03', 48, '2024-11-06 02:07:03', '제품 문의', 'Y', '14:44', '신제품 발표', '발송 준비', '기타', '15:24', 'EMAIL'),
- ('2023-03-10', 14, '2024-11-06 02:07:03', 36, '2024-11-06 02:07:03', '일정 조정', 'Y', '13:51', '재구매 상담', '제품 테스트', '문의 응대', '14:09', 'VISIT'),
- ('2022-10-28', 3, '2024-11-06 02:07:03', 48, '2024-11-06 02:07:03', '제품 문의', 'N', '13:13', '재구매 상담', '제품 테스트', '기타', '12:53', 'ONLINE'),
- ('2022-06-03', 5, '2024-11-06 02:07:03', 12, '2024-11-06 02:07:03', '제품 문의', 'Y', '16:00', '프로모션 상담', '발송 준비', '문의 응대', '9:47', 'EMAIL'),
- ('2024-11-25', 14, '2024-11-06 02:07:03', 13, '2024-11-06 02:07:03', '상담 요청', 'N', '9:13', '커피 시음회', '추가 상담 예정', '구매 상담', '15:41', 'EMAIL'),
- ('2022-07-18', 1, '2024-11-06 02:07:03', 30, '2024-11-06 02:07:03', '상담 요청', 'Y', '13:48', '재구매 상담', '추가 상담 예정', '구매 상담', '17:55', 'EMAIL'),
- ('2023-09-10', 6, '2024-11-06 02:07:03', 48, '2024-11-06 02:07:03', '일정 조정', 'N', '9:47', '재구매 상담', '발송 준비', '기타', '14:09', 'VISIT'),
- ('2023-08-14', 12, '2024-11-06 02:07:03', 14, '2024-11-06 02:07:03', '일정 조정', 'N', '18:00', '커피 시음회', '추가 상담 예정', '기타', '9:15', 'ONLINE'),
- ('2023-02-24', 14, '2024-11-06 02:07:03', 38, '2024-11-06 02:07:03', '상담 요청', 'Y', '10:53', '신제품 발표', '제품 테스트', '구매 상담', '9:18', 'EMAIL'),
- ('2023-04-07', 9, '2024-11-06 02:07:03', 32, '2024-11-06 02:07:03', '상담 요청', 'N', '18:54', '샘플 요청', '제품 테스트', '기타', '13:25', 'VISIT'),
- ('2022-01-24', 7, '2024-11-06 02:07:03', 45, '2024-11-06 02:07:03', '서비스 요청', 'N', '11:07', '커피 시음회', '발송 준비', '기타', '13:13', 'ONLINE'),
- ('2023-04-24', 4, '2024-11-06 02:07:03', 30, '2024-11-06 02:07:03', '서비스 요청', 'Y', '18:14', '프로모션 상담', '발송 준비', '기타', '14:35', 'PHONE'),
- ('2024-06-02', 1, '2024-11-06 02:07:03', 37, '2024-11-06 02:07:03', '후속 연락', 'N', '13:18', '커피 시음회', '발송 준비', '구매 상담', '16:06', 'OTHER'),
- ('2024-02-18', 15, '2024-11-06 02:07:03', 39, '2024-11-06 02:07:03', '일정 조정', 'N', '14:51', '재구매 상담', '발송 준비', '기타', '8:58', 'VISIT'),
- ('2024-11-15', 14, '2024-11-06 02:07:03', 16, '2024-11-06 02:07:03', '제품 문의', 'Y', '11:32', '커피 시음회', '추가 상담 예정', '문의 응대', '9:38', 'ONLINE'),
- ('2024-04-02', 15, '2024-11-06 02:07:03', 4, '2024-11-06 02:07:03', '후속 연락', 'N', '14:26', '재구매 상담', '제품 테스트', '구매 상담', '18:52', 'EMAIL'),
- ('2022-03-04', 12, '2024-11-06 02:07:03', 22, '2024-11-06 02:07:03', '상담 요청', 'N', '10:00', '샘플 요청', '추가 상담 예정', '기타', '16:04', 'EMAIL'),
- ('2024-01-16', 1, '2024-11-06 02:07:03', 1, '2024-11-06 02:07:03', '제품 문의', 'N', '14:00', '신제품 발표', '제품 테스트', '기타', '12:22', 'ONLINE'),
- ('2023-10-04', 15, '2024-11-06 02:07:03', 18, '2024-11-06 02:07:03', '후속 연락', 'N', '14:08', '프로모션 상담', '제품 테스트', '기타', '13:20', 'PHONE'),
- ('2022-01-15', 12, '2024-11-06 02:07:03', 12, '2024-11-06 02:07:03', '서비스 요청', 'N', '15:31', '재구매 상담', '발송 준비', '구매 상담', '17:41', 'OTHER'),
- ('2022-03-19', 14, '2024-11-06 02:07:03', 15, '2024-11-06 02:07:03', '후속 연락', 'Y', '16:50', '프로모션 상담', '제품 테스트', '문의 응대', '8:56', 'ONLINE'),
- ('2022-09-30', 14, '2024-11-06 02:07:03', 36, '2024-11-06 02:07:03', '상담 요청', 'N', '14:00', '샘플 요청', '추가 상담 예정', '구매 상담', '8:57', 'PHONE'),
- ('2023-02-13', 14, '2024-11-06 02:07:03', 24, '2024-11-06 02:07:03', '일정 조정', 'N', '15:06', '프로모션 상담', '추가 상담 예정', '기타', '15:53', 'EMAIL'),
- ('2024-10-08', 11, '2024-11-06 02:07:03', 46, '2024-11-06 02:07:03', '후속 연락', 'N', '14:13', '프로모션 상담', '추가 상담 예정', '구매 상담', '9:58', 'OTHER'),
- ('2023-10-13', 15, '2024-11-06 02:07:03', 47, '2024-11-06 02:07:03', '상담 요청', 'Y', '9:17', '신제품 발표', '제품 테스트', '구매 상담', '9:18', 'PHONE'),
- ('2024-07-08', 1, '2024-11-06 02:07:03', 47, '2024-11-06 02:07:03', '서비스 요청', 'N', '10:50', '신제품 발표', '추가 상담 예정', '기타', '8:58', 'ONLINE'),
- ('2023-03-28', 8, '2024-11-06 02:07:03', 32, '2024-11-06 02:07:03', '일정 조정', 'Y', '9:50', '샘플 요청', '제품 테스트', '기타', '16:43', 'PHONE'),
- ('2023-05-12', 8, '2024-11-06 02:07:03', 48, '2024-11-06 02:07:03', '후속 연락', 'N', '17:01', '신제품 발표', '추가 상담 예정', '문의 응대', '11:19', 'OTHER'),
- ('2023-02-08', 12, '2024-11-06 02:07:03', 24, '2024-11-06 02:07:03', '서비스 요청', 'N', '9:16', '재구매 상담', '제품 테스트', '구매 상담', '16:01', 'VISIT'),
- ('2023-04-14', 7, '2024-11-06 02:07:03', 15, '2024-11-06 02:07:03', '일정 조정', 'N', '14:57', '샘플 요청', '제품 테스트', '문의 응대', '14:03', 'VISIT'),
- ('2022-12-09', 15, '2024-11-06 02:07:03', 4, '2024-11-06 02:07:03', '서비스 요청', 'N', '16:32', '신제품 발표', '제품 테스트', '기타', '17:41', 'VISIT'),
- ('2024-07-31', 15, '2024-11-06 02:07:03', 6, '2024-11-06 02:07:03', '상담 요청', 'N', '10:56', '커피 시음회', '제품 테스트', '문의 응대', '18:07', 'PHONE'),
- ('2022-12-12', 15, '2024-11-06 02:07:03', 39, '2024-11-06 02:07:03', '제품 문의', 'N', '12:51', '신제품 발표', '발송 준비', '문의 응대', '9:31', 'VISIT'),
- ('2023-07-11', 11, '2024-11-06 02:07:03', 12, '2024-11-06 02:07:03', '상담 요청', 'N', '14:08', '신제품 발표', '추가 상담 예정', '문의 응대', '12:32', 'ONLINE'),
- ('2022-12-20', 5, '2024-11-06 02:07:03', 24, '2024-11-06 02:07:03', '제품 문의', 'N', '18:30', '프로모션 상담', '추가 상담 예정', '구매 상담', '18:44', 'PHONE'),
- ('2023-04-05', 2, '2024-11-06 02:07:03', 49, '2024-11-06 02:07:03', '일정 조정', 'Y', '15:43', '커피 시음회', '발송 준비', '구매 상담', '16:11', 'EMAIL'),
- ('2023-07-09', 15, '2024-11-06 02:07:03', 20, '2024-11-06 02:07:03', '서비스 요청', 'Y', '18:09', '커피 시음회', '발송 준비', '구매 상담', '14:36', 'ONLINE'),
- ('2023-10-21', 1, '2024-11-06 02:07:03', 9, '2024-11-06 02:07:03', '서비스 요청', 'Y', '18:40', '신제품 발표', '발송 준비', '기타', '14:13', 'EMAIL'),
- ('2022-07-03', 1, '2024-11-06 02:07:03', 26, '2024-11-06 02:07:03', '제품 문의', 'N', '8:18', '커피 시음회', '발송 준비', '구매 상담', '13:50', 'EMAIL'),
- ('2022-10-12', 6, '2024-11-06 02:07:03', 38, '2024-11-06 02:07:03', '후속 연락', 'N', '12:16', '재구매 상담', '추가 상담 예정', '기타', '14:40', 'ONLINE'),
- ('2022-08-12', 1, '2024-11-06 02:07:03', 21, '2024-11-06 02:07:03', '일정 조정', 'N', '17:34', '신제품 발표', '발송 준비', '문의 응대', '12:08', 'ONLINE'),
- ('2022-02-15', 15, '2024-11-06 02:07:03', 25, '2024-11-06 02:07:03', '일정 조정', 'Y', '16:08', '재구매 상담', '제품 테스트', '기타', '13:13', 'OTHER'),
- ('2022-07-05', 1, '2024-11-06 02:07:03', 30, '2024-11-06 02:07:03', '서비스 요청', 'N', '16:23', '커피 시음회', '추가 상담 예정', '문의 응대', '8:55', 'EMAIL'),
- ('2024-07-02', 1, '2024-11-06 02:07:03', 42, '2024-11-06 02:07:03', '상담 요청', 'N', '12:49', '재구매 상담', '추가 상담 예정', '구매 상담', '18:08', 'ONLINE'),
- ('2023-08-30', 14, '2024-11-06 02:07:03', 17, '2024-11-06 02:07:03', '후속 연락', 'N', '13:33', '신제품 발표', '제품 테스트', '기타', '14:50', 'VISIT'),
- ('2022-04-30', 10, '2024-11-06 02:07:03', 14, '2024-11-06 02:07:03', '일정 조정', 'N', '8:38', '재구매 상담', '제품 테스트', '구매 상담', '13:15', 'ONLINE'),
- ('2024-10-28', 8, '2024-11-06 02:07:03', 34, '2024-11-06 02:07:03', '후속 연락', 'N', '10:15', '신제품 발표', '추가 상담 예정', '기타', '18:00', 'OTHER'),
- ('2022-06-02', 11, '2024-11-06 02:07:03', 10, '2024-11-06 02:07:03', '후속 연락', 'Y', '15:02', '샘플 요청', '발송 준비', '기타', '15:48', 'ONLINE'),
- ('2024-04-22', 14, '2024-11-06 02:07:03', 29, '2024-11-06 02:07:03', '서비스 요청', 'N', '18:40', '신제품 발표', '추가 상담 예정', '기타', '14:42', 'OTHER'),
- ('2024-07-16', 14, '2024-11-06 02:07:03', 48, '2024-11-06 02:07:03', '일정 조정', 'N', '18:24', '신제품 발표', '제품 테스트', '구매 상담', '17:01', 'VISIT'),
- ('2023-08-09', 1, '2024-11-06 02:07:03', 43, '2024-11-06 02:07:03', '서비스 요청', 'N', '13:27', '커피 시음회', '추가 상담 예정', '문의 응대', '15:32', 'VISIT'),
- ('2022-06-21', 15, '2024-11-06 02:07:03', 25, '2024-11-06 02:07:03', '제품 문의', 'Y', '13:03', '샘플 요청', '발송 준비', '구매 상담', '18:16', 'EMAIL'),
- ('2022-02-22', 14, '2024-11-06 02:07:03', 26, '2024-11-06 02:07:03', '서비스 요청', 'Y', '14:19', '신제품 발표', '제품 테스트', '기타', '14:14', 'PHONE'),
- ('2022-05-16', 10, '2024-11-06 02:07:03', 39, '2024-11-06 02:07:03', '후속 연락', 'Y', '9:55', '샘플 요청', '추가 상담 예정', '구매 상담', '12:35', 'EMAIL'),
- ('2024-04-25', 10, '2024-11-06 02:07:03', 34, '2024-11-06 02:07:03', '제품 문의', 'Y', '12:00', '샘플 요청', '발송 준비', '문의 응대', '18:49', 'ONLINE'),
- ('2022-01-05', 1, '2024-11-06 02:07:03', 8, '2024-11-06 02:07:03', '제품 문의', 'Y', '17:43', '샘플 요청', '제품 테스트', '구매 상담', '17:39', 'VISIT'),
- ('2022-09-21', 1, '2024-11-06 02:07:03', 3, '2024-11-06 02:07:03', '후속 연락', 'N', '15:10', '신제품 발표', '발송 준비', '구매 상담', '13:39', 'ONLINE'),
- ('2024-04-10', 14, '2024-11-06 02:07:03', 28, '2024-11-06 02:07:03', '후속 연락', 'Y', '13:11', '신제품 발표', '제품 테스트', '구매 상담', '11:10', 'ONLINE'),
- ('2022-03-23', 1, '2024-11-06 02:07:03', 26, '2024-11-06 02:07:03', '상담 요청', 'N', '8:31', '신제품 발표', '추가 상담 예정', '기타', '14:09', 'EMAIL'),
- ('2024-03-21', 1, '2024-11-06 02:07:03', 8, '2024-11-06 02:07:03', '제품 문의', 'Y', '14:35', '재구매 상담', '발송 준비', '구매 상담', '8:05', 'OTHER'),
- ('2024-03-11', 4, '2024-11-06 02:07:03', 14, '2024-11-06 02:07:03', '서비스 요청', 'Y', '17:18', '프로모션 상담', '발송 준비', '구매 상담', '18:41', 'ONLINE'),
- ('2022-09-07', 14, '2024-11-06 02:07:03', 27, '2024-11-06 02:07:03', '상담 요청', 'Y', '16:20', '프로모션 상담', '추가 상담 예정', '구매 상담', '12:46', 'OTHER'),
- ('2023-08-09', 14, '2024-11-06 02:07:03', 38, '2024-11-06 02:07:03', '서비스 요청', 'Y', '14:54', '프로모션 상담', '제품 테스트', '기타', '8:50', 'ONLINE'),
- ('2024-08-21', 15, '2024-11-06 02:07:03', 43, '2024-11-06 02:07:03', '제품 문의', 'Y', '12:10', '신제품 발표', '발송 준비', '구매 상담', '10:59', 'PHONE'),
- ('2024-01-15', 14, '2024-11-06 02:07:03', 26, '2024-11-06 02:07:03', '제품 문의', 'N', '15:30', '신제품 발표', '추가 상담 예정', '문의 응대', '13:05', 'PHONE'),
- ('2023-11-18', 1, '2024-11-06 02:07:03', 29, '2024-11-06 02:07:03', '상담 요청', 'N', '12:21', '프로모션 상담', '발송 준비', '문의 응대', '14:50', 'OTHER'),
- ('2023-09-12', 2, '2024-11-06 02:07:03', 12, '2024-11-06 02:07:03', '제품 문의', 'Y', '8:46', '재구매 상담', '제품 테스트', '구매 상담', '13:42', 'ONLINE'),
- ('2022-09-07', 12, '2024-11-06 02:07:03', 49, '2024-11-06 02:07:03', '제품 문의', 'Y', '16:24', '재구매 상담', '발송 준비', '기타', '12:01', 'EMAIL'),
- ('2023-06-26', 15, '2024-11-06 02:07:03', 43, '2024-11-06 02:07:03', '제품 문의', 'Y', '12:59', '커피 시음회', '발송 준비', '기타', '10:55', 'OTHER'),
- ('2023-07-13', 15, '2024-11-06 02:07:03', 8, '2024-11-06 02:07:03', '후속 연락', 'N', '15:12', '커피 시음회', '발송 준비', '문의 응대', '9:29', 'ONLINE'),
- ('2023-04-12', 1, '2024-11-06 02:07:03', 14, '2024-11-06 02:07:03', '서비스 요청', 'N', '12:54', '샘플 요청', '발송 준비', '문의 응대', '8:55', 'ONLINE');
-
--- >>>>>>>>>>>> 제안 <<<<<<<<<<<<<<
-
--- 제안 데이터 생성 (총 200개)
-
-INSERT INTO tb_proposal (prop_no, created_at, updated_at, name, pr_date, req_date, start_date, end_date, submit_date, cont, note, lead_no)
-VALUES
-    (1, NOW(), NOW(), '커피왕 - 홍길동 원두 구매 제안', '2024-01-01', '2024-01-05', '2024-01-10', '2024-01-15', '2024-01-12', '고급 원두 및 커피머신 제공 제안', '커피왕 - 홍길동 고객에게 제공되는 고급 원두와 커피머신 제안', 1),
-    (2, NOW(), NOW(), '원두전문 - 김영희 원두 구매 제안', '2024-01-02', '2024-01-06', '2024-01-11', '2024-01-16', '2024-01-13', '고급 원두 및 커피머신 제공 제안', '원두전문 - 김영희 고객에게 제공되는 고급 원두와 커피머신 제안', 2),
-    (3, NOW(), NOW(), '커피트레이드 - 박철수 원두 구매 제안', '2024-01-03', '2024-01-07', '2024-01-12', '2024-01-17', '2024-01-14', '고급 원두 및 커피머신 제공 제안', '커피트레이드 - 박철수 고객에게 제공되는 고급 원두와 커피머신 제안', 3),
-    (4, NOW(), NOW(), '원두마켓 - 이승현 원두 구매 제안', '2024-01-04', '2024-01-08', '2024-01-13', '2024-01-18', '2024-01-15', '고급 원두 및 커피머신 제공 제안', '원두마켓 - 이승현 고객에게 제공되는 고급 원두와 커피머신 제안', 4),
-    (5, NOW(), NOW(), '커피플랜트 - 정민수 원두 구매 제안', '2024-01-05', '2024-01-09', '2024-01-14', '2024-01-19', '2024-01-16', '고급 원두 및 커피머신 제공 제안', '커피플랜트 - 정민수 고객에게 제공되는 고급 원두와 커피머신 제안', 5),
-    (6, NOW(), NOW(), '커피나무 - 서지수 원두 구매 제안', '2024-01-06', '2024-01-10', '2024-01-15', '2024-01-20', '2024-01-17', '고급 원두 및 커피머신 제공 제안', '커피나무 - 서지수 고객에게 제공되는 고급 원두와 커피머신 제안', 6),
-    (7, NOW(), NOW(), '원두가게 - 김도현 원두 구매 제안', '2024-01-07', '2024-01-11', '2024-01-16', '2024-01-21', '2024-01-18', '고급 원두 및 커피머신 제공 제안', '원두가게 - 김도현 고객에게 제공되는 고급 원두와 커피머신 제안', 7),
-    (8, NOW(), NOW(), '커피스토어 - 최혜린 원두 구매 제안', '2024-01-08', '2024-01-12', '2024-01-17', '2024-01-22', '2024-01-19', '고급 원두 및 커피머신 제공 제안', '커피스토어 - 최혜린 고객에게 제공되는 고급 원두와 커피머신 제안', 8),
-    (9, NOW(), NOW(), '원두파머 - 한지원 원두 구매 제안', '2024-01-09', '2024-01-13', '2024-01-18', '2024-01-23', '2024-01-20', '고급 원두 및 커피머신 제공 제안', '원두파머 - 한지원 고객에게 제공되는 고급 원두와 커피머신 제안', 9),
-    (10, NOW(), NOW(), '원두드림 - 장윤아 원두 구매 제안', '2024-01-10', '2024-01-14', '2024-01-19', '2024-01-24', '2024-01-21', '고급 원두 및 커피머신 제공 제안', '원두드림 - 장윤아 고객에게 제공되는 고급 원두와 커피머신 제안', 10),
-    (11, NOW(), NOW(), '커피농장 - 고객11 원두 구매 제안', '2024-02-01', '2024-02-05', '2024-02-10', '2024-02-15', '2024-02-12', '고급 원두 및 커피머신 제공 제안', '커피농장 - 고객11 고객에게 제공되는 고급 원두와 커피머신 제안', 11),
-    (12, NOW(), NOW(), '원두왕국 - 고객12 원두 구매 제안', '2024-02-02', '2024-02-06', '2024-02-11', '2024-02-16', '2024-02-13', '고급 원두 및 커피머신 제공 제안', '원두왕국 - 고객12 고객에게 제공되는 고급 원두와 커피머신 제안', 12),
-    (13, NOW(), NOW(), '바리스타 - 고객13 원두 구매 제안', '2024-02-03', '2024-02-07', '2024-02-12', '2024-02-17', '2024-02-14', '고급 원두 및 커피머신 제공 제안', '바리스타 - 고객13 고객에게 제공되는 고급 원두와 커피머신 제안', 13),
-    (14, NOW(), NOW(), '커피마스터 - 고객14 원두 구매 제안', '2024-02-04', '2024-02-08', '2024-02-13', '2024-02-18', '2024-02-15', '고급 원두 및 커피머신 제공 제안', '커피마스터 - 고객14 고객에게 제공되는 고급 원두와 커피머신 제안', 14),
-    (15, NOW(), NOW(), '커피블렌드 - 고객15 원두 구매 제안', '2024-02-05', '2024-02-09', '2024-02-14', '2024-02-19', '2024-02-16', '고급 원두 및 커피머신 제공 제안', '커피블렌드 - 고객15 고객에게 제공되는 고급 원두와 커피머신 제안', 15),
-    (16, NOW(), NOW(), '커피프로 - 고객16 원두 구매 제안', '2024-02-06', '2024-02-10', '2024-02-15', '2024-02-20', '2024-02-17', '고급 원두 및 커피머신 제공 제안', '커피프로 - 고객16 고객에게 제공되는 고급 원두와 커피머신 제안', 16),
-    (17, NOW(), NOW(), '커피존 - 고객17 원두 구매 제안', '2024-02-07', '2024-02-11', '2024-02-16', '2024-02-21', '2024-02-18', '고급 원두 및 커피머신 제공 제안', '커피존 - 고객17 고객에게 제공되는 고급 원두와 커피머신 제안', 17),
-    (18, NOW(), NOW(), '원두카페 - 고객18 원두 구매 제안', '2024-02-08', '2024-02-12', '2024-02-17', '2024-02-22', '2024-02-19', '고급 원두 및 커피머신 제공 제안', '원두카페 - 고객18 고객에게 제공되는 고급 원두와 커피머신 제안', 18),
-    (19, NOW(), NOW(), '커피샵 - 고객19 원두 구매 제안', '2024-02-09', '2024-02-13', '2024-02-18', '2024-02-23', '2024-02-20', '고급 원두 및 커피머신 제공 제안', '커피샵 - 고객19 고객에게 제공되는 고급 원두와 커피머신 제안', 19),
-    (20, NOW(), NOW(), '원두월드 - 고객20 원두 구매 제안', '2024-02-10', '2024-02-14', '2024-02-19', '2024-02-24', '2024-02-21', '고급 원두 및 커피머신 제공 제안', '원두월드 - 고객20 고객에게 제공되는 고급 원두와 커피머신 제안', 20),
-    (21, NOW(), NOW(), '커피카페 - 고객21 원두 구매 제안', '2024-02-06', '2024-02-10', '2024-02-15', '2024-02-20', '2024-02-18', '고급 원두 및 커피머신 제공 제안', '커피카페 - 고객21 고객에게 제공되는 고급 원두와 커피머신 제안', 21),
-    (22, NOW(), NOW(), '프리미엄커피 - 고객22 원두 구매 제안', '2024-02-07', '2024-02-11', '2024-02-16', '2024-02-21', '2024-02-19', '고급 원두 및 커피머신 제공 제안', '프리미엄커피 - 고객22 고객에게 제공되는 고급 원두와 커피머신 제안', 22),
-    (23, NOW(), NOW(), '카페미니 - 고객23 원두 구매 제안', '2024-02-08', '2024-02-12', '2024-02-17', '2024-02-22', '2024-02-20', '고급 원두 및 커피머신 제공 제안', '카페미니 - 고객23 고객에게 제공되는 고급 원두와 커피머신 제안', 23),
-    (24, NOW(), NOW(), '커피비즈 - 고객24 원두 구매 제안', '2024-02-09', '2024-02-13', '2024-02-18', '2024-02-23', '2024-02-21', '고급 원두 및 커피머신 제공 제안', '커피비즈 - 고객24 고객에게 제공되는 고급 원두와 커피머신 제안', 24),
-    (25, NOW(), NOW(), '모닝커피 - 고객25 원두 구매 제안', '2024-02-10', '2024-02-14', '2024-02-19', '2024-02-24', '2024-02-22', '고급 원두 및 커피머신 제공 제안', '모닝커피 - 고객25 고객에게 제공되는 고급 원두와 커피머신 제안', 25),
-    (26, NOW(), NOW(), '커피하우스 - 고객26 원두 구매 제안', '2024-02-11', '2024-02-15', '2024-02-20', '2024-02-25', '2024-02-23', '고급 원두 및 커피머신 제공 제안', '커피하우스 - 고객26 고객에게 제공되는 고급 원두와 커피머신 제안', 26),
-    (27, NOW(), NOW(), '그랜드커피 - 고객27 원두 구매 제안', '2024-02-12', '2024-02-16', '2024-02-21', '2024-02-26', '2024-02-24', '고급 원두 및 커피머신 제공 제안', '그랜드커피 - 고객27 고객에게 제공되는 고급 원두와 커피머신 제안', 27),
-    (28, NOW(), NOW(), '커피팝 - 고객28 원두 구매 제안', '2024-02-13', '2024-02-17', '2024-02-22', '2024-02-27', '2024-02-25', '고급 원두 및 커피머신 제공 제안', '커피팝 - 고객28 고객에게 제공되는 고급 원두와 커피머신 제안', 28),
-    (29, NOW(), NOW(), '라떼타임 - 고객29 원두 구매 제안', '2024-02-14', '2024-02-18', '2024-02-23', '2024-02-28', '2024-02-26', '고급 원두 및 커피머신 제공 제안', '라떼타임 - 고객29 고객에게 제공되는 고급 원두와 커피머신 제안', 29),
-    (30, NOW(), NOW(), '브라운커피 - 고객30 원두 구매 제안', '2024-02-15', '2024-02-19', '2024-02-24', '2024-03-01', '2024-02-28', '고급 원두 및 커피머신 제공 제안', '브라운커피 - 고객30 고객에게 제공되는 고급 원두와 커피머신 제안', 30),
-    (31, NOW(), NOW(), '카페리치 - 고객31 원두 구매 제안', '2024-02-16', '2024-02-20', '2024-02-25', '2024-03-02', '2024-03-01', '고급 원두 및 커피머신 제공 제안', '카페리치 - 고객31 고객에게 제공되는 고급 원두와 커피머신 제안', 31),
-    (32, NOW(), NOW(), '모카커피 - 고객32 원두 구매 제안', '2024-02-17', '2024-02-21', '2024-02-26', '2024-03-03', '2024-03-02', '고급 원두 및 커피머신 제공 제안', '모카커피 - 고객32 고객에게 제공되는 고급 원두와 커피머신 제안', 32),
-    (33, NOW(), NOW(), '커피로드 - 고객33 원두 구매 제안', '2024-02-18', '2024-02-22', '2024-02-27', '2024-03-04', '2024-03-03', '고급 원두 및 커피머신 제공 제안', '커피로드 - 고객33 고객에게 제공되는 고급 원두와 커피머신 제안', 33),
-    (34, NOW(), NOW(), '카페로맨스 - 고객34 원두 구매 제안', '2024-02-19', '2024-02-23', '2024-02-28', '2024-03-05', '2024-03-04', '고급 원두 및 커피머신 제공 제안', '카페로맨스 - 고객34 고객에게 제공되는 고급 원두와 커피머신 제안', 34),
-    (35, NOW(), NOW(), '스위트커피 - 고객35 원두 구매 제안', '2024-02-20', '2024-02-24', '2024-03-01', '2024-03-06', '2024-03-05', '고급 원두 및 커피머신 제공 제안', '스위트커피 - 고객35 고객에게 제공되는 고급 원두와 커피머신 제안', 35),
-    (36, NOW(), NOW(), '프렌치커피 - 고객36 원두 구매 제안', '2024-02-21', '2024-02-25', '2024-03-02', '2024-03-07', '2024-03-06', '고급 원두 및 커피머신 제공 제안', '프렌치커피 - 고객36 고객에게 제공되는 고급 원두와 커피머신 제안', 36),
-    (37, NOW(), NOW(), '카페플랜 - 고객37 원두 구매 제안', '2024-02-22', '2024-02-26', '2024-03-03', '2024-03-08', '2024-03-07', '고급 원두 및 커피머신 제공 제안', '카페플랜 - 고객37 고객에게 제공되는 고급 원두와 커피머신 제안', 37),
-    (38, NOW(), NOW(), '커피팰리스 - 고객38 원두 구매 제안', '2024-02-23', '2024-02-27', '2024-03-04', '2024-03-09', '2024-03-08', '고급 원두 및 커피머신 제공 제안', '커피팰리스 - 고객38 고객에게 제공되는 고급 원두와 커피머신 제안', 38),
-    (39, NOW(), NOW(), '에코커피 - 고객39 원두 구매 제안', '2024-02-24', '2024-02-28', '2024-03-05', '2024-03-10', '2024-03-09', '고급 원두 및 커피머신 제공 제안', '에코커피 - 고객39 고객에게 제공되는 고급 원두와 커피머신 제안', 39),
-    (40, NOW(), NOW(), '로얄커피 - 고객40 원두 구매 제안', '2024-02-25', '2024-03-01', '2024-03-06', '2024-03-11', '2024-03-10', '고급 원두 및 커피머신 제공 제안', '로얄커피 - 고객40 고객에게 제공되는 고급 원두와 커피머신 제안', 40),
-    (41, NOW(), NOW(), '커피카페 - 고객41 원두 구매 후속 제안', '2024-03-01', '2024-03-05', '2024-03-10', '2024-03-15', '2024-03-14', '원두 품질 개선 및 추가 주문 제안', '커피카페 - 고객41에게 품질 개선 및 추가 원두 구매 제안', 41),
-    (42, NOW(), NOW(), '프리미엄커피 - 고객42 원두 구매 후속 제안', '2024-03-02', '2024-03-06', '2024-03-11', '2024-03-16', '2024-03-15', '고급 원두 리필 및 머신 서비스 연장 제안', '프리미엄커피 - 고객42 고급 원두 리필 및 머신 서비스 연장 제안', 42),
-    (43, NOW(), NOW(), '카페미니 - 고객43 원두 구매 후속 제안', '2024-03-03', '2024-03-07', '2024-03-12', '2024-03-17', '2024-03-16', '고급 원두 추가 공급 및 머신 업그레이드 제안', '카페미니 - 고객43 고급 원두 추가 공급 및 머신 업그레이드 제안', 43),
-    (44, NOW(), NOW(), '커피비즈 - 고객44 원두 구매 후속 제안', '2024-03-04', '2024-03-08', '2024-03-13', '2024-03-18', '2024-03-17', '기존 원두 품질 향상 및 새로운 메뉴 제안', '커피비즈 - 고객44 원두 품질 향상 및 새로운 메뉴 제안', 44),
-    (45, NOW(), NOW(), '모닝커피 - 고객45 원두 구매 후속 제안', '2024-03-05', '2024-03-09', '2024-03-14', '2024-03-19', '2024-03-18', '프리미엄 원두 재구매 및 추가 옵션 제안', '모닝커피 - 고객45 프리미엄 원두 재구매 및 추가 옵션 제안', 45),
-    (46, NOW(), NOW(), '커피하우스 - 고객46 원두 구매 후속 제안', '2024-03-06', '2024-03-10', '2024-03-15', '2024-03-20', '2024-03-19', '신제품 커피 및 추가 서비스 제공 제안', '커피하우스 - 고객46 신제품 커피 및 서비스 제공 제안', 46),
-    (47, NOW(), NOW(), '그랜드커피 - 고객47 원두 구매 후속 제안', '2024-03-07', '2024-03-11', '2024-03-16', '2024-03-21', '2024-03-20', '품질 향상 및 신규 제품 라인 제안', '그랜드커피 - 고객47 품질 향상 및 신규 제품 라인 제안', 47),
-    (48, NOW(), NOW(), '커피팝 - 고객48 원두 구매 후속 제안', '2024-03-08', '2024-03-12', '2024-03-17', '2024-03-22', '2024-03-21', '신규 머신 도입 및 원두 품질 개선 제안', '커피팝 - 고객48 신규 머신 도입 및 원두 품질 개선 제안', 48),
-    (49, NOW(), NOW(), '라떼타임 - 고객49 원두 구매 후속 제안', '2024-03-09', '2024-03-13', '2024-03-18', '2024-03-23', '2024-03-22', '후속 원두 공급 및 머신 관리 서비스 제안', '라떼타임 - 고객49 후속 원두 공급 및 머신 관리 서비스 제안', 49),
-    (50, NOW(), NOW(), '브라운커피 - 고객50 원두 구매 후속 제안', '2024-03-10', '2024-03-14', '2024-03-19', '2024-03-24', '2024-03-23', '기존 커피 머신 업그레이드 및 신규 제품 제안', '브라운커피 - 고객50 커피 머신 업그레이드 및 신규 제품 제안', 50),
-    (51, NOW(), NOW(), '카페리치 - 고객51 원두 구매 후속 제안', '2024-03-11', '2024-03-15', '2024-03-20', '2024-03-25', '2024-03-24', '프리미엄 원두 재구매 및 신규 제품 추가 제안', '카페리치 - 고객51 프리미엄 원두 재구매 및 제품 추가 제안', 51),
-    (52, NOW(), NOW(), '모카커피 - 고객52 원두 구매 후속 제안', '2024-03-12', '2024-03-16', '2024-03-21', '2024-03-26', '2024-03-25', '커피 머신 업그레이드 및 원두 리필 제안', '모카커피 - 고객52 커피 머신 업그레이드 및 원두 리필 제안', 52),
-    (53, NOW(), NOW(), '커피로드 - 고객53 원두 구매 후속 제안', '2024-03-13', '2024-03-17', '2024-03-22', '2024-03-27', '2024-03-26', '후속 제품 공급 및 서비스 연장 제안', '커피로드 - 고객53 후속 제품 공급 및 서비스 연장 제안', 53),
-    (54, NOW(), NOW(), '카페로맨스 - 고객54 원두 구매 후속 제안', '2024-03-14', '2024-03-18', '2024-03-23', '2024-03-28', '2024-03-27', '기존 원두 재공급 및 커피 머신 지원 제안', '카페로맨스 - 고객54 원두 재공급 및 커피 머신 지원 제안', 54),
-    (55, NOW(), NOW(), '스위트커피 - 고객55 원두 구매 후속 제안', '2024-03-15', '2024-03-19', '2024-03-24', '2024-03-29', '2024-03-28', '고급 원두 추가 공급 및 커피 머신 관리 서비스 제안', '스위트커피 - 고객55 고급 원두 추가 공급 및 커피 머신 관리 서비스 제안', 55),
-    (56, NOW(), NOW(), '프렌치커피 - 고객56 원두 구매 후속 제안', '2024-03-16', '2024-03-20', '2024-03-25', '2024-03-30', '2024-03-29', '기존 제품 리필 및 업그레이드 제안', '프렌치커피 - 고객56 기존 제품 리필 및 업그레이드 제안', 56),
-    (57, NOW(), NOW(), '카페플랜 - 고객57 원두 구매 후속 제안', '2024-03-17', '2024-03-21', '2024-03-26', '2024-03-31', '2024-03-30', '추가 원두 공급 및 서비스 개선 제안', '카페플랜 - 고객57 추가 원두 공급 및 서비스 개선 제안', 57),
-    (58, NOW(), NOW(), '커피팰리스 - 고객58 원두 구매 후속 제안', '2024-03-18', '2024-03-22', '2024-03-27', '2024-04-01', '2024-03-31', '후속 커피 공급 및 고객 맞춤 서비스 제안', '커피팰리스 - 고객58 후속 커피 공급 및 맞춤 서비스 제안', 58),
-    (59, NOW(), NOW(), '에코커피 - 고객59 원두 구매 후속 제안', '2024-03-19', '2024-03-23', '2024-03-28', '2024-04-02', '2024-04-01', '신제품 공급 및 서비스 연장 제안', '에코커피 - 고객59 신제품 공급 및 서비스 연장 제안', 59),
-    (60, NOW(), NOW(), '로얄커피 - 고객60 원두 구매 후속 제안', '2024-03-20', '2024-03-24', '2024-03-29', '2024-04-03', '2024-04-02', '기존 원두 공급 연장 및 새로운 머신 제안', '로얄커피 - 고객60 기존 원두 공급 연장 및 새로운 머신 제안', 60),
-    (61, NOW(), NOW(), '카페서울 - 고객61 원두 구매 후속 제안', '2024-04-01', '2024-04-05', '2024-04-10', '2024-04-15', '2024-04-14', '원두 품질 개선 및 서비스 연장 제안', '카페서울 - 고객61 원두 품질 개선 및 서비스 연장 제안', 61),
-    (62, NOW(), NOW(), '블랙커피 - 고객62 원두 구매 후속 제안', '2024-04-02', '2024-04-06', '2024-04-11', '2024-04-16', '2024-04-15', '고급 원두 리필 및 원두 추가 주문 제안', '블랙커피 - 고객62 고급 원두 리필 및 원두 추가 주문 제안', 62),
-    (63, NOW(), NOW(), '프렌치카페 - 고객63 원두 구매 후속 제안', '2024-04-03', '2024-04-07', '2024-04-12', '2024-04-17', '2024-04-16', '기존 원두 품질 개선 및 새로운 옵션 제안', '프렌치카페 - 고객63 기존 원두 품질 개선 및 새로운 옵션 제안', 63),
-    (64, NOW(), NOW(), '카페유니크 - 고객64 원두 구매 후속 제안', '2024-04-04', '2024-04-08', '2024-04-13', '2024-04-18', '2024-04-17', '신규 원두 공급 및 커피 머신 업그레이드 제안', '카페유니크 - 고객64 신규 원두 공급 및 커피 머신 업그레이드 제안', 64),
-    (65, NOW(), NOW(), '모닝브루 - 고객65 원두 구매 후속 제안', '2024-04-05', '2024-04-09', '2024-04-14', '2024-04-19', '2024-04-18', '기존 원두 재구매 및 서비스 연장 제안', '모닝브루 - 고객65 기존 원두 재구매 및 서비스 연장 제안', 65),
-    (66, NOW(), NOW(), '커피샵 - 고객66 원두 구매 후속 제안', '2024-04-06', '2024-04-10', '2024-04-15', '2024-04-20', '2024-04-19', '고급 원두 리필 및 새로운 메뉴 추가 제안', '커피샵 - 고객66 고급 원두 리필 및 새로운 메뉴 추가 제안', 66),
-    (67, NOW(), NOW(), '카페드림 - 고객67 원두 구매 후속 제안', '2024-04-07', '2024-04-11', '2024-04-16', '2024-04-21', '2024-04-20', '기존 원두 리필 및 추가 서비스 제안', '카페드림 - 고객67 기존 원두 리필 및 추가 서비스 제안', 67),
-    (68, NOW(), NOW(), '프리미엄커피 - 고객68 원두 구매 후속 제안', '2024-04-08', '2024-04-12', '2024-04-17', '2024-04-22', '2024-04-21', '원두 품질 향상 및 서비스 연장 제안', '프리미엄커피 - 고객68 원두 품질 향상 및 서비스 연장 제안', 68),
-    (69, NOW(), NOW(), '커피월드 - 고객69 원두 구매 후속 제안', '2024-04-09', '2024-04-13', '2024-04-18', '2024-04-23', '2024-04-22', '고급 원두 리필 및 머신 업그레이드 제안', '커피월드 - 고객69 고급 원두 리필 및 머신 업그레이드 제안', 69),
-    (70, NOW(), NOW(), '커피로맨스 - 고객70 원두 구매 후속 제안', '2024-04-10', '2024-04-14', '2024-04-19', '2024-04-24', '2024-04-23', '신규 원두 공급 및 서비스 연장 제안', '커피로맨스 - 고객70 신규 원두 공급 및 서비스 연장 제안', 70),
-    (71, NOW(), NOW(), '카페시크릿 - 고객71 원두 구매 후속 제안', '2024-04-11', '2024-04-15', '2024-04-20', '2024-04-25', '2024-04-24', '기존 원두 재공급 및 커피 머신 업그레이드 제안', '카페시크릿 - 고객71 기존 원두 재공급 및 커피 머신 업그레이드 제안', 71),
-    (72, NOW(), NOW(), '그린커피 - 고객72 원두 구매 후속 제안', '2024-04-12', '2024-04-16', '2024-04-21', '2024-04-26', '2024-04-25', '고급 원두 리필 및 추가 메뉴 제안', '그린커피 - 고객72 고급 원두 리필 및 추가 메뉴 제안', 72),
-    (73, NOW(), NOW(), '카페퀸즈 - 고객73 원두 구매 후속 제안', '2024-04-13', '2024-04-17', '2024-04-22', '2024-04-27', '2024-04-26', '커피 머신 업그레이드 및 서비스 연장 제안', '카페퀸즈 - 고객73 커피 머신 업그레이드 및 서비스 연장 제안', 73),
-    (74, NOW(), NOW(), '커피비즈 - 고객74 원두 구매 후속 제안', '2024-04-14', '2024-04-18', '2024-04-23', '2024-04-28', '2024-04-27', '후속 제품 공급 및 커피 머신 개선 제안', '커피비즈 - 고객74 후속 제품 공급 및 커피 머신 개선 제안', 74),
-    (75, NOW(), NOW(), '리치커피 - 고객75 원두 구매 후속 제안', '2024-04-15', '2024-04-19', '2024-04-24', '2024-04-29', '2024-04-28', '기존 원두 리필 및 서비스 추가 제안', '리치커피 - 고객75 기존 원두 리필 및 서비스 추가 제안', 75),
-    (76, NOW(), NOW(), '커피포인트 - 고객76 원두 구매 후속 제안', '2024-04-16', '2024-04-20', '2024-04-25', '2024-04-30', '2024-04-29', '원두 품질 향상 및 새로운 서비스 제안', '커피포인트 - 고객76 원두 품질 향상 및 새로운 서비스 제안', 76),
-    (77, NOW(), NOW(), '카페베이커리 - 고객77 원두 구매 후속 제안', '2024-04-17', '2024-04-21', '2024-04-26', '2024-05-01', '2024-04-30', '후속 원두 공급 및 서비스 연장 제안', '카페베이커리 - 고객77 후속 원두 공급 및 서비스 연장 제안', 77),
-    (78, NOW(), NOW(), '커피마스터 - 고객78 원두 구매 후속 제안', '2024-04-18', '2024-04-22', '2024-04-27', '2024-05-02', '2024-05-01', '기존 원두 품질 향상 및 새로운 제품 제안', '커피마스터 - 고객78 기존 원두 품질 향상 및 새로운 제품 제안', 78),
-    (79, NOW(), NOW(), '브라운커피 - 고객79 원두 구매 후속 제안', '2024-04-19', '2024-04-23', '2024-04-28', '2024-05-03', '2024-05-02', '고급 원두 리필 및 커피 머신 개선 제안', '브라운커피 - 고객79 고급 원두 리필 및 커피 머신 개선 제안', 79),
-    (80, NOW(), NOW(), '그랜드카페 - 고객80 원두 구매 후속 제안', '2024-04-20', '2024-04-24', '2024-04-29', '2024-05-04', '2024-05-03', '기존 원두 재공급 및 추가 서비스 제안', '그랜드카페 - 고객80 기존 원두 재공급 및 추가 서비스 제안', 80),
-    (81, NOW(), NOW(), '커피팜 - 고객14 원두 구매 제안', '2024-03-01', '2024-03-05', '2024-03-10', '2024-03-15', '2024-03-12', '고급 원두 및 커피머신 제공 제안', '커피팜 - 고객14 고객에게 제공되는 고급 원두와 커피머신 제안', 14),
-    (82, NOW(), NOW(), '원두해 - 고객15 원두 구매 제안', '2024-03-02', '2024-03-06', '2024-03-11', '2024-03-16', '2024-03-13', '고급 원두 및 커피머신 제공 제안', '원두해 - 고객15 고객에게 제공되는 고급 원두와 커피머신 제안', 15),
-    (83, NOW(), NOW(), '커피향 - 고객16 원두 구매 제안', '2024-03-03', '2024-03-07', '2024-03-12', '2024-03-17', '2024-03-14', '고급 원두 및 커피머신 제공 제안', '커피향 - 고객16 고객에게 제공되는 고급 원두와 커피머신 제안', 16),
-    (84, NOW(), NOW(), '원두콜렉션 - 고객17 원두 구매 제안', '2024-03-04', '2024-03-08', '2024-03-13', '2024-03-18', '2024-03-15', '고급 원두 및 커피머신 제공 제안', '원두콜렉션 - 고객17 고객에게 제공되는 고급 원두와 커피머신 제안', 17),
-    (85, NOW(), NOW(), '커피왕 - 고객18 원두 구매 제안', '2024-03-05', '2024-03-09', '2024-03-14', '2024-03-19', '2024-03-16', '고급 원두 및 커피머신 제공 제안', '커피왕 - 고객18 고객에게 제공되는 고급 원두와 커피머신 제안', 18),
-    (86, NOW(), NOW(), '원두전문 - 고객19 원두 구매 제안', '2024-03-06', '2024-03-10', '2024-03-15', '2024-03-20', '2024-03-17', '고급 원두 및 커피머신 제공 제안', '원두전문 - 고객19 고객에게 제공되는 고급 원두와 커피머신 제안', 19),
-    (87, NOW(), NOW(), '커피트레이드 - 고객20 원두 구매 제안', '2024-03-07', '2024-03-11', '2024-03-16', '2024-03-21', '2024-03-18', '고급 원두 및 커피머신 제공 제안', '커피트레이드 - 고객20 고객에게 제공되는 고급 원두와 커피머신 제안', 20),
-    (88, NOW(), NOW(), '원두마켓 - 고객21 원두 구매 제안', '2024-03-08', '2024-03-12', '2024-03-17', '2024-03-22', '2024-03-19', '고급 원두 및 커피머신 제공 제안', '원두마켓 - 고객21 고객에게 제공되는 고급 원두와 커피머신 제안', 21),
-    (89, NOW(), NOW(), '커피플랜트 - 고객22 원두 구매 제안', '2024-03-09', '2024-03-13', '2024-03-18', '2024-03-23', '2024-03-20', '고급 원두 및 커피머신 제공 제안', '커피플랜트 - 고객22 고객에게 제공되는 고급 원두와 커피머신 제안', 22),
-    (90, NOW(), NOW(), '커피나무 - 고객23 원두 구매 제안', '2024-03-10', '2024-03-14', '2024-03-19', '2024-03-24', '2024-03-21', '고급 원두 및 커피머신 제공 제안', '커피나무 - 고객23 고객에게 제공되는 고급 원두와 커피머신 제안', 23),
-    (91, NOW(), NOW(), '커피팜 - 고객24 원두 구매 제안', '2024-03-11', '2024-03-15', '2024-03-20', '2024-03-25', '2024-03-22', '고급 원두 및 커피머신 제공 제안', '커피팜 - 고객24 고객에게 제공되는 고급 원두와 커피머신 제안', 24),
-    (92, NOW(), NOW(), '원두해 - 고객25 원두 구매 제안', '2024-03-12', '2024-03-16', '2024-03-21', '2024-03-26', '2024-03-23', '고급 원두 및 커피머신 제공 제안', '원두해 - 고객25 고객에게 제공되는 고급 원두와 커피머신 제안', 25),
-    (93, NOW(), NOW(), '커피향 - 고객26 원두 구매 제안', '2024-03-13', '2024-03-17', '2024-03-22', '2024-03-27', '2024-03-24', '고급 원두 및 커피머신 제공 제안', '커피향 - 고객26 고객에게 제공되는 고급 원두와 커피머신 제안', 26),
-    (94, NOW(), NOW(), '원두콜렉션 - 고객27 원두 구매 제안', '2024-03-14', '2024-03-18', '2024-03-23', '2024-03-28', '2024-03-25', '고급 원두 및 커피머신 제공 제안', '원두콜렉션 - 고객27 고객에게 제공되는 고급 원두와 커피머신 제안', 27),
-    (95, NOW(), NOW(), '커피왕 - 고객28 원두 구매 제안', '2024-03-15', '2024-03-19', '2024-03-24', '2024-03-29', '2024-03-26', '고급 원두 및 커피머신 제공 제안', '커피왕 - 고객28 고객에게 제공되는 고급 원두와 커피머신 제안', 28),
-    (96, NOW(), NOW(), '원두전문 - 고객29 원두 구매 제안', '2024-03-16', '2024-03-20', '2024-03-25', '2024-03-30', '2024-03-27', '고급 원두 및 커피머신 제공 제안', '원두전문 - 고객29 고객에게 제공되는 고급 원두와 커피머신 제안', 29),
-    (97, NOW(), NOW(), '커피트레이드 - 고객30 원두 구매 제안', '2024-03-17', '2024-03-21', '2024-03-26', '2024-03-31', '2024-03-28', '고급 원두 및 커피머신 제공 제안', '커피트레이드 - 고객30 고객에게 제공되는 고급 원두와 커피머신 제안', 30),
-    (98, NOW(), NOW(), '원두마켓 - 고객31 원두 구매 제안', '2024-03-18', '2024-03-22', '2024-03-27', '2024-04-01', '2024-03-29', '고급 원두 및 커피머신 제공 제안', '원두마켓 - 고객31 고객에게 제공되는 고급 원두와 커피머신 제안', 31),
-    (99, NOW(), NOW(), '커피플랜트 - 고객32 원두 구매 제안', '2024-03-19', '2024-03-23', '2024-03-28', '2024-04-02', '2024-03-30', '고급 원두 및 커피머신 제공 제안', '커피플랜트 - 고객32 고객에게 제공되는 고급 원두와 커피머신 제안', 32),
-    (100, NOW(), NOW(), '커피나무 - 고객33 원두 구매 제안', '2024-03-20', '2024-03-24', '2024-03-29', '2024-04-03', '2024-04-01', '고급 원두 및 커피머신 제공 제안', '커피나무 - 고객33 고객에게 제공되는 고급 원두와 커피머신 제안', 33),
-    (101, NOW(), NOW(), '기존고객 원두 판매 - 고객10 원두 구매 제안', '2024-04-01', '2024-04-05', '2024-04-10', '2024-04-15', '2024-04-12', '기존 고객에게 고급 원두 제공 제안', '기존 고객에게 제공되는 고급 원두와 커피머신 제안', 10),
-    (102, NOW(), NOW(), '기존고객 원두 판매 - 고객11 원두 구매 제안', '2024-04-02', '2024-04-06', '2024-04-11', '2024-04-16', '2024-04-13', '기존 고객에게 고급 원두 제공 제안', '기존 고객에게 제공되는 고급 원두와 커피머신 제안', 11),
-    (103, NOW(), NOW(), '기존고객 원두 판매 - 고객13 원두 구매 제안', '2024-04-03', '2024-04-07', '2024-04-12', '2024-04-17', '2024-04-14', '기존 고객에게 고급 원두 제공 제안', '기존 고객에게 제공되는 고급 원두와 커피머신 제안', 13),
-    (104, NOW(), NOW(), '커피로드 - 고객18 원두 구매 제안', '2024-04-04', '2024-04-08', '2024-04-13', '2024-04-18', '2024-04-15', '고급 원두 및 커피머신 제공 제안', '커피로드 - 고객18 고객에게 제공되는 고급 원두와 커피머신 제안', 18),
-    (105, NOW(), NOW(), '커피필드 - 고객19 원두 구매 제안', '2024-04-05', '2024-04-09', '2024-04-14', '2024-04-19', '2024-04-16', '고급 원두 및 커피머신 제공 제안', '커피필드 - 고객19 고객에게 제공되는 고급 원두와 커피머신 제안', 19),
-    (106, NOW(), NOW(), '원두농장 - 고객20 원두 구매 제안', '2024-04-06', '2024-04-10', '2024-04-15', '2024-04-20', '2024-04-17', '고급 원두 및 커피머신 제공 제안', '원두농장 - 고객20 고객에게 제공되는 고급 원두와 커피머신 제안', 20),
-    (107, NOW(), NOW(), '커피의정원 - 고객21 원두 구매 제안', '2024-04-07', '2024-04-11', '2024-04-16', '2024-04-21', '2024-04-18', '고급 원두 및 커피머신 제공 제안', '커피의정원 - 고객21 고객에게 제공되는 고급 원두와 커피머신 제안', 21),
-    (108, NOW(), NOW(), '기존고객 원두 판매 - 고객18 원두 구매 제안', '2024-05-01', '2024-05-05', '2024-05-10', '2024-05-15', '2024-05-12', '기존 고객에게 고급 원두 제공 제안', '기존 고객에게 제공되는 고급 원두와 커피머신 제안', 18),
-    (109, NOW(), NOW(), '기존고객 원두 판매 - 고객19 원두 구매 제안', '2024-05-02', '2024-05-06', '2024-05-11', '2024-05-16', '2024-05-13', '기존 고객에게 고급 원두 제공 제안', '기존 고객에게 제공되는 고급 원두와 커피머신 제안', 19),
-    (110, NOW(), NOW(), '기존고객 원두 판매 - 고객20 원두 구매 제안', '2024-05-03', '2024-05-07', '2024-05-12', '2024-05-17', '2024-05-14', '기존 고객에게 고급 원두 제공 제안', '기존 고객에게 제공되는 고급 원두와 커피머신 제안', 20),
-    (111, NOW(), NOW(), '커피월드 - 고객22 원두 구매 제안', '2024-05-04', '2024-05-08', '2024-05-13', '2024-05-18', '2024-05-15', '고급 원두 및 커피머신 제공 제안', '커피월드 - 고객22 고객에게 제공되는 고급 원두와 커피머신 제안', 22),
-    (112, NOW(), NOW(), '원두유통 - 고객23 원두 구매 제안', '2024-05-05', '2024-05-09', '2024-05-14', '2024-05-19', '2024-05-16', '고급 원두 및 커피머신 제공 제안', '원두유통 - 고객23 고객에게 제공되는 고급 원두와 커피머신 제안', 23),
-    (113, NOW(), NOW(), '커피와행복 - 고객24 원두 구매 제안', '2024-05-06', '2024-05-10', '2024-05-15', '2024-05-20', '2024-05-17', '고급 원두 및 커피머신 제공 제안', '커피와행복 - 고객24 고객에게 제공되는 고급 원두와 커피머신 제안', 24),
-    (114, NOW(), NOW(), '커피사랑 - 고객25 원두 구매 제안', '2024-05-07', '2024-05-11', '2024-05-16', '2024-05-21', '2024-05-18', '고급 원두 및 커피머신 제공 제안', '커피사랑 - 고객25 고객에게 제공되는 고급 원두와 커피머신 제안', 25),
-    (115, NOW(), NOW(), '커피아카데미 - 고객10 원두 구매 제안', '2024-06-01', '2024-06-05', '2024-06-10', '2024-06-15', '2024-06-12', '고급 원두 및 커피머신 제공 제안', '커피아카데미 - 고객10에게 제공되는 고급 원두와 커피머신 제안', 10),
-    (116, NOW(), NOW(), '커피밸리 - 고객11 원두 구매 제안', '2024-06-02', '2024-06-06', '2024-06-11', '2024-06-16', '2024-06-13', '고급 원두 및 커피머신 제공 제안', '커피밸리 - 고객11에게 제공되는 고급 원두와 커피머신 제안', 11),
-    (117, NOW(), NOW(), '커피원 - 고객12 원두 구매 제안', '2024-06-03', '2024-06-07', '2024-06-12', '2024-06-17', '2024-06-14', '고급 원두 및 커피머신 제공 제안', '커피원 - 고객12에게 제공되는 고급 원두와 커피머신 제안', 12),
-    (118, NOW(), NOW(), '커피마스터 - 고객13 원두 구매 제안', '2024-06-04', '2024-06-08', '2024-06-13', '2024-06-18', '2024-06-15', '고급 원두 및 커피머신 제공 제안', '커피마스터 - 고객13에게 제공되는 고급 원두와 커피머신 제안', 13),
-    (119, NOW(), NOW(), '커피팡 - 고객14 원두 구매 제안', '2024-06-05', '2024-06-09', '2024-06-14', '2024-06-19', '2024-06-16', '고급 원두 및 커피머신 제공 제안', '커피팡 - 고객14에게 제공되는 고급 원두와 커피머신 제안', 14),
-    (120, NOW(), NOW(), '커피헬퍼 - 고객15 원두 구매 제안', '2024-06-06', '2024-06-10', '2024-06-15', '2024-06-20', '2024-06-17', '고급 원두 및 커피머신 제공 제안', '커피헬퍼 - 고객15에게 제공되는 고급 원두와 커피머신 제안', 15),
-    (121, NOW(), NOW(), '커피월드 - 고객16 원두 구매 제안', '2024-06-07', '2024-06-11', '2024-06-16', '2024-06-21', '2024-06-18', '고급 원두 및 커피머신 제공 제안', '커피월드 - 고객16에게 제공되는 고급 원두와 커피머신 제안', 16),
-    (122, NOW(), NOW(), '커피존 - 고객17 원두 구매 제안', '2024-06-08', '2024-06-12', '2024-06-17', '2024-06-22', '2024-06-19', '고급 원두 및 커피머신 제공 제안', '커피존 - 고객17에게 제공되는 고급 원두와 커피머신 제안', 17),
-    (123, NOW(), NOW(), '커피소울 - 고객18 원두 구매 제안', '2024-06-09', '2024-06-13', '2024-06-18', '2024-06-23', '2024-06-20', '고급 원두 및 커피머신 제공 제안', '커피소울 - 고객18에게 제공되는 고급 원두와 커피머신 제안', 18),
-    (124, NOW(), NOW(), '커피피크 - 고객19 원두 구매 제안', '2024-06-10', '2024-06-14', '2024-06-19', '2024-06-24', '2024-06-21', '고급 원두 및 커피머신 제공 제안', '커피피크 - 고객19에게 제공되는 고급 원두와 커피머신 제안', 19),
-    (125, NOW(), NOW(), '기존고객 원두 판매 - 고객22 원두 구매 제안', '2024-06-10', '2024-06-15', '2024-06-16', '2024-06-25', '2024-06-20', '기존고객에게 고급 원두 및 커피머신 제공', '기존고객 원두 판매 - 고객22 원두 구매 및 서비스 제공', 22),
-    (126, NOW(), NOW(), '기존고객 원두 판매 - 고객24 원두 구매 제안', '2024-06-10', '2024-06-15', '2024-06-16', '2024-06-25', '2024-06-20', '기존고객에게 고급 원두 및 커피머신 제공', '기존고객 원두 판매 - 고객24 원두 구매 및 서비스 제공', 24),
-    (127, NOW(), NOW(), '기존고객 원두 판매 - 고객25 원두 구매 제안', '2024-06-10', '2024-06-15', '2024-06-16', '2024-06-25', '2024-06-20', '기존고객에게 고급 원두 및 커피머신 제공', '기존고객 원두 판매 - 고객25 원두 구매 및 서비스 제공', 25),
-    (128, NOW(), NOW(), '원두의고수 - 고객26 원두 구매 제안', '2024-06-10', '2024-06-15', '2024-06-16', '2024-06-25', '2024-06-20', '고급 원두 및 커피머신 제공', '원두의고수 - 고객26 고급 원두와 커피머신 제공 제안', 26),
-    (129, NOW(), NOW(), '커피도시 - 고객27 원두 구매 제안', '2024-06-10', '2024-06-15', '2024-06-16', '2024-06-25', '2024-06-20', '고급 원두 및 커피머신 제공', '커피도시 - 고객27 고급 원두와 커피머신 제공 제안', 27),
-    (130, NOW(), NOW(), '원두의세계 - 고객28 원두 구매 제안', '2024-06-10', '2024-06-15', '2024-06-16', '2024-06-25', '2024-06-20', '고급 원두 및 커피머신 제공', '원두의세계 - 고객28 고급 원두와 커피머신 제공 제안', 28),
-    (131, NOW(), NOW(), '커피에세이 - 고객29 원두 구매 제안', '2024-06-10', '2024-06-15', '2024-06-16', '2024-06-25', '2024-06-20', '고급 원두 및 커피머신 제공', '커피에세이 - 고객29 고급 원두와 커피머신 제공 제안', 29),
-    (132, NOW(), NOW(), '기존고객 원두 판매 - 고객22 원두 구매 제안', '2024-06-11', '2024-06-16', '2024-06-17', '2024-06-26', '2024-06-21', '기존고객에게 고급 원두 및 커피머신 제공', '기존고객 원두 판매 - 고객22 원두 구매 제안', 22),
-    (133, NOW(), NOW(), '기존고객 원두 판매 - 고객22 원두 구매 제안', '2024-06-12', '2024-06-17', '2024-06-18', '2024-06-27', '2024-06-22', '기존고객에게 고급 원두 및 커피머신 제공', '기존고객 원두 판매 - 고객22 원두 구매 제안', 22),
-    (134, NOW(), NOW(), '기존고객 원두 판매 - 고객24 원두 구매 제안', '2024-06-11', '2024-06-16', '2024-06-17', '2024-06-26', '2024-06-21', '기존고객에게 고급 원두 및 커피머신 제공', '기존고객 원두 판매 - 고객24 원두 구매 제안', 24),
-    (135, NOW(), NOW(), '기존고객 원두 판매 - 고객24 원두 구매 제안', '2024-06-12', '2024-06-17', '2024-06-18', '2024-06-27', '2024-06-22', '기존고객에게 고급 원두 및 커피머신 제공', '기존고객 원두 판매 - 고객24 원두 구매 제안', 24),
-    (136, NOW(), NOW(), '기존고객 원두 판매 - 고객25 원두 구매 제안', '2024-06-11', '2024-06-16', '2024-06-17', '2024-06-26', '2024-06-21', '기존고객에게 고급 원두 및 커피머신 제공', '기존고객 원두 판매 - 고객25 원두 구매 제안', 25),
-    (137, NOW(), NOW(), '기존고객 원두 판매 - 고객25 원두 구매 제안', '2024-06-12', '2024-06-17', '2024-06-18', '2024-06-27', '2024-06-22', '기존고객에게 고급 원두 및 커피머신 제공', '기존고객 원두 판매 - 고객25 원두 구매 제안', 25),
-    (138, NOW(), NOW(), '원두의고수 - 고객26 원두 구매 제안', '2024-06-11', '2024-06-16', '2024-06-17', '2024-06-26', '2024-06-21', '고급 원두 및 커피머신 제공', '원두의고수 - 고객26 고급 원두와 커피머신 제공 제안', 26),
-    (139, NOW(), NOW(), '원두의고수 - 고객26 원두 구매 제안', '2024-06-12', '2024-06-17', '2024-06-18', '2024-06-27', '2024-06-22', '고급 원두 및 커피머신 제공', '원두의고수 - 고객26 고급 원두와 커피머신 제공 제안', 26),
-    (140, NOW(), NOW(), '커피도시 - 고객27 원두 구매 제안', '2024-06-11', '2024-06-16', '2024-06-17', '2024-06-26', '2024-06-21', '고급 원두 및 커피머신 제공', '커피도시 - 고객27 고급 원두와 커피머신 제공 제안', 27),
-    (141, NOW(), NOW(), '커피도시 - 고객27 원두 구매 제안', '2024-06-12', '2024-06-17', '2024-06-18', '2024-06-27', '2024-06-22', '고급 원두 및 커피머신 제공', '커피도시 - 고객27 고급 원두와 커피머신 제공 제안', 27),
-    (142, NOW(), NOW(), '원두의세계 - 고객28 원두 구매 제안', '2024-06-11', '2024-06-16', '2024-06-17', '2024-06-26', '2024-06-21', '고급 원두 및 커피머신 제공', '원두의세계 - 고객28 고급 원두와 커피머신 제공 제안', 28),
-    (143, NOW(), NOW(), '원두의세계 - 고객28 원두 구매 제안', '2024-06-12', '2024-06-17', '2024-06-18', '2024-06-27', '2024-06-22', '고급 원두 및 커피머신 제공', '원두의세계 - 고객28 고급 원두와 커피머신 제공 제안', 28),
-    (144, NOW(), NOW(), '커피에세이 - 고객29 원두 구매 제안', '2024-06-11', '2024-06-16', '2024-06-17', '2024-06-26', '2024-06-21', '고급 원두 및 커피머신 제공', '커피에세이 - 고객29 고급 원두와 커피머신 제공 제안', 29),
-    (145, NOW(), NOW(), '커피에세이 - 고객29 원두 구매 제안', '2024-06-12', '2024-06-17', '2024-06-18', '2024-06-27', '2024-06-22', '고급 원두 및 커피머신 제공', '커피에세이 - 고객29 고급 원두와 커피머신 제공 제안', 29),
-    (146, NOW(), NOW(), '기존고객 원두 판매 - 제안1', '2024-07-03', '2024-07-05', '2024-07-01', '2024-08-15', '2024-07-12', '기존 고객에게 제공되는 원두 판매 제안', '기존 고객에게 제공되는 원두 및 서비스 제안', 27),
-    (147, NOW(), NOW(), '기존고객 원두 판매 - 제안2', '2024-07-04', '2024-07-06', '2024-07-01', '2024-08-15', '2024-07-13', '기존 고객에게 제공되는 원두 판매 제안', '기존 고객에게 제공되는 원두 및 서비스 제안', 27),
-    (148, NOW(), NOW(), '기존고객 원두 판매 - 제안3', '2024-07-05', '2024-07-07', '2024-07-01', '2024-08-15', '2024-07-14', '기존 고객에게 제공되는 원두 판매 제안', '기존 고객에게 제공되는 원두 및 서비스 제안', 27),
-    (149, NOW(), NOW(), '기존고객 원두 판매 - 제안4', '2024-07-06', '2024-07-08', '2024-07-01', '2024-08-15', '2024-07-15', '기존 고객에게 제공되는 원두 판매 제안', '기존 고객에게 제공되는 원두 및 서비스 제안', 28),
-    (150, NOW(), NOW(), '기존고객 원두 판매 - 제안5', '2024-07-07', '2024-07-09', '2024-07-01', '2024-08-15', '2024-07-16', '기존 고객에게 제공되는 원두 판매 제안', '기존 고객에게 제공되는 원두 및 서비스 제안', 28),
-    (151, NOW(), NOW(), '기존고객 원두 판매 - 제안6', '2024-07-08', '2024-07-10', '2024-07-01', '2024-08-15', '2024-07-17', '기존 고객에게 제공되는 원두 판매 제안', '기존 고객에게 제공되는 원두 및 서비스 제안', 28),
-    (152, NOW(), NOW(), '기존고객 원두 판매 - 제안7', '2024-07-09', '2024-07-11', '2024-07-01', '2024-08-15', '2024-07-18', '기존 고객에게 제공되는 원두 판매 제안', '기존 고객에게 제공되는 원두 및 서비스 제안', 29),
-    (153, NOW(), NOW(), '기존고객 원두 판매 - 제안8', '2024-07-10', '2024-07-12', '2024-07-01', '2024-08-15', '2024-07-19', '기존 고객에게 제공되는 원두 판매 제안', '기존 고객에게 제공되는 원두 및 서비스 제안', 29),
-    (154, NOW(), NOW(), '커피히어로 원두 구매 제안 - 제안1', '2024-07-03', '2024-07-05', '2024-07-01', '2024-08-15', '2024-07-12', '고급 원두 및 커피머신 제공 제안', '커피히어로 - 고객30에게 제공되는 고급 원두 및 커피머신 제안', 30),
-    (155, NOW(), NOW(), '커피히어로 원두 구매 제안 - 제안2', '2024-07-04', '2024-07-06', '2024-07-01', '2024-08-15', '2024-07-13', '고급 원두 및 커피머신 제공 제안', '커피히어로 - 고객30에게 제공되는 고급 원두 및 커피머신 제안', 30),
-    (156, NOW(), NOW(), '커피플랜트 원두 구매 제안 - 제안1', '2024-07-05', '2024-07-07', '2024-07-01', '2024-08-15', '2024-07-14', '고급 원두 및 커피머신 제공 제안', '커피플랜트 - 고객31에게 제공되는 고급 원두 및 커피머신 제안', 31),
-    (157, NOW(), NOW(), '커피플랜트 원두 구매 제안 - 제안2', '2024-07-06', '2024-07-08', '2024-07-01', '2024-08-15', '2024-07-15', '고급 원두 및 커피머신 제공 제안', '커피플랜트 - 고객31에게 제공되는 고급 원두 및 커피머신 제안', 31),
-    (158, NOW(), NOW(), '원두장터 원두 구매 제안 - 제안1', '2024-07-07', '2024-07-09', '2024-07-01', '2024-08-15', '2024-07-16', '고급 원두 및 커피머신 제공 제안', '원두장터 - 고객32에게 제공되는 고급 원두 및 커피머신 제안', 32),
-    (159, NOW(), NOW(), '원두장터 원두 구매 제안 - 제안2', '2024-07-08', '2024-07-10', '2024-07-01', '2024-08-15', '2024-07-17', '고급 원두 및 커피머신 제공 제안', '원두장터 - 고객32에게 제공되는 고급 원두 및 커피머신 제안', 32),
-    (160, NOW(), NOW(), '커피챔피언 원두 구매 제안 - 제안1', '2024-07-09', '2024-07-11', '2024-07-01', '2024-08-15', '2024-07-18', '고급 원두 및 커피머신 제공 제안', '커피챔피언 - 고객33에게 제공되는 고급 원두 및 커피머신 제안', 33),
-    (161, NOW(), NOW(), '커피챔피언 원두 구매 제안 - 제안2', '2024-07-10', '2024-07-12', '2024-07-01', '2024-08-15', '2024-07-19', '고급 원두 및 커피머신 제공 제안', '커피챔피언 - 고객33에게 제공되는 고급 원두 및 커피머신 제안', 33),
-    (162, NOW(), NOW(), '기존고객 원두 판매 - 제안 1', '2024-08-02', '2024-08-06', '2024-08-10', '2024-08-15', '2024-08-12', '기존 고객에게 제공되는 다른 원두 및 서비스 제안', '기존고객에게 다른 원두 및 커피 관련 서비스 제안', 1),
-    (163, NOW(), NOW(), '기존고객 원두 판매 - 제안 2', '2024-08-03', '2024-08-07', '2024-08-11', '2024-08-16', '2024-08-13', '기존 고객에게 제공되는 고급 원두 및 서비스 제안', '기존고객에게 고급 원두 및 서비스 제공', 1),
-    (164, NOW(), NOW(), '기존고객 원두 판매 - 제안 3', '2024-08-04', '2024-08-08', '2024-08-12', '2024-08-17', '2024-08-14', '기존 고객에게 제공되는 새로운 원두 및 서비스를 포함한 제안', '기존고객에게 새로운 원두 및 서비스 제공', 1),
-    (165, NOW(), NOW(), '커피스토어 - 고객34 원두 구매 제안 1', '2024-08-05', '2024-08-09', '2024-08-13', '2024-08-18', '2024-08-15', '고급 원두 및 커피머신 제공 제안', '커피스토어 - 고객34에게 제공되는 고급 원두와 커피머신 제안', 34),
-    (166, NOW(), NOW(), '커피스토어 - 고객34 원두 구매 제안 2', '2024-08-06', '2024-08-10', '2024-08-14', '2024-08-19', '2024-08-16', '고급 원두 및 커피머신 제공 제안', '커피스토어 - 고객34에게 제공되는 고급 원두와 커피머신 제안', 34),
-    (167, NOW(), NOW(), '원두박사 - 고객35 원두 구매 제안 1', '2024-08-07', '2024-08-11', '2024-08-15', '2024-08-20', '2024-08-17', '고급 원두 및 커피머신 제공 제안', '원두박사 - 고객35에게 제공되는 고급 원두와 커피머신 제안', 35),
-    (168, NOW(), NOW(), '원두박사 - 고객35 원두 구매 제안 2', '2024-08-08', '2024-08-12', '2024-08-16', '2024-08-21', '2024-08-18', '고급 원두 및 커피머신 제공 제안', '원두박사 - 고객35에게 제공되는 고급 원두와 커피머신 제안', 35),
-    (169, NOW(), NOW(), '커피로드 - 고객36 원두 구매 제안 1', '2024-08-09', '2024-08-13', '2024-08-17', '2024-08-22', '2024-08-19', '고급 원두 및 커피머신 제공 제안', '커피로드 - 고객36에게 제공되는 고급 원두와 커피머신 제안', 36),
-    (170, NOW(), NOW(), '커피로드 - 고객36 원두 구매 제안 2', '2024-08-10', '2024-08-14', '2024-08-18', '2024-08-23', '2024-08-20', '고급 원두 및 커피머신 제공 제안', '커피로드 - 고객36에게 제공되는 고급 원두와 커피머신 제안', 36),
-    (171, NOW(), NOW(), '커피유통 - 고객37 원두 구매 제안 1', '2024-08-11', '2024-08-15', '2024-08-19', '2024-08-24', '2024-08-21', '고급 원두 및 커피머신 제공 제안', '커피유통 - 고객37에게 제공되는 고급 원두와 커피머신 제안', 37),
-    (172, NOW(), NOW(), '커피유통 - 고객37 원두 구매 제안 2', '2024-08-12', '2024-08-16', '2024-08-20', '2024-08-25', '2024-08-22', '고급 원두 및 커피머신 제공 제안', '커피유통 - 고객37에게 제공되는 고급 원두와 커피머신 제안', 37),
-    (173, NOW(), NOW(), '기존고객 원두 판매 - 제안 4', '2024-09-02', '2024-09-06', '2024-09-10', '2024-09-15', '2024-09-12', '기존 고객에게 제공되는 새로운 원두 및 서비스 제안', '기존고객에게 제공되는 새로운 원두 및 커피 관련 서비스 제안', 34),
-    (174, NOW(), NOW(), '기존고객 원두 판매 - 제안 5', '2024-09-03', '2024-09-07', '2024-09-11', '2024-09-16', '2024-09-13', '기존 고객에게 제공되는 새로운 원두 및 서비스 제안', '기존고객에게 제공되는 고급 원두 및 서비스 제안', 35),
-    (175, NOW(), NOW(), '기존고객 원두 판매 - 제안 6', '2024-09-04', '2024-09-08', '2024-09-12', '2024-09-17', '2024-09-14', '기존 고객에게 제공되는 다른 원두 및 커피 관련 서비스 제안', '기존고객에게 다른 원두 및 커피 서비스 제안', 36),
-    (176, NOW(), NOW(), '커피존 - 고객39 원두 구매 제안 1', '2024-09-05', '2024-09-09', '2024-09-13', '2024-09-18', '2024-09-15', '고급 원두 및 커피머신 제공 제안', '커피존 - 고객39에게 제공되는 고급 원두와 커피머신 제안', 39),
-    (177, NOW(), NOW(), '커피존 - 고객39 원두 구매 제안 2', '2024-09-06', '2024-09-10', '2024-09-14', '2024-09-19', '2024-09-16', '고급 원두 및 커피머신 제공 제안', '커피존 - 고객39에게 제공되는 고급 원두와 커피머신 제안', 39),
-    (178, NOW(), NOW(), '커피네이션 - 고객40 원두 구매 제안 1', '2024-09-07', '2024-09-11', '2024-09-15', '2024-09-20', '2024-09-17', '고급 원두 및 커피머신 제공 제안', '커피네이션 - 고객40에게 제공되는 고급 원두와 커피머신 제안', 40),
-    (179, NOW(), NOW(), '커피네이션 - 고객40 원두 구매 제안 2', '2024-09-08', '2024-09-12', '2024-09-16', '2024-09-21', '2024-09-18', '고급 원두 및 커피머신 제공 제안', '커피네이션 - 고객40에게 제공되는 고급 원두와 커피머신 제안', 40),
-    (180, NOW(), NOW(), '기존고객 원두 판매 - 고객38 원두 구매 제안', '2024-10-01', '2024-10-05', '2024-10-10', '2024-10-15', '2024-10-12', '기존 고객에게 고급 원두 제공 제안', '기존고객 원두 판매 - 고객38 고객에게 제공되는 고급 원두 판매 제안', 38),
-    (181, NOW(), NOW(), '기존고객 원두 판매 - 고객40 원두 구매 제안', '2024-10-01', '2024-10-05', '2024-10-10', '2024-10-15', '2024-10-12', '기존 고객에게 고급 원두 제공 제안', '기존고객 원두 판매 - 고객40 고객에게 제공되는 고급 원두 판매 제안', 40),
-    (182, NOW(), NOW(), '기존고객 원두 판매 - 고객41 원두 구매 제안', '2024-10-01', '2024-10-05', '2024-10-10', '2024-10-15', '2024-10-12', '기존 고객에게 고급 원두 제공 제안', '기존고객 원두 판매 - 고객41 고객에게 제공되는 고급 원두 판매 제안', 41),
-    (183, NOW(), NOW(), '원두사랑 - 고객42 원두 구매 제안', '2024-10-01', '2024-10-05', '2024-10-10', '2024-10-15', '2024-10-12', '고급 원두와 커피머신 제공 제안', '원두사랑 - 고객42 고객에게 제공되는 고급 원두와 커피머신 제안', 42),
-    (184, NOW(), NOW(), '커피천국 - 고객43 원두 구매 제안', '2024-10-01', '2024-10-05', '2024-10-10', '2024-10-15', '2024-10-12', '고급 원두와 커피머신 제공 제안', '커피천국 - 고객43 고객에게 제공되는 고급 원두와 커피머신 제안', 43),
-    (185, NOW(), NOW(), '원두마을 - 고객44 원두 구매 제안', '2024-10-01', '2024-10-05', '2024-10-10', '2024-10-15', '2024-10-12', '고급 원두와 커피머신 제공 제안', '원두마을 - 고객44 고객에게 제공되는 고급 원두와 커피머신 제안', 44),
-    (186, NOW(), NOW(), '커피마켓 - 고객45 원두 구매 제안', '2024-10-01', '2024-10-05', '2024-10-10', '2024-10-15', '2024-10-12', '고급 원두와 커피머신 제공 제안', '커피마켓 - 고객45 고객에게 제공되는 고급 원두와 커피머신 제안', 45),
-    (187, NOW(), NOW(), '기존고객 원두 판매 - 고객42 원두 구매 제안', '2024-11-01', '2024-11-05', '2024-11-10', '2024-11-15', '2024-11-12', '기존 고객에게 고급 원두 제공 제안', '기존고객 원두 판매 - 고객42 고객에게 제공되는 고급 원두 판매 제안', 42),
-    (188, NOW(), NOW(), '기존고객 원두 판매 - 고객43 원두 구매 제안', '2024-11-01', '2024-11-05', '2024-11-10', '2024-11-15', '2024-11-12', '기존 고객에게 고급 원두 제공 제안', '기존고객 원두 판매 - 고객43 고객에게 제공되는 고급 원두 판매 제안', 43),
-    (189, NOW(), NOW(), '기존고객 원두 판매 - 고객44 원두 구매 제안', '2024-11-01', '2024-11-05', '2024-11-10', '2024-11-15', '2024-11-12', '기존 고객에게 고급 원두 제공 제안', '기존고객 원두 판매 - 고객44 고객에게 제공되는 고급 원두 판매 제안', 44),
-    (190, NOW(), NOW(), '커피천사 - 고객46 원두 구매 제안', '2024-11-01', '2024-11-05', '2024-11-10', '2024-11-15', '2024-11-12', '고급 원두와 커피머신 제공 제안', '커피천사 - 고객46 고객에게 제공되는 고급 원두와 커피머신 제안', 46),
-    (191, NOW(), NOW(), '원두천국 - 고객47 원두 구매 제안', '2024-11-01', '2024-11-05', '2024-11-10', '2024-11-15', '2024-11-12', '고급 원두와 커피머신 제공 제안', '원두천국 - 고객47 고객에게 제공되는 고급 원두와 커피머신 제안', 47),
-    (192, NOW(), NOW(), '커피존 - 고객48 원두 구매 제안', '2024-11-01', '2024-11-05', '2024-11-10', '2024-11-15', '2024-11-12', '고급 원두와 커피머신 제공 제안', '커피존 - 고객48 고객에게 제공되는 고급 원두와 커피머신 제안', 48),
-    (193, NOW(), NOW(), '커피장인 - 고객49 원두 구매 제안', '2024-11-01', '2024-11-05', '2024-11-10', '2024-11-15', '2024-11-12', '고급 원두와 커피머신 제공 제안', '커피장인 - 고객49 고객에게 제공되는 고급 원두와 커피머신 제안', 49),
-    (194, NOW(), NOW(), '커피와함께 - 고객50 원두 구매 제안', '2024-11-01', '2024-11-05', '2024-11-10', '2024-11-15', '2024-11-12', '고급 원두와 커피머신 제공 제안', '커피와함께 - 고객50 고객에게 제공되는 고급 원두와 커피머신 제안', 50),
-    (195, NOW(), NOW(), '기존고객 원두 판매 제안 - 고객40', '2024-10-02', '2024-10-05', '2024-10-10', '2024-10-30', '2024-10-12', '고급 원두 및 커피머신 제안', '기존고객 원두 판매 - 고객40 제안', 40),
-    (196, NOW(), NOW(), '기존고객 원두 판매 제안 - 고객41', '2024-10-03', '2024-10-06', '2024-10-11', '2024-10-28', '2024-10-13', '고급 원두 및 커피머신 제안', '기존고객 원두 판매 - 고객41 제안', 41),
-    (197, NOW(), NOW(), '원두사랑 - 고객42 원두 구매 제안', '2024-10-04', '2024-10-07', '2024-10-12', '2024-10-27', '2024-10-14', '고급 원두 및 커피머신 제안', '원두사랑 - 고객42 제안', 42),
-    (198, NOW(), NOW(), '커피천국 - 고객43 원두 구매 제안', '2024-10-05', '2024-10-08', '2024-10-13', '2024-10-29', '2024-10-15', '고급 원두 및 커피머신 제안', '커피천국 - 고객43 제안', 43),
-    (199, NOW(), NOW(), '원두마을 - 고객44 원두 구매 제안', '2024-10-06', '2024-10-09', '2024-10-14', '2024-10-29', '2024-10-16', '고급 원두 및 커피머신 제안', '원두마을 - 고객44 제안', 44),
-    (200, NOW(), NOW(), '커피마켓 - 고객45 원두 구매 제안', '2024-10-07', '2024-10-10', '2024-10-15', '2024-10-30', '2024-10-17', '고급 원두 및 커피머신 제안', '커피마켓 - 고객45 제안', 45);
-
--- >>>>>>>>>>>> 견적 <<<<<<<<<<<<<<
-
--- 견적 데이터 생성 (총 100개)
-
-INSERT INTO tb_estimate (est_no, created_at, updated_at, est_date, name, note, prod_cnt, supply_price, surtax_yn, tax, tax_cls, total_price, prop_no)
-VALUES
-    (1, NOW(), NOW(), '2024-01-20', '원두 구매 견적', '고급 원두 구매에 대한 견적', 3, 1950000, '부가세 포함', 195000, '매출과세', 2145000, 1),
-    (2, NOW(), NOW(), '2024-01-20', '원두 구매 견적', '수프레모 나리뇨 원두에 대한 견적', 2, 1300000, '부가세 미포함', 130000, '매출면세', 1430000, 2),
-    (3, NOW(), NOW(), '2024-01-22', '원두 구매 견적', '시다모 원두 및 예가체프 아바야 게이샤 원두에 대한 견적', 3, 1900000, '부가세 포함', 190000, '수출영세', 2090000, 3),
-    (4, NOW(), NOW(), '2024-01-23', '원두 구매 견적', '멜파라이 소리치 원두에 대한 견적', 2, 1520000, '부가세 미포함', 152000, '매출면세', 1672000, 4),
-    (5, NOW(), NOW(), '2024-01-25', '원두 구매 견적', '루비아 다크 브라운 원두에 대한 견적', 3, 1950000, '부가세 포함', 195000, '매출과세', 2145000, 5),
-    (6, NOW(), NOW(), '2024-01-26', '원두 구매 견적', '수프레모 나리뇨 원두 및 예가체프 아바야 게이샤 원두에 대한 견적', 2, 1400000, '부가세 미포함', 140000, '매출면세', 1540000, 6),
-    (7, NOW(), NOW(), '2024-01-27', '원두 구매 견적', '시다모 원두 및 멜파라이 소리치 원두에 대한 견적', 3, 1800000, '부가세 포함', 180000, '수출영세', 1980000, 7),
-    (8, NOW(), NOW(), '2024-01-29', '원두 구매 견적', '루비아 다크 브라운 원두 및 수프레모 나리뇨 원두에 대한 견적', 2, 1300000, '부가세 미포함', 130000, '매출면세', 1430000, 8),
-    (9, NOW(), NOW(), '2024-01-30', '원두 구매 견적', '예가체프 아바야 게이샤 원두에 대한 견적', 2, 1300000, '부가세 포함', 130000, '매출과세', 1430000, 9),
-    (10, NOW(), NOW(), '2024-02-01', '원두 구매 견적', '루비아 다크 브라운 원두 및 수프레모 나리뇨 원두에 대한 견적', 3, 1950000, '부가세 미포함', 195000, '매출면세', 2145000, 10),
-    (11, NOW(), NOW(), '2024-02-06', '원두 구매 견적', '시다모 원두 및 멜파라이 소리치 원두에 대한 견적', 3, 1800000, '부가세 포함', 180000, '매출과세', 1980000, 11),
-    (12, NOW(), NOW(), '2024-02-07', '원두 구매 견적', '수프레모 나리뇨 원두에 대한 견적', 2, 1400000, '부가세 미포함', 140000, '수출영세', 1540000, 12),
-    (13, NOW(), NOW(), '2024-02-10', '원두 구매 견적', '루비아 다크 브라운 원두 및 예가체프 아바야 게이샤 원두에 대한 견적', 3, 1950000, '부가세 포함', 195000, '매출과세', 2145000, 13),
-    (14, NOW(), NOW(), '2024-02-12', '원두 구매 견적', '시다모 원두 및 멜파라이 소리치 원두에 대한 견적', 2, 1300000, '부가세 미포함', 130000, '매출면세', 1430000, 14),
-    (15, NOW(), NOW(), '2024-02-14', '원두 구매 견적', '수프레모 나리뇨 원두에 대한 견적', 2, 1400000, '부가세 포함', 140000, '수출영세', 1540000, 15),
-    (16, NOW(), NOW(), '2024-02-24', '견적서 16', '고급 원두 및 커피머신 견적', 3, 9000000, '부가세 포함', 900000, '매출과세', 9900000, 15),
-    (17, NOW(), NOW(), '2024-02-25', '견적서 17', '커피머신 및 원두 견적', 2, 8500000, '부가세 미포함', 850000, '매출면세', 9350000, 16),
-    (18, NOW(), NOW(), '2024-02-26', '견적서 18', '고급 원두, 커피머신 포함 견적', 3, 9500000, '부가세 포함', 950000, '매출과세', 10450000, 17),
-    (19, NOW(), NOW(), '2024-02-27', '견적서 19', '원두 및 커피 액세서리 견적', 2, 7200000, '부가세 미포함', 720000, '매출면세', 7920000, 18),
-    (20, NOW(), NOW(), '2024-03-28', '견적서 20', '커피머신 및 원두 견적', 3, 9800000, '부가세 포함', 980000, '매출과세', 10780000, 19),
-    (21, NOW(), NOW(), '2024-03-21', '커피하우스 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 2, 8250000, '부가세 미포함', 825000, '매출면세', 9075000, 20),
-    (22, NOW(), NOW(), '2024-03-22', '커피존 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 3, 8400000, '부가세 포함', 840000, '매출과세', 9240000, 21),
-    (23, NOW(), NOW(), '2024-03-23', '커피마스터 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 2, 8550000, '부가세 미포함', 855000, '매출면세', 9427500, 22),
-    (24, NOW(), NOW(), '2024-03-24', '커피팝 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 4, 8700000, '부가세 포함', 870000, '매출과세', 9573000, 23),
-    (25, NOW(), NOW(), '2024-03-25', '커피하우스 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 3, 8850000, '부가세 미포함', 885000, '수출영세', 9742500, 24),
-    (26, NOW(), NOW(), '2024-03-26', '커피존 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 2, 9000000, '부가세 포함', 900000, '매출과세', 9900000, 25),
-    (27, NOW(), NOW(), '2024-03-27', '커피마스터 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 3, 9150000, '부가세 미포함', 915000, '매출면세', 10009250, 26),
-    (28, NOW(), NOW(), '2024-03-28', '커피팝 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 4, 9300000, '부가세 포함', 930000, '매출과세', 10138800, 27),
-    (29, NOW(), NOW(), '2024-03-29', '커피하우스 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 3, 9450000, '부가세 미포함', 945000, '수출영세', 10268250, 28),
-    (30, NOW(), NOW(), '2024-03-30', '커피존 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 2, 9600000, '부가세 포함', 960000, '매출과세', 10397700, 29),
-    (31, NOW(), NOW(), '2024-04-01', '커피마스터 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 3, 9750000, '부가세 미포함', 975000, '매출면세', 10725000, 30),
-    (32, NOW(), NOW(), '2024-04-02', '커피팝 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 4, 9900000, '부가세 포함', 990000, '매출과세', 10980000, 31),
-    (33, NOW(), NOW(), '2024-04-03', '커피하우스 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 3, 10050000, '부가세 미포함', 1005000, '수출영세', 11155000, 32),
-    (34, NOW(), NOW(), '2024-04-04', '커피존 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 2, 10200000, '부가세 포함', 1020000, '매출과세', 11340000, 33),
-    (35, NOW(), NOW(), '2024-04-05', '커피마스터 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 4, 10350000, '부가세 미포함', 1035000, '매출면세', 11535000, 34),
-    (36, NOW(), NOW(), '2024-04-06', '커피팝 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 3, 10500000, '부가세 포함', 1050000, '매출과세', 11650000, 35),
-    (37, NOW(), NOW(), '2024-04-07', '커피하우스 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 2, 10650000, '부가세 미포함', 1065000, '수출영세', 11835000, 36),
-    (38, NOW(), NOW(), '2024-04-08', '커피존 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 3, 10800000, '부가세 포함', 1080000, '매출과세', 11960000, 37),
-    (39, NOW(), NOW(), '2024-04-09', '커피마스터 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 4, 10950000, '부가세 미포함', 1095000, '매출면세', 12135000, 38),
-    (40, NOW(), NOW(), '2024-04-06', '커피마스터 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 3, 3150000, '부가세 미포함', 315000, '수출영세', 3465000, 39),
-    (41, NOW(), NOW(), '2024-04-07', '커피테크 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 2, 3450000, '부가세 포함', 345000, '매출과세', 3795000, 40),
-    (42, NOW(), NOW(), '2024-04-08', '커피존 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 3, 3300000, '부가세 미포함', 330000, '매출면세', 3630000, 41),
-    (43, NOW(), NOW(), '2024-05-09', '커피플래닛 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 4, 3600000, '부가세 포함', 360000, '매출과세', 3960000, 42),
-    (44, NOW(), NOW(), '2024-05-10', '커피존 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 3, 3750000, '부가세 미포함', 375000, '매출면세', 4125000, 43),
-    (45, NOW(), NOW(), '2024-05-11', '커피마스터 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 2, 3900000, '부가세 포함', 390000, '매출과세', 4290000, 44),
-    (46, NOW(), NOW(), '2024-05-12', '커피팝 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 3, 4050000, '부가세 미포함', 405000, '수출영세', 4455000, 45),
-    (47, NOW(), NOW(), '2024-05-13', '커피하우스 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 2, 4200000, '부가세 포함', 420000, '매출과세', 4620000, 46),
-    (48, NOW(), NOW(), '2024-05-14', '커피존 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 3, 4350000, '부가세 미포함', 435000, '매출면세', 4702500, 47),
-    (49, NOW(), NOW(), '2024-05-15', '커피마스터 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 4, 4500000, '부가세 포함', 450000, '매출과세', 4950000, 48),
-    (50, NOW(), NOW(), '2024-05-16', '커피테크 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 3, 4650000, '부가세 미포함', 465000, '매출면세', 5085000, 49),
-    (51, NOW(), NOW(), '2024-05-17', '커피팝 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 2, 320000, '부가세 포함', 32000, '매출과세', 352000, 50),
-    (52, NOW(), NOW(), '2024-05-18', '커피하우스 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 3, 330000, '부가세 미포함', 33000, '수출영세', 363000, 51),
-    (53, NOW(), NOW(), '2024-05-19', '커피마스터 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 2, 340000, '부가세 포함', 34000, '매출과세', 374000, 52),
-    (54, NOW(), NOW(), '2024-05-20', '커피플래닛 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 3, 350000, '부가세 미포함', 35000, '매출면세', 385000, 53),
-    (55, NOW(), NOW(), '2024-05-21', '커피존 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 4, 360000, '부가세 포함', 36000, '매출과세', 396000, 54),
-    (56, NOW(), NOW(), '2024-05-22', '커피팝 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 2, 370000, '부가세 미포함', 37000, '수출영세', 407000, 55),
-    (57, NOW(), NOW(), '2024-06-23', '커피마스터 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 3, 380000, '부가세 포함', 38000, '매출과세', 418000, 56),
-    (58, NOW(), NOW(), '2024-06-24', '커피하우스 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 2, 390000, '부가세 미포함', 39000, '매출면세', 429000, 57),
-    (59, NOW(), NOW(), '2024-06-25', '커피존 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 3, 400000, '부가세 포함', 40000, '매출과세', 440000, 58),
-    (60, NOW(), NOW(), '2024-06-26', '커피테크 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 2, 410000, '부가세 미포함', 41000, '수출영세', 451000, 59),
-    (61, NOW(), NOW(), '2024-06-27', '커피팝 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 3, 420000, '부가세 포함', 42000, '매출과세', 462000, 60),
-    (62, NOW(), NOW(), '2024-06-28', '커피하우스 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 4, 430000, '부가세 미포함', 43000, '매출면세', 473000, 61),
-    (63, NOW(), NOW(), '2024-06-29', '커피존 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 2, 440000, '부가세 포함', 44000, '매출과세', 484000, 62),
-    (64, NOW(), NOW(), '2024-06-30', '커피플래닛 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 3, 450000, '부가세 미포함', 45000, '매출면세', 495000, 63),
-    (65, NOW(), NOW(), '2024-06-01', '커피마스터 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 2, 460000, '부가세 포함', 46000, '매출과세', 506000, 64),
-    (66, NOW(), NOW(), '2024-06-02', '커피팝 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 3, 470000, '부가세 미포함', 47000, '수출영세', 517000, 65),
-    (67, NOW(), NOW(), '2024-06-03', '커피하우스 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 4, 480000, '부가세 포함', 48000, '매출과세', 528000, 66),
-    (68, NOW(), NOW(), '2024-06-04', '커피존 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 2, 490000, '부가세 미포함', 49000, '매출면세', 539000, 67),
-    (69, NOW(), NOW(), '2024-07-05', '커피플래닛 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 3, 500000, '부가세 포함', 50000, '매출과세', 550000, 68),
-    (70, NOW(), NOW(), '2024-07-06', '커피마스터 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 4, 510000, '부가세 미포함', 51000, '매출면세', 561000, 69),
-    (71, NOW(), NOW(), '2024-07-07', '커피존 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 3, 520000, '부가세 포함', 52000, '매출과세', 572000, 70),
-    (72, NOW(), NOW(), '2024-07-08', '커피하우스 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 2, 530000, '부가세 미포함', 53000, '매출면세', 583000, 71),
-    (73, NOW(), NOW(), '2024-07-09', '커피팝 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 4, 540000, '부가세 포함', 54000, '매출과세', 594000, 72),
-    (74, NOW(), NOW(), '2024-07-10', '커피존 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 3, 550000, '부가세 미포함', 55000, '수출영세', 605000, 73),
-    (75, NOW(), NOW(), '2024-07-11', '커피마스터 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 2, 560000, '부가세 포함', 56000, '매출과세', 616000, 74),
-    (76, NOW(), NOW(), '2024-07-12', '커피팝 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 3, 570000, '부가세 미포함', 57000, '매출면세', 627000, 75),
-    (77, NOW(), NOW(), '2024-08-13', '커피하우스 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 4, 580000, '부가세 포함', 58000, '매출과세', 638000, 76),
-    (78, NOW(), NOW(), '2024-08-14', '커피존 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 3, 590000, '부가세 미포함', 59000, '매출면세', 649000, 77),
-    (79, NOW(), NOW(), '2024-08-15', '커피마스터 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 2, 600000, '부가세 포함', 60000, '매출과세', 660000, 78),
-    (80, NOW(), NOW(), '2024-08-16', '커피팝 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 4, 610000, '부가세 미포함', 61000, '수출영세', 671000, 79),
-    (81, NOW(), NOW(), '2024-08-17', '커피하우스 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 3, 620000, '부가세 포함', 62000, '매출과세', 684000, 80),
-    (82, NOW(), NOW(), '2024-08-18', '커피존 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 2, 630000, '부가세 미포함', 63000, '매출면세', 693000, 81),
-    (83, NOW(), NOW(), '2024-08-19', '커피마스터 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 4, 640000, '부가세 포함', 64000, '매출과세', 704000, 82),
-    (84, NOW(), NOW(), '2024-09-20', '커피팝 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 3, 650000, '부가세 미포함', 65000, '수출영세', 715000, 83),
-    (85, NOW(), NOW(), '2024-09-21', '커피하우스 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 4, 660000, '부가세 포함', 66000, '매출과세', 726000, 84),
-    (86, NOW(), NOW(), '2024-09-22', '커피존 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 2, 670000, '부가세 미포함', 67000, '매출면세', 737000, 85),
-    (87, NOW(), NOW(), '2024-09-23', '커피마스터 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 3, 680000, '부가세 포함', 68000, '매출과세', 748000, 86),
-    (88, NOW(), NOW(), '2024-09-24', '커피팝 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 4, 690000, '부가세 미포함', 69000, '수출영세', 759000, 87),
-    (89, NOW(), NOW(), '2024-09-25', '커피하우스 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 2, 700000, '부가세 포함', 70000, '매출과세', 770000, 88),
-    (90, NOW(), NOW(), '2024-09-26', '커피존 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 3, 710000, '부가세 미포함', 71000, '매출면세', 781000, 89),
-    (91, NOW(), NOW(), '2024-09-27', '커피마스터 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 2, 720000, '부가세 포함', 72000, '매출과세', 792000, 90),
-    (92, NOW(), NOW(), '2024-10-28', '커피팝 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 3, 730000, '부가세 미포함', 73000, '수출영세', 803000, 91),
-    (93, NOW(), NOW(), '2024-10-29', '커피하우스 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 4, 740000, '부가세 포함', 74000, '매출과세', 814000, 92),
-    (94, NOW(), NOW(), '2024-10-30', '커피존 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 2, 750000, '부가세 미포함', 75000, '매출면세', 825000, 93),
-    (95, NOW(), NOW(), '2024-10-31', '커피마스터 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 3, 760000, '부가세 포함', 76000, '매출과세', 836000, 94),
-    (96, NOW(), NOW(), '2024-11-01', '커피팝 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 4, 770000, '부가세 미포함', 77000, '수출영세', 847000, 95),
-    (97, NOW(), NOW(), '2024-11-02', '커피하우스 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 3, 780000, '부가세 포함', 78000, '매출과세', 858000, 96),
-    (98, NOW(), NOW(), '2024-11-03', '커피존 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 2, 790000, '부가세 미포함', 79000, '매출면세', 869000, 97),
-    (99, NOW(), NOW(), '2024-11-04', '커피마스터 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 3, 800000, '부가세 포함', 80000, '매출과세', 880000, 98),
-    (100, NOW(), NOW(), '2024-11-05', '커피팝 - 원두 구매 견적', '고급 원두 및 커피머신 제공 견적', 4, 810000, '부가세 미포함', 81000, '수출영세', 891000, 99);
-
--- >>>>>>>>>>>> 견적별 물품 <<<<<<<<<<<<<<
-
--- 견적별 물품 데이터 생성 (총 200개)
-INSERT INTO tb_est_prod (est_prod_no, created_at, updated_at, discount, qty, supply_price, tax_rate, tax, total_amt, unit_amt, unit_prop_amt, est_no, prod_no)
-VALUES
-    (1, NOW(), NOW(), 5, 10, 58670, 11, 6453, 64530, 5867, 5276, 1, 1),
-    (2, NOW(), NOW(), 10, 8, 42779, 8, 3422, 34220, 4277, 3849, 1, 2),
-    (3, NOW(), NOW(), 7, 6, 40463, 12, 4856, 24280, 4046, 3780, 1, 3),
-    (4, NOW(), NOW(), 15, 5, 57886, 13, 7525, 37630, 5789, 5200, 2, 4),
-    (5, NOW(), NOW(), 20, 4, 71185, 7, 4983, 19932, 7118, 6396, 2, 5),
-    (6, NOW(), NOW(), 12, 7, 1181427, 6, 70886, 495202, 118142, 106328, 3, 6),
-    (7, NOW(), NOW(), 10, 10, 778981, 14, 10846, 108460, 77898, 70188, 3, 7),
-    (8, NOW(), NOW(), 5, 8, 13566, 11, 1492, 11936, 1356, 1220, 3, 8),
-    (9, NOW(), NOW(), 8, 15, 10554, 14, 1478, 22170, 1055, 949, 4, 9),
-    (10, NOW(), NOW(), 10, 20, 15754, 14, 1974, 39540, 1575, 1417, 4, 10),
-    (11, NOW(), NOW(), 12, 6, 58670, 11, 6453, 38718, 5867, 5276, 5, 1),
-    (12, NOW(), NOW(), 5, 10, 42779, 8, 3422, 34220, 4277, 3849, 5, 2),
-    (13, NOW(), NOW(), 10, 4, 40463, 12, 4856, 19424, 4046, 3780, 5, 3),
-    (14, NOW(), NOW(), 8, 12, 57886, 13, 7525, 45150, 5789, 5200, 6, 4),
-    (15, NOW(), NOW(), 15, 8, 71185, 7, 4983, 39864, 7118, 6396, 6, 5),
-    (16, NOW(), NOW(), 10, 7, 1181427, 6, 70886, 495202, 118142, 106328, 7, 6),
-    (17, NOW(), NOW(), 12, 6, 778981, 14, 10846, 64860, 77898, 70188, 7, 7),
-    (18, NOW(), NOW(), 7, 5, 13566, 11, 1492, 7460, 1356, 1220, 7, 8),
-    (19, NOW(), NOW(), 10, 10, 10554, 14, 1478, 22170, 1055, 949, 8, 9),
-    (20, NOW(), NOW(), 5, 8, 15754, 14, 1974, 15892, 1575, 1417, 8, 10),
-    (21, NOW(), NOW(), 5, 10, 58670, 11, 6453, 64530, 5867, 5276, 9, 1),
-    (22, NOW(), NOW(), 10, 8, 42779, 8, 3422, 34220, 4277, 3849, 10, 2),
-    (23, NOW(), NOW(), 7, 6, 40463, 12, 4856, 24280, 4046, 3780, 11, 3),
-    (24, NOW(), NOW(), 15, 5, 57886, 13, 7525, 37630, 5789, 5200, 12, 4),
-    (25, NOW(), NOW(), 20, 4, 71185, 7, 4983, 19932, 7118, 6396, 13, 5),
-    (26, NOW(), NOW(), 12, 7, 1181427, 6, 70886, 495202, 118142, 106328, 13, 6),
-    (27, NOW(), NOW(), 10, 10, 778981, 14, 10846, 108460, 77898, 70188, 14, 7),
-    (28, NOW(), NOW(), 5, 8, 13566, 11, 1492, 11936, 1356, 1220, 15, 8),
-    (29, NOW(), NOW(), 8, 15, 10554, 14, 1478, 22170, 1055, 949, 16, 9),
-    (30, NOW(), NOW(), 10, 20, 15754, 14, 1974, 39540, 1575, 1417, 17, 10),
-    (31, NOW(), NOW(), 12, 6, 58670, 11, 6453, 38718, 5867, 5276, 18, 1),
-    (32, NOW(), NOW(), 5, 10, 42779, 8, 3422, 34220, 4277, 3849, 19, 2),
-    (33, NOW(), NOW(), 10, 4, 40463, 12, 4856, 19424, 4046, 3780, 20, 3),
-    (34, NOW(), NOW(), 8, 12, 57886, 13, 7525, 45150, 5789, 5200, 21, 4),
-    (35, NOW(), NOW(), 15, 8, 71185, 7, 4983, 39864, 7118, 6396, 22, 5),
-    (36, NOW(), NOW(), 10, 7, 1181427, 6, 70886, 495202, 118142, 106328,22, 6),
-    (37, NOW(), NOW(), 12, 6, 778981, 14, 10846, 64860, 77898, 70188, 23, 7),
-    (38, NOW(), NOW(), 7, 5, 13566, 11, 1492, 7460, 1356, 1220, 24, 8),
-    (39, NOW(), NOW(), 10, 10, 10554, 14, 1478, 22170, 1055, 949, 25, 9),
-    (40, NOW(), NOW(), 5, 8, 15754, 14, 1974, 15892, 1575, 1417, 26, 10),
-    (41, NOW(), NOW(), 10, 12, 58670, 11, 6453, 70404, 5867, 5276, 27, 1),
-    (42, NOW(), NOW(), 15, 5, 42779, 8, 3422, 21395, 4277, 3849, 28, 2),
-    (43, NOW(), NOW(), 8, 8, 40463, 12, 4856, 32370, 4046, 3780, 28, 3),
-    (44, NOW(), NOW(), 12, 10, 57886, 13, 7525, 578860, 5789, 5200, 29, 4),
-    (45, NOW(), NOW(), 7, 6, 71185, 7, 4983, 42711, 7118, 6396, 30, 5),
-    (46, NOW(), NOW(), 10, 9, 1181427, 6, 70886, 10658243, 118142, 106328, 31, 6),
-    (47, NOW(), NOW(), 5, 15, 778981, 14, 10846, 467350, 77898, 70188, 31, 7),
-    (48, NOW(), NOW(), 10, 7, 13566, 11, 1492, 10492, 1356, 1220, 32, 8),
-    (49, NOW(), NOW(), 7, 10, 10554, 14, 1478, 105540, 1055, 949, 33, 9),
-    (50, NOW(), NOW(), 15, 5, 15754, 14, 1974, 7870, 1575, 1417, 34, 10),
-    (51, NOW(), NOW(), 8, 8, 58670, 11, 6453, 51864, 5867, 5276, 35, 1),
-    (52, NOW(), NOW(), 20, 10, 42779, 8, 3422, 42779, 4277, 3849, 35, 2),
-    (53, NOW(), NOW(), 5, 7, 40463, 12, 4856, 28324, 4046, 3780, 37, 3),
-    (54, NOW(), NOW(), 12, 6, 57886, 13, 7525, 34716, 5789, 5200, 37, 4),
-    (55, NOW(), NOW(), 15, 4, 71185, 7, 4983, 28474, 7118, 6396, 38, 5),
-    (56, NOW(), NOW(), 10, 12, 1181427, 6, 70886, 1417729, 118142, 106328, 39, 6),
-    (57, NOW(), NOW(), 5, 9, 778981, 14, 10846, 978612, 77898, 70188, 40, 7),
-    (58, NOW(), NOW(), 10, 10, 13566, 11, 1492, 135660, 1356, 1220, 41, 8),
-    (59, NOW(), NOW(), 7, 5, 10554, 14, 1478, 52770, 1055, 949, 42, 9),
-    (60, NOW(), NOW(), 8, 8, 15754, 14, 1974, 15892, 1575, 1417, 43, 10),
-    (61, NOW(), NOW(), 10, 12, 58670, 11, 6453, 70404, 5867, 5276, 44, 1),
-    (62, NOW(), NOW(), 5, 15, 42779, 8, 3422, 64185, 4277, 3849, 44, 2),
-    (63, NOW(), NOW(), 8, 8, 40463, 12, 4856, 32370, 4046, 3780, 44, 3),
-    (64, NOW(), NOW(), 12, 10, 57886, 13, 7525, 578860, 5789, 5200, 45, 4),
-    (65, NOW(), NOW(), 7, 6, 71185, 7, 4983, 42711, 7118, 6396, 45, 5),
-    (66, NOW(), NOW(), 15, 9, 1181427, 6, 70886, 10658243, 118142, 106328, 46, 6),
-    (67, NOW(), NOW(), 10, 7, 778981, 14, 10846, 467350, 77898, 70188, 46, 7),
-    (68, NOW(), NOW(), 5, 10, 13566, 11, 1492, 10492, 1356, 1220, 46, 8),
-    (69, NOW(), NOW(), 7, 6, 10554, 14, 1478, 105540, 1055, 949, 47, 9),
-    (70, NOW(), NOW(), 10, 9, 15754, 14, 1974, 7870, 1575, 1417, 47, 10),
-    (71, NOW(), NOW(), 8, 8, 58670, 11, 6453, 51864, 5867, 5276, 48, 1),
-    (72, NOW(), NOW(), 15, 10, 42779, 8, 3422, 42779, 4277, 3849, 48, 2),
-    (73, NOW(), NOW(), 5, 7, 40463, 12, 4856, 28324, 4046, 3780, 48, 3),
-    (74, NOW(), NOW(), 12, 6, 57886, 13, 7525, 34716, 5789, 5200, 49, 4),
-    (75, NOW(), NOW(), 15, 4, 71185, 7, 4983, 28474, 7118, 6396, 49, 5),
-    (76, NOW(), NOW(), 10, 12, 1181427, 6, 70886, 1417729, 118142, 106328, 50, 6),
-    (77, NOW(), NOW(), 5, 9, 778981, 14, 10846, 978612, 77898, 70188, 50, 7),
-    (78, NOW(), NOW(), 10, 10, 13566, 11, 1492, 135660, 1356, 1220, 50, 8),
-    (79, NOW(), NOW(), 7, 5, 10554, 14, 1478, 52770, 1055, 949, 51, 9),
-    (80, NOW(), NOW(), 8, 8, 15754, 14, 1974, 15892, 1575, 1417, 51, 10),
-    (81, NOW(), NOW(), 10, 8, 58670, 11, 6453, 49360, 5867, 5276, 52, 1),
-    (82, NOW(), NOW(), 15, 10, 42779, 8, 3422, 42779, 4277, 3849, 52, 2),
-    (83, NOW(), NOW(), 8, 6, 40463, 12, 4856, 24278, 4046, 3780, 52, 3),
-    (84, NOW(), NOW(), 12, 7, 57886, 13, 7525, 40520, 5789, 5200, 53, 4),
-    (85, NOW(), NOW(), 7, 9, 71185, 7, 4983, 64065, 7118, 6396, 53, 5),
-    (86, NOW(), NOW(), 15, 6, 1181427, 6, 70886, 708860, 118142, 106328, 54, 6),
-    (87, NOW(), NOW(), 10, 5, 778981, 14, 10846, 3894905, 77898, 70188, 54, 7),
-    (88, NOW(), NOW(), 5, 10, 13566, 11, 1492, 135660, 1356, 1220, 54, 8),
-    (89, NOW(), NOW(), 7, 8, 10554, 14, 1478, 84432, 1055, 949, 55, 9),
-    (90, NOW(), NOW(), 10, 9, 15754, 14, 1974, 141786, 1575, 1417, 55, 10),
-    (91, NOW(), NOW(), 8, 12, 58670, 11, 6453, 77480, 5867, 5276, 56, 1),
-    (92, NOW(), NOW(), 15, 7, 42779, 8, 3422, 29853, 4277, 3849, 56, 2),
-    (93, NOW(), NOW(), 5, 10, 40463, 12, 4856, 40463, 4046, 3780, 56, 3),
-    (94, NOW(), NOW(), 12, 9, 57886, 13, 7525, 52094, 5789, 5200, 57, 4),
-    (95, NOW(), NOW(), 7, 8, 71185, 7, 4983, 57084, 7118, 6396, 57, 5),
-    (96, NOW(), NOW(), 15, 6, 1181427, 6, 70886, 708860, 118142, 106328, 58, 6),
-    (97, NOW(), NOW(), 10, 5, 778981, 14, 10846, 3894905, 77898, 70188, 58, 7),
-    (98, NOW(), NOW(), 5, 9, 13566, 11, 1492, 122034, 1356, 1220, 58, 8),
-    (99, NOW(), NOW(), 7, 10, 10554, 14, 1478, 105540, 1055, 949, 59, 9),
-    (100, NOW(), NOW(), 10, 6, 15754, 14, 1974, 94524, 1575, 1417, 59, 10),
-    (101, NOW(), NOW(), 10, 7, 58670, 11, 6453, 40870, 5867, 5276, 60, 1),
-    (102, NOW(), NOW(), 15, 8, 42779, 8, 3422, 34232, 4277, 3849, 60, 2),
-    (103, NOW(), NOW(), 5, 6, 40463, 12, 4856, 24278, 4046, 3780, 60, 3),
-    (104, NOW(), NOW(), 12, 10, 57886, 13, 7525, 57886, 5789, 5200, 61, 4),
-    (105, NOW(), NOW(), 7, 5, 71185, 7, 4983, 35592, 7118, 6396, 61, 5),
-    (106, NOW(), NOW(), 15, 7, 1181427, 6, 70886, 1181427, 118142, 106328, 62, 6),
-    (107, NOW(), NOW(), 10, 9, 778981, 14, 10846, 701166, 77898, 70188, 62, 7),
-    (108, NOW(), NOW(), 5, 6, 13566, 11, 1492, 81396, 1356, 1220, 62, 8),
-    (109, NOW(), NOW(), 7, 10, 10554, 14, 1478, 105540, 1055, 949, 63, 9),
-    (110, NOW(), NOW(), 10, 8, 15754, 14, 1974, 126032, 1575, 1417, 63, 10),
-    (111, NOW(), NOW(), 8, 9, 58670, 11, 6453, 51783, 5867, 5276, 64, 1),
-    (112, NOW(), NOW(), 15, 6, 42779, 8, 3422, 25767, 4277, 3849, 64, 2),
-    (113, NOW(), NOW(), 5, 7, 40463, 12, 4856, 28324, 4046, 3780, 64, 3),
-    (114, NOW(), NOW(), 12, 8, 57886, 13, 7525, 46308, 5789, 5200, 65, 4),
-    (115, NOW(), NOW(), 7, 5, 71185, 7, 4983, 35592, 7118, 6396, 65, 5),
-    (116, NOW(), NOW(), 15, 9, 1181427, 6, 70886, 1066146, 118142, 106328, 66, 6),
-    (117, NOW(), NOW(), 10, 5, 778981, 14, 10846, 3894905, 77898, 70188, 66, 7),
-    (118, NOW(), NOW(), 5, 8, 13566, 11, 1492, 108528, 1356, 1220, 66, 8),
-    (119, NOW(), NOW(), 7, 6, 10554, 14, 1478, 63324, 1055, 949, 67, 9),
-    (120, NOW(), NOW(), 10, 7, 15754, 14, 1974, 110678, 1575, 1417, 67, 10),
-    (121, NOW(), NOW(), 8, 6, 58670, 11, 6453, 35001, 5867, 5276, 68, 1),
-    (122, NOW(), NOW(), 12, 8, 42779, 8, 3422, 34232, 4277, 3849, 68, 2),
-    (123, NOW(), NOW(), 5, 7, 40463, 12, 4856, 28324, 4046, 3780, 68, 3),
-    (124, NOW(), NOW(), 15, 9, 57886, 13, 7525, 51978, 5789, 5200, 69, 4),
-    (125, NOW(), NOW(), 7, 6, 71185, 7, 4983, 42710, 7118, 6396, 69, 5),
-    (126, NOW(), NOW(), 10, 7, 1181427, 6, 70886, 826997, 118142, 106328, 70, 6),
-    (127, NOW(), NOW(), 15, 8, 778981, 14, 10846, 783630, 77898, 70188, 70, 7),
-    (128, NOW(), NOW(), 7, 10, 13566, 11, 1492, 135660, 1356, 1220, 70, 8),
-    (129, NOW(), NOW(), 10, 6, 10554, 14, 1478, 63324, 1055, 949, 71, 9),
-    (130, NOW(), NOW(), 5, 9, 15754, 14, 1974, 141786, 1575, 1417, 71, 10),
-    (131, NOW(), NOW(), 8, 7, 58670, 11, 6453, 40890, 5867, 5276, 72, 1),
-    (132, NOW(), NOW(), 12, 6, 42779, 8, 3422, 20548, 4277, 3849, 72, 2),
-    (133, NOW(), NOW(), 5, 8, 40463, 12, 4856, 33852, 4046, 3780, 72, 3),
-    (134, NOW(), NOW(), 15, 6, 57886, 13, 7525, 34716, 5789, 5200, 73, 4),
-    (135, NOW(), NOW(), 7, 9, 71185, 7, 4983, 63966, 7118, 6396, 73, 5),
-    (136, NOW(), NOW(), 10, 10, 1181427, 6, 70886, 1181427, 118142, 106328, 74, 6),
-    (137, NOW(), NOW(), 15, 5, 778981, 14, 10846, 527836, 77898, 70188, 74, 7),
-    (138, NOW(), NOW(), 7, 8, 13566, 11, 1492, 108528, 1356, 1220, 74, 8),
-    (139, NOW(), NOW(), 10, 7, 10554, 14, 1478, 74178, 1055, 949, 75, 9),
-    (140, NOW(), NOW(), 5, 9, 15754, 14, 1974, 141786, 1575, 1417, 75, 10),
-    (141, NOW(), NOW(), 8, 6, 58670, 11, 6453, 35001, 5867, 5276, 76, 1),
-    (142, NOW(), NOW(), 12, 8, 42779, 8, 3422, 34232, 4277, 3849, 76, 2),
-    (143, NOW(), NOW(), 5, 7, 40463, 12, 4856, 28324, 4046, 3780, 76, 3),
-    (144, NOW(), NOW(), 15, 9, 57886, 13, 7525, 51978, 5789, 5200, 77, 4),
-    (145, NOW(), NOW(), 7, 6, 71185, 7, 4983, 42710, 7118, 6396, 77, 5),
-    (146, NOW(), NOW(), 10, 7, 1181427, 6, 70886, 826997, 118142, 106328, 78, 6),
-    (147, NOW(), NOW(), 15, 8, 778981, 14, 10846, 783630, 77898, 70188, 78, 7),
-    (148, NOW(), NOW(), 7, 10, 13566, 11, 1492, 135660, 1356, 1220, 78, 8),
-    (149, NOW(), NOW(), 10, 6, 10554, 14, 1478, 63324, 1055, 949, 79, 9),
-    (150, NOW(), NOW(), 5, 9, 15754, 14, 1974, 141786, 1575, 1417, 79, 10),
-    (151, NOW(), NOW(), 8, 7, 58670, 11, 6453, 40890, 5867, 5276, 80, 1),
-    (152, NOW(), NOW(), 12, 6, 42779, 8, 3422, 20548, 4277, 3849, 80, 2),
-    (153, NOW(), NOW(), 5, 8, 40463, 12, 4856, 33852, 4046, 3780, 80, 3),
-    (154, NOW(), NOW(), 15, 6, 57886, 13, 7525, 34716, 5789, 5200, 81, 4),
-    (155, NOW(), NOW(), 7, 9, 71185, 7, 4983, 63966, 7118, 6396, 81, 5),
-    (156, NOW(), NOW(), 10, 10, 1181427, 6, 70886, 1181427, 118142, 106328, 82, 6),
-    (157, NOW(), NOW(), 15, 5, 778981, 14, 10846, 527836, 77898, 70188, 82, 7),
-    (158, NOW(), NOW(), 7, 8, 13566, 11, 1492, 108528, 1356, 1220, 82, 8),
-    (159, NOW(), NOW(), 10, 7, 10554, 14, 1478, 74178, 1055, 949, 83, 9),
-    (160, NOW(), NOW(), 5, 9, 15754, 14, 1974, 141786, 1575, 1417, 83, 10),
-    (161, NOW(), NOW(), 8, 6, 58670, 11, 6453, 35001, 5867, 5276, 84, 1),
-    (162, NOW(), NOW(), 12, 8, 42779, 8, 3422, 34232, 4277, 3849, 84, 2),
-    (163, NOW(), NOW(), 5, 7, 40463, 12, 4856, 28324, 4046, 3780, 84, 3),
-    (164, NOW(), NOW(), 15, 9, 57886, 13, 7525, 51978, 5789, 5200, 85, 4),
-    (165, NOW(), NOW(), 7, 6, 71185, 7, 4983, 42710, 7118, 6396, 85, 5),
-    (166, NOW(), NOW(), 10, 7, 1181427, 6, 70886, 826997, 118142, 106328, 86, 6),
-    (167, NOW(), NOW(), 15, 8, 778981, 14, 10846, 783630, 77898, 70188, 86, 7),
-    (168, NOW(), NOW(), 7, 10, 13566, 11, 1492, 135660, 1356, 1220, 86, 8),
-    (169, NOW(), NOW(), 10, 6, 10554, 14, 1478, 63324, 1055, 949, 87, 9),
-    (170, NOW(), NOW(), 5, 9, 15754, 14, 1974, 141786, 1575, 1417, 87, 10),
-    (171, NOW(), NOW(), 8, 7, 58670, 11, 6453, 40890, 5867, 5276, 88, 1),
-    (172, NOW(), NOW(), 12, 6, 42779, 8, 3422, 20548, 4277, 3849, 88, 2),
-    (173, NOW(), NOW(), 5, 8, 40463, 12, 4856, 33852, 4046, 3780, 88, 3),
-    (174, NOW(), NOW(), 15, 6, 57886, 13, 7525, 34716, 5789, 5200, 89, 4),
-    (175, NOW(), NOW(), 7, 9, 71185, 7, 4983, 63966, 7118, 6396, 89, 5),
-    (176, NOW(), NOW(), 10, 10, 1181427, 6, 70886, 1181427, 118142, 106328, 90, 6),
-    (177, NOW(), NOW(), 15, 5, 778981, 14, 10846, 527836, 77898, 70188, 90, 7),
-    (178, NOW(), NOW(), 7, 8, 13566, 11, 1492, 108528, 1356, 1220, 90, 8),
-    (179, NOW(), NOW(), 10, 7, 10554, 14, 1478, 74178, 1055, 949, 91, 9),
-    (180, NOW(), NOW(), 5, 9, 15754, 14, 1974, 141786, 1575, 1417, 91, 10),
-    (181, NOW(), NOW(), 8, 7, 58670, 11, 6453, 40890, 5867, 5276, 92, 1),
-    (182, NOW(), NOW(), 12, 6, 42779, 8, 3422, 25760, 4277, 3849, 92, 2),
-    (183, NOW(), NOW(), 5, 8, 40463, 12, 4856, 33852, 4046, 3780, 92, 3),
-    (184, NOW(), NOW(), 15, 6, 57886, 13, 7525, 34716, 5789, 5200, 93, 4),
-    (185, NOW(), NOW(), 7, 9, 71185, 7, 4983, 63966, 7118, 6396, 93, 5),
-    (186, NOW(), NOW(), 10, 7, 1181427, 6, 70886, 826997, 118142, 106328, 94, 6),
-    (187, NOW(), NOW(), 15, 8, 778981, 14, 10846, 783630, 77898, 70188, 94, 7),
-    (188, NOW(), NOW(), 7, 10, 13566, 11, 1492, 135660, 1356, 1220, 94, 8),
-    (189, NOW(), NOW(), 10, 6, 10554, 14, 1478, 63324, 1055, 949, 95, 9),
-    (190, NOW(), NOW(), 5, 9, 15754, 14, 1974, 141786, 1575, 1417, 95, 10),
-    (191, NOW(), NOW(), 8, 6, 58670, 11, 6453, 35001, 5867, 5276, 96, 1),
-    (192, NOW(), NOW(), 12, 8, 42779, 8, 3422, 34232, 4277, 3849, 96, 2),
-    (193, NOW(), NOW(), 5, 7, 40463, 12, 4856, 28324, 4046, 3780, 96, 3),
-    (194, NOW(), NOW(), 15, 9, 57886, 13, 7525, 51978, 5789, 5200, 97, 4),
-    (195, NOW(), NOW(), 7, 6, 71185, 7, 4983, 42710, 7118, 6396, 97, 5),
-    (196, NOW(), NOW(), 10, 7, 1181427, 6, 70886, 1181427, 118142, 106328, 98, 6),
-    (197, NOW(), NOW(), 15, 5, 778981, 14, 10846, 527836, 77898, 70188, 98, 7),
-    (198, NOW(), NOW(), 7, 8, 13566, 11, 1492, 108528, 1356, 1220, 99, 8),
-    (199, NOW(), NOW(), 10, 7, 10554, 14, 1478, 74178, 1055, 949, 99, 9),
-    (200, NOW(), NOW(), 5, 9, 15754, 14, 1974, 141786, 1575, 1417, 100, 10);
-
--- Contract 데이터 60개
-INSERT INTO tb_contract (contract_no, created_at, updated_at, arrival_noti_day, arrival_noti_yn, cls, cont_date, end_date, exp_arrival_date, name, note, payment_terms, prod_cnt, renewal_noti_day, renewal_noti_yn, start_date, supply_price, surtax_yn, tax, tax_cls, price, warrenty, est_no)
-VALUES
-(1, NOW(), NOW(), '30', 'N', 'SALES', '2024-10-08', '2025-01-11', '2024-10-20', '기존 매장 계약', '배송 일정 조율 필요', '후불', 26, '10', 'Y', '2024-10-13', 254700, 'N', 0, '매출 과세', 283000, 2, 1),
-(2, NOW(), NOW(), '20', 'Y', 'ESTIMATE', '2024-11-21', '2025-02-24', '2024-12-03', '기존 매장 계약', '배송 일정 조율 필요', '후불', 15, '20', 'Y', '2024-11-26', 194400, 'N', 0, '매출 과세', 216000, 2, 2),
-(3, NOW(), NOW(), '30', 'N', 'ESTIMATE', '2024-01-20', '2024-04-24', '2024-02-01', '신규 업체 계약 체결', '고객 요청 사항 반영 필요', '후불', 16, '20', 'Y', '2024-01-25', 720000, 'Y', 80000, '매출 면세', 800000, 11, 3),
-(4, NOW(), NOW(), '30', 'N', 'ESTIMATE', '2024-11-06', '2025-02-09', '2024-11-18', '신규 업체 계약 체결', '고급 원두, 커피머신 포함 견적', '선불', 46, '10', 'N', '2024-11-11', 372600, 'N', 0, '매출 과세', 414000, 6, 4),
-(5, NOW(), NOW(), '10', 'Y', 'ESTIMATE', '2024-02-07', '2024-05-12', '2024-02-19', '기존 매장 계약', '고객 요청 사항 반영 필요', '후불', 23, '30', 'N', '2024-02-12', 894600, 'N', 0, '매출 과세', 994000, 7, 5),
-(6, NOW(), NOW(), '20', 'N', 'SALES', '2024-11-23', '2025-02-26', '2024-12-05', '기존 매장 계약', '배송 일정 조율 필요', '후불', 19, '20', 'Y', '2024-11-28', 789300, 'N', 0, '매출 과세', 877000, 12, 6),
-(7, NOW(), NOW(), '20', 'Y', 'ESTIMATE', '2024-11-24', '2025-02-27', '2024-12-06', '신규 업체 계약 체결', '고급 원두 구매에 대한 견적', '선불', 45, '20', 'Y', '2024-11-29', 819900, 'Y', 91100, '수출 영세', 911000, 22, 7),
-(8, NOW(), NOW(), '20', 'Y', 'SALES', '2024-05-19', '2024-08-22', '2024-05-31', '신규 업체 계약 체결', '고급 원두, 커피머신 포함 견적', '후불', 4, '10', 'Y', '2024-05-24', 661500, 'Y', 73500, '수출 영세', 735000, 10, 8),
-(9, NOW(), NOW(), '10', 'Y', 'SALES', '2024-11-26', '2025-03-01', '2024-12-08', '신규 기기 계약 체결', '계약 세부 내용 확인 필요', '후불', 49, '20', 'N', '2024-12-01', 147600, 'Y', 16400, '수출 영세', 164000, 23, 9),
-(10, NOW(), NOW(), '20', 'Y', 'SALES', '2024-03-02', '2024-06-05', '2024-03-14', '신규 기기 계약 체결', '배송 일정 조율 필요', '분할 납부', 24, '30', 'N', '2024-03-07', 545400, 'Y', 60600, '수출 영세', 606000, 8, 10),
-(11, NOW(), NOW(), '10', 'N', 'ESTIMATE', '2024-07-13', '2024-10-16', '2024-07-25', '신규 업체 계약 체결', '배송 일정 조율 필요', '분할 납부', 17, '30', 'N', '2024-07-18', 678600, 'Y', 75400, '수출 영세', 754000, 13, 11),
-(12, NOW(), NOW(), '10', 'Y', 'ESTIMATE', '2024-02-14', '2024-05-19', '2024-02-26', '신규 기기 계약 체결', '계약 세부 내용 확인 필요', '선불', 9, '20', 'Y', '2024-02-19', 771300, 'Y', 85700, '수출 영세', 857000, 1, 12),
-(13, NOW(), NOW(), '10', 'Y', 'CONTRACT', '2024-04-20', '2024-07-24', '2024-05-02', '신규 업체 계약 체결', '계약 세부 내용 확인 필요', '분할 납부', 38, '20', 'N', '2024-04-25', 500400, 'Y', 55600, '수출 영세', 556000, 2, 13),
-(14, NOW(), NOW(), '30', 'Y', 'SALES', '2024-09-02', '2024-12-06', '2024-09-14', '신규 업체 계약 체결', '배송 일정 조율 필요', '후불', 43, '30', 'N', '2024-09-07', 840600, 'N', 0, '매출 과세', 934000, 19, 14),
-(15, NOW(), NOW(), '30', 'Y', 'SALES', '2024-05-10', '2024-08-13', '2024-05-22', '기존 매장 계약', '계약 세부 내용 확인 필요', '선불', 33, '30', 'N', '2024-05-15', 378900, 'N', 0, '매출 과세', 421000, 24, 15),
-(16, NOW(), NOW(), '30', 'N', 'ESTIMATE', '2024-09-19', '2024-12-23', '2024-10-01', '신규 업체 계약 체결', '원두에 대한 견적', '분할 납부', 16, '20', 'N', '2024-09-24', 845100, 'N', 0, '매출 과세', 939000, 18, 16),
-(17, NOW(), NOW(), '10', 'Y', 'SALES', '2024-07-17', '2024-10-20', '2024-07-29', '신규 업체 계약 체결', '계약 세부 내용 확인 필요', '후불', 7, '10', 'Y', '2024-07-22', 115200, 'N', 0, '매출 과세', 128000, 4, 17),
-(18, NOW(), NOW(), '30', 'Y', 'SALES', '2024-03-19', '2024-06-22', '2024-03-31', '신규 업체 계약 체결', '고객 요청 사항 반영 필요', '후불', 34, '10', 'N', '2024-03-24', 505800, 'N', 0, '매출 과세', 562000, 20, 18),
-(19, NOW(), NOW(), '20', 'N', 'ESTIMATE', '2024-11-02', '2025-02-05', '2024-11-14', '신규 기기 계약 체결', '배송 일정 조율 필요', '후불', 41, '10', 'Y', '2024-11-07', 599400, 'N', 0, '매출 과세', 666000, 1, 19),
-(20, NOW(), NOW(), '20', 'N', 'SALES', '2024-09-24', '2024-12-28', '2024-10-06', '기존 매장 계약', '고급 원두 구매에 대한 견적', '후불', 39, '30', 'Y', '2024-09-29', 851400, 'Y', 94600, '매출 면세', 946000, 22, 20),
-(21, NOW(), NOW(), '30', 'Y', 'SALES', '2024-10-09', '2025-01-12', '2024-10-21', '신규 기기 계약 체결', '배송 일정 조율 필요', '선불', 40, '10', 'N', '2024-10-14', 115200, 'N', 0, '매출 과세', 128000, 11, 21),
-(22, NOW(), NOW(), '10', 'Y', 'CONTRACT', '2024-02-24', '2024-05-29', '2024-03-07', '신규 업체 계약 체결', '원두에 대한 견적', '후불', 23, '20', 'N', '2024-02-29', 831600, 'Y', 92400, '수출 영세', 924000, 15, 22),
-(23, NOW(), NOW(), '20', 'N', 'SALES', '2024-12-28', '2025-04-02', '2025-01-09', '신규 업체 계약 체결', '배송 일정 조율 필요', '후불', 49, '20', 'N', '2025-01-02', 747000, 'N', 0, '매출 과세', 830000, 10, 23),
-(24, NOW(), NOW(), '10', 'N', 'SALES', '2024-06-25', '2024-09-28', '2024-07-07', '신규 업체 계약 체결', '고급 원두, 커피머신 포함 견적', '후불', 16, '10', 'Y', '2024-06-30', 757800, 'N', 0, '매출 과세', 842000, 8, 24),
-(25, NOW(), NOW(), '20', 'N', 'SALES', '2024-04-04', '2024-07-08', '2024-04-16', '신규 기기 계약 체결', '계약 세부 내용 확인 필요', '후불', 19, '20', 'Y', '2024-04-09', 491400, 'N', 0, '매출 과세', 546000, 9, 25),
-(26, NOW(), NOW(), '10', 'N', 'ESTIMATE', '2024-10-25', '2025-01-28', '2024-11-06', '신규 기기 계약 체결', '고급 원두 구매에 대한 견적', '분할 납부', 27, '30', 'N', '2024-10-30', 791100, 'N', 0, '매출 과세', 879000, 15, 26),
-(27, NOW(), NOW(), '20', 'Y', 'CONTRACT', '2024-07-09', '2024-10-12', '2024-07-21', '신규 업체 계약 체결', '고급 원두 구매에 대한 견적', '분할 납부', 24, '10', 'Y', '2024-07-14', 440100, 'Y', 48900, '매출 면세', 489000, 20, 27),
-(28, NOW(), NOW(), '30', 'Y', 'ESTIMATE', '2024-01-04', '2024-04-08', '2024-01-16', '신규 기기 계약 체결', '계약 세부 내용 확인 필요', '선불', 24, '20', 'Y', '2024-01-09', 722700, 'Y', 80300, '매출 면세', 803000, 20, 28),
-(29, NOW(), NOW(), '30', 'Y', 'SALES', '2024-04-23', '2024-07-27', '2024-05-05', '신규 업체 계약 체결', '원두에 대한 견적', '분할 납부', 24, '10', 'N', '2024-04-28', 792000, 'Y', 88000, '매출 면세', 880000, 3, 29),
-(30, NOW(), NOW(), '30', 'N', 'CONTRACT', '2024-10-17', '2025-01-20', '2024-10-29', '신규 업체 계약 체결', '고객 요청 사항 반영 필요', '분할 납부', 23, '30', 'Y', '2024-10-22', 573300, 'Y', 63700, '수출 영세', 637000, 11, 30),
-(31, NOW(), NOW(), '20', 'Y', 'ESTIMATE', '2024-06-09', '2024-09-12', '2024-06-21', '신규 업체 계약 체결', '고급 원두 구매에 대한 견적', '분할 납부', 44, '20', 'N', '2024-06-14', 265500, 'N', 0, '매출 과세', 295000, 14, 31),
-(32, NOW(), NOW(), '30', 'Y', 'SALES', '2024-01-10', '2024-04-14', '2024-01-22', '기존 매장 계약', '원두에 대한 견적', '선불', 35, '10', 'Y', '2024-01-15', 216900, 'N', 0, '매출 과세', 241000, 9, 32),
-(33, NOW(), NOW(), '30', 'N', 'SALES', '2024-09-13', '2024-12-17', '2024-09-25', '기존 매장 계약', '고객 요청 사항 반영 필요', '분할 납부', 49, '20', 'Y', '2024-09-18', 420300, 'Y', 46700, '수출 영세', 467000, 16, 33),
-(34, NOW(), NOW(), '30', 'N', 'SALES', '2024-05-17', '2024-08-20', '2024-05-29', '신규 업체 계약 체결', '고객 요청 사항 반영 필요', '선불', 50, '20', 'Y', '2024-05-22', 112500, 'Y', 12500, '매출 면세', 125000, 1, 34),
-(35, NOW(), NOW(), '20', 'Y', 'SALES', '2024-11-13', '2025-02-16', '2024-11-25', '신규 기기 계약 체결', '고급 원두, 커피머신 포함 견적', '후불', 5, '30', 'Y', '2024-11-18', 295200, 'N', 0, '매출 과세', 328000, 18, 35),
-(36, NOW(), NOW(), '30', 'N', 'SALES', '2024-10-05', '2025-01-08', '2024-10-17', '신규 기기 계약 체결', '고급 원두, 커피머신 포함 견적', '후불', 19, '20', 'N', '2024-10-10', 320400, 'N', 0, '매출 과세', 356000, 18, 36),
-(37, NOW(), NOW(), '10', 'Y', 'CONTRACT', '2024-05-16', '2024-08-19', '2024-05-28', '신규 업체 계약 체결', '고급 원두, 커피머신 포함 견적', '후불', 45, '30', 'N', '2024-05-21', 778500, 'N', 0, '매출 과세', 865000, 9, 37),
-(38, NOW(), NOW(), '10', 'Y', 'SALES', '2024-07-08', '2024-10-11', '2024-07-20', '신규 업체 계약 체결', '고급 원두, 커피머신 포함 견적', '후불', 11, '30', 'Y', '2024-07-13', 264600, 'N', 0, '매출 과세', 294000, 24, 38),
-(39, NOW(), NOW(), '20', 'N', 'CONTRACT', '2024-06-07', '2024-09-10', '2024-06-19', '신규 기기 계약 체결', '계약 세부 내용 확인 필요', '분할 납부', 13, '10', 'Y', '2024-06-12', 688500, 'N', 0, '매출 과세', 765000, 10, 39),
-(40, NOW(), NOW(), '10', 'N', 'SALES', '2024-12-04', '2025-03-09', '2024-12-16', '신규 업체 계약 체결', '고객 요청 사항 반영 필요', '분할 납부', 3, '30', 'Y', '2024-12-09', 185400, 'N', 0, '매출 과세', 206000, 24, 40),
-(41, NOW(), NOW(), '20', 'N', 'CONTRACT', '2024-12-04', '2025-03-09', '2024-12-16', '신규 업체 계약 체결', '고급 원두, 커피머신 포함 견적', '후불', 35, '30', 'N', '2024-12-09', 712800, 'N', 0, '매출 과세', 792000, 12, 41),
-(42, NOW(), NOW(), '10', 'N', 'ESTIMATE', '2024-08-25', '2024-11-28', '2024-09-06', '기존 매장 계약', '배송 일정 조율 필요', '후불', 50, '30', 'Y', '2024-08-30', 198900, 'Y', 22100, '수출 영세', 221000, 18, 42),
-(43, NOW(), NOW(), '30', 'Y', 'CONTRACT', '2024-11-01', '2025-02-04', '2024-11-13', '신규 기기 계약 체결', '고급 원두, 커피머신 포함 견적', '후불', 28, '10', 'Y', '2024-11-06', 102600, 'N', 0, '매출 과세', 114000, 10, 43),
-(44, NOW(), NOW(), '20', 'Y', 'ESTIMATE', '2024-12-21', '2025-03-26', '2025-01-02', '기존 매장 계약', '배송 일정 조율 필요', '후불', 6, '30', 'Y', '2024-12-26', 172800, 'N', 0, '매출 과세', 192000, 15, 44),
-(45, NOW(), NOW(), '10', 'Y', 'CONTRACT', '2024-12-13', '2025-03-18', '2024-12-25', '신규 업체 계약 체결', '고급 원두 구매에 대한 견적', '분할 납부', 37, '30', 'N', '2024-12-18', 535500, 'Y', 59500, '매출 면세', 595000, 6, 45),
-(46, NOW(), NOW(), '30', 'Y', 'CONTRACT', '2024-12-06', '2025-03-11', '2024-12-18', '신규 업체 계약 체결', '계약 세부 내용 확인 필요', '선불', 33, '10', 'N', '2024-12-11', 827100, 'Y', 91900, '매출 면세', 919000, 4, 46),
-(47, NOW(), NOW(), '30', 'N', 'SALES', '2024-10-10', '2025-01-13', '2024-10-22', '기존 매장 계약', '원두에 대한 견적', '분할 납부', 1, '20', 'Y', '2024-10-15', 848700, 'N', 0, '매출 과세', 943000, 17, 47),
-(48, NOW(), NOW(), '30', 'Y', 'ESTIMATE', '2024-09-17', '2024-12-21', '2024-09-29', '기존 매장 계약', '고급 원두, 커피머신 포함 견적', '분할 납부', 15, '20', 'N', '2024-09-22', 214200, 'Y', 23800, '매출 면세', 238000, 21, 48),
-(49, NOW(), NOW(), '30', 'N', 'CONTRACT', '2024-05-10', '2024-08-13', '2024-05-22', '신규 업체 계약 체결', '고급 원두 구매에 대한 견적', '분할 납부', 31, '20', 'Y', '2024-05-15', 662400, 'N', 0, '매출 과세', 736000, 20, 49),
-(50, NOW(), NOW(), '20', 'Y', 'SALES', '2024-06-02', '2024-09-05', '2024-06-14', '기존 매장 계약', '계약 세부 내용 확인 필요', '선불', 18, '30', 'Y', '2024-06-07', 364500, 'N', 0, '매출 과세', 405000, 23, 50),
-(51, NOW(), NOW(), '30', 'N', 'CONTRACT', '2024-10-15', '2025-01-18', '2024-10-27', '기존 매장 계약', '배송 일정 조율 필요', '후불', 7, '20', 'N', '2024-10-20', 347400, 'N', 0, '매출 과세', 386000, 22, 51),
-(52, NOW(), NOW(), '10', 'N', 'ESTIMATE', '2024-10-04', '2025-01-07', '2024-10-16', '기존 매장 계약', '고급 원두 구매에 대한 견적', '선불', 4, '30', 'Y', '2024-10-09', 849600, 'Y', 94400, '매출 면세', 944000, 22, 52),
-(53, NOW(), NOW(), '20', 'Y', 'ESTIMATE', '2024-04-09', '2024-07-13', '2024-04-21', '신규 업체 계약 체결', '고급 원두 구매에 대한 견적', '선불', 26, '20', 'N', '2024-04-14', 601200, 'Y', 66800, '수출 영세', 668000, 10, 53),
-(54, NOW(), NOW(), '10', 'Y', 'CONTRACT', '2024-02-10', '2024-05-15', '2024-02-22', '기존 매장 계약', '고급 원두, 커피머신 포함 견적', '분할 납부', 31, '30', 'N', '2024-02-15', 403200, 'Y', 44800, '매출 면세', 448000, 7, 54),
-(55, NOW(), NOW(), '20', 'N', 'ESTIMATE', '2024-01-15', '2024-04-19', '2024-01-27', '신규 기기 계약 체결', '고객 요청 사항 반영 필요', '후불', 44, '20', 'Y', '2024-01-20', 801000, 'Y', 89000, '수출 영세', 890000, 1, 55),
-(56, NOW(), NOW(), '10', 'N', 'CONTRACT', '2024-12-10', '2025-03-15', '2024-12-22', '기존 매장 계약', '고객 요청 사항 반영 필요', '분할 납부', 31, '30', 'Y', '2024-12-15', 757800, 'N', 0, '매출 과세', 842000, 21, 56),
-(57, NOW(), NOW(), '20', 'N', 'SALES', '2024-04-17', '2024-07-21', '2024-04-29', '신규 업체 계약 체결', '고객 요청 사항 반영 필요', '선불', 2, '20', 'Y', '2024-04-22', 215100, 'Y', 23900, '매출 면세', 239000, 21, 57),
-(58, NOW(), NOW(), '30', 'Y', 'ESTIMATE', '2024-07-09', '2024-10-12', '2024-07-21', '신규 기기 계약 체결', '고급 원두 구매에 대한 견적', '선불', 14, '30', 'Y', '2024-07-14', 160200, 'N', 0, '매출 과세', 178000, 15, 58),
-(59, NOW(), NOW(), '10', 'N', 'ESTIMATE', '2024-01-21', '2024-04-25', '2024-02-02', '신규 업체 계약 체결', '배송 일정 조율 필요', '분할 납부', 45, '20', 'N', '2024-01-26', 517500, 'Y', 57500, '매출 면세', 575000, 15, 59),
-(60, NOW(), NOW(), '20', 'Y', 'ESTIMATE', '2024-10-19', '2025-01-22', '2024-10-31', '기존 매장 계약', '원두에 대한 견적', '분할 납부', 26, '10', 'N', '2024-10-24', 728100, 'Y', 80900, '매출 면세', 809000, 11, 60);
-
-
--- Sales 데이터 50개
-INSERT INTO tb_sales ( created_at, updated_at, busi_type, busi_type_detail, exp_arrival_date, note, price, prod_cnt, sales_name, sales_date, supply_price, surtax_yn, tax, tax_cls, contract_no)
-VALUES
-( NOW(), NOW(), '해외', '정기 주문', '2024-11-06', '정기 배송 필요', 176000, 31, 'C001S1-241020', '2024-10-20', 158400, 'N', 0, '매출 과세', 1),
-( NOW(), NOW(), '공공', '대량 주문', '2024-12-18', '특별 가격 협상 완료', 554000, 41, 'C002S2-241128', '2024-11-28', 498600, 'N', 0, '매출 과세', 2),
-( NOW(), NOW(), '해외', '정기 주문', '2024-09-28', '배송 일정 조율 필요', 634000, 8, 'C003S3-24916', '2024-09-16', 570600, 'N', 0, '매출 과세', 3),
-( NOW(), NOW(), '해외', '정기 주문', '2024-12-08', '정기 배송 필요', 627000, 46, 'C003S4-241125', '2024-11-25', 564300, 'N', 0, '매출 과세', 3),
-( NOW(), NOW(), '기업', '대량 주문', '2024-09-23', '정기 배송 필요', 906000, 10, 'C003S5-24827', '2024-08-27', 815400, 'Y', 90600, '매출 면세', 3),
-( NOW(), NOW(), '공공', '정기 주문', '2024-09-01', '배송 일정 조율 필요', 463000, 33, 'C004S6-24827', '2024-08-27', 416700, 'Y', 46300, '매출 면세', 4),
-( NOW(), NOW(), '기업', '정기 주문', '2024-03-02', '고객 요청 사항 반영', 241000, 39, 'C004S7-24214', '2024-02-14', 216900, 'N', 0, '매출 과세', 4),
-( NOW(), NOW(), '기업', '소량 주문', '2024-01-12', '고객 요청 사항 반영', 350000, 2, 'C001S8-2411', '2024-01-01', 315000, 'N', 0, '매출 과세', 1),
-( NOW(), NOW(), '기업', '소량 주문', '2024-12-20', '정기 배송 필요', 582000, 24, 'C001S9-24121', '2024-12-01', 523800, 'N', 0, '매출 과세', 1),
-( NOW(), NOW(), '공공', '정기 주문', '2024-10-20', '배송 일정 조율 필요', 286000, 46, 'C004S10-241013', '2024-10-13', 257400, 'N', 0, '매출 과세', 4),
-( NOW(), NOW(), '공공', '소량 주문', '2024-05-17', '고객 피드백 반영 필요', 101000, 19, 'C003S11-24424', '2024-04-24', 90900, 'N', 0, '매출 과세', 3),
-( NOW(), NOW(), '공공', '정기 주문', '2024-12-27', '고객 요청 사항 반영', 187000, 21, 'C004S12-24127', '2024-12-07', 168300, 'N', 0, '매출 과세', 4),
-( NOW(), NOW(), '민간', '일반 판매', '2024-02-20', '고객 요청 사항 반영', 274000, 2, 'C002S13-24127', '2024-01-27', 246600, 'Y', 27400, '매출 면세', 2),
-( NOW(), NOW(), '공공', '정기 주문', '2024-12-09', '정기 배송 필요', 607000, 20, 'C005S14-241127', '2024-11-27', 546300, 'N', 0, '매출 과세', 5),
-( NOW(), NOW(), '민간', '대량 주문', '2024-01-21', '고객 피드백 반영 필요', 811000, 46, 'C002S15-24112', '2024-01-12', 729900, 'N', 0, '매출 과세', 2),
-( NOW(), NOW(), '기업', '정기 주문', '2024-06-17', '배송 일정 조율 필요', 586000, 20, 'C002S16-2462', '2024-06-02', 527400, 'Y', 58600, '매출 면세', 2),
-( NOW(), NOW(), '공공', '대량 주문', '2024-05-12', '특별 가격 협상 완료', 515000, 39, 'C002S17-24421', '2024-04-21', 463500, 'N', 0, '매출 과세', 2),
-( NOW(), NOW(), '기업', '대량 주문', '2024-04-30', '정기 배송 필요', 246000, 6, 'C005S18-24415', '2024-04-15', 221400, 'Y', 24600, '수출 영세', 5),
-( NOW(), NOW(), '공공', '대량 주문', '2024-04-08', '고객 요청 사항 반영', 385000, 3, 'C003S19-2439', '2024-03-09', 346500, 'Y', 38500, '매출 면세', 3),
-( NOW(), NOW(), '공공', '정기 주문', '2024-11-11', '배송 일정 조율 필요', 857000, 34, 'C003S20-241016', '2024-10-16', 771300, 'Y', 85700, '수출 영세', 3),
-( NOW(), NOW(), '공공', '대량 주문', '2024-03-25', '고객 피드백 반영 필요', 272000, 29, 'C004S21-2431', '2024-03-01', 244800, 'N', 0, '매출 과세', 4),
-( NOW(), NOW(), '공공', '소량 주문', '2024-07-01', '정기 배송 필요', 767000, 45, 'C002S22-24622', '2024-06-22', 690300, 'N', 0, '매출 과세', 2),
-( NOW(), NOW(), '해외', '소량 주문', '2024-02-23', '배송 일정 조율 필요', 734000, 32, 'C002S23-24213', '2024-02-13', 660600, 'Y', 73400, '수출 영세', 2),
-( NOW(), NOW(), '해외', '정기 주문', '2024-11-22', '고객 요청 사항 반영', 170000, 39, 'C004S24-241114', '2024-11-14', 153000, 'N', 0, '매출 과세', 4),
-( NOW(), NOW(), '공공', '정기 주문', '2024-06-07', '정기 배송 필요', 401000, 32, 'C004S25-24527', '2024-05-27', 360900, 'Y', 40100, '매출 면세', 4),
-( NOW(), NOW(), '기업', '대량 주문', '2024-07-28', '고객 요청 사항 반영', 876000, 11, 'C003S26-24720', '2024-07-20', 788400, 'N', 0, '매출 과세', 3),
-( NOW(), NOW(), '민간', '정기 주문', '2024-06-22', '특별 가격 협상 완료', 436000, 1, 'C003S27-2463', '2024-06-03', 392400, 'Y', 43600, '수출 영세', 3),
-( NOW(), NOW(), '공공', '일반 판매', '2024-11-22', '정기 배송 필요', 690000, 37, 'C003S28-241111', '2024-11-11', 621000, 'Y', 69000, '수출 영세', 3),
-( NOW(), NOW(), '해외', '정기 주문', '2025-01-01', '배송 일정 조율 필요', 897000, 25, 'C004S29-241226', '2024-12-26', 807300, 'Y', 89700, '수출 영세', 4),
-( NOW(), NOW(), '민간', '대량 주문', '2024-12-18', '정기 배송 필요', 322000, 46, 'C003S30-241212', '2024-12-12', 289800, 'Y', 32200, '매출 면세', 3),
-( NOW(), NOW(), '민간', '정기 주문', '2024-12-24', '고객 요청 사항 반영', 381000, 48, 'C005S31-24126', '2024-12-06', 342900, 'Y', 38100, '수출 영세', 5),
-( NOW(), NOW(), '기업', '소량 주문', '2024-09-19', '고객 요청 사항 반영', 892000, 16, 'C003S32-2498', '2024-09-08', 802800, 'N', 0, '매출 과세', 3),
-( NOW(), NOW(), '기업', '소량 주문', '2024-12-20', '배송 일정 조율 필요', 370000, 49, 'C001S33-241123', '2024-11-23', 333000, 'Y', 37000, '매출 면세', 1),
-( NOW(), NOW(), '해외', '대량 주문', '2024-09-29', '고객 요청 사항 반영', 663000, 27, 'C001S34-24912', '2024-09-12', 596700, 'N', 0, '매출 과세', 1),
-( NOW(), NOW(), '해외', '정기 주문', '2024-06-21', '배송 일정 조율 필요', 601000, 34, 'C002S35-24612', '2024-06-12', 540900, 'N', 0, '매출 과세', 2),
-( NOW(), NOW(), '민간', '대량 주문', '2024-09-20', '특별 가격 협상 완료', 365000, 33, 'C003S36-2494', '2024-09-04', 328500, 'Y', 36500, '수출 영세', 3),
-( NOW(), NOW(), '해외', '소량 주문', '2024-05-26', '배송 일정 조율 필요', 982000, 13, 'C002S37-24513', '2024-05-13', 883800, 'N', 0, '매출 과세', 2),
-( NOW(), NOW(), '기업', '일반 판매', '2024-12-31', '고객 피드백 반영 필요', 253000, 43, 'C001S38-241218', '2024-12-18', 227700, 'Y', 25300, '매출 면세', 1),
-( NOW(), NOW(), '해외', '소량 주문', '2024-07-31', '고객 피드백 반영 필요', 218000, 13, 'C003S39-24714', '2024-07-14', 196200, 'N', 0, '매출 과세', 3),
-( NOW(), NOW(), '민간', '일반 판매', '2024-10-24', '정기 배송 필요', 841000, 14, 'C002S40-241019', '2024-10-19', 756900, 'N', 0, '매출 과세', 2),
-( NOW(), NOW(), '공공', '대량 주문', '2024-11-08', '배송 일정 조율 필요', 226000, 45, 'C001S41-241011', '2024-10-11', 203400, 'N', 0, '매출 과세', 1),
-( NOW(), NOW(), '민간', '소량 주문', '2024-12-30', '고객 피드백 반영 필요', 918000, 42, 'C001S42-24123', '2024-12-03', 826200, 'Y', 91800, '수출 영세', 1),
-( NOW(), NOW(), '기업', '대량 주문', '2024-08-16', '고객 요청 사항 반영', 230000, 29, 'C004S43-24723', '2024-07-23', 207000, 'N', 0, '매출 과세', 4),
-( NOW(), NOW(), '민간', '일반 판매', '2024-05-07', '배송 일정 조율 필요', 109000, 45, 'C002S44-24411', '2024-04-11', 98100, 'N', 0, '매출 과세', 2),
-( NOW(), NOW(), '해외', '정기 주문', '2024-11-16', '고객 피드백 반영 필요', 147000, 6, 'C003S45-24118', '2024-11-08', 132300, 'Y', 14700, '매출 면세', 3),
-( NOW(), NOW(), '해외', '소량 주문', '2025-01-18', '배송 일정 조율 필요', 991000, 44, 'C004S46-241221', '2024-12-21', 891900, 'N', 0, '매출 과세', 4),
-( NOW(), NOW(), '해외', '소량 주문', '2024-05-24', '고객 피드백 반영 필요', 876000, 40, 'C004S47-24519', '2024-05-19', 788400, 'Y', 87600, '매출 면세', 4),
-( NOW(), NOW(), '해외', '일반 판매', '2024-05-17', '고객 요청 사항 반영', 966000, 30, 'C005S48-2453', '2024-05-03', 869400, 'Y', 96600, '수출 영세', 5),
-( NOW(), NOW(), '해외', '대량 주문', '2024-11-20', '배송 일정 조율 필요', 599000, 22, 'C004S49-24111', '2024-11-01', 539100, 'N', 0, '매출 과세', 4),
-( NOW(), NOW(), '기업', '대량 주문', '2024-11-10', '고객 피드백 반영 필요', 534000, 37, 'C001S50-241023', '2024-10-23', 480600, 'Y', 53400, '매출 면세', 1)
+('2024-01-26', 4, '2024-11-06 02:07:03', 39, '2024-11-06 02:07:03', '일정 조정', 'N', '11:00', '프로모션 상담', '추가 상담 예정', '구매 상담', '09:30', 'EMAIL'),
+('2024-02-20', 5, '2024-11-06 02:07:03', 28, '2024-11-06 02:07:03', '상담 요청', 'N', '15:30', '샘플 요청', '추가 상담 예정', '문의 응대', '14:00', 'PHONE'),
+('2024-09-13', 9, '2024-11-06 02:07:03', 38, '2024-11-06 02:07:03', '서비스 요청', 'N', '20:00', '샘플 요청', '제품 테스트', '구매 상담', '19:00', 'OTHER'),
+('2024-06-12', 10, '2024-11-06 02:07:03', 29, '2024-11-06 02:07:03', '서비스 요청', 'Y', '16:30', '프로모션 상담', '발송 준비', '구매 상담', '14:30', 'EMAIL'),
+('2024-01-22', 10, '2024-11-06 02:07:03', 2, '2024-11-06 02:07:03', '제품 문의', 'Y', '04:30', '프로모션 상담', '추가 상담 예정', '구매 상담', '02:30', 'PHONE'),
+('2024-04-09', 9, '2024-11-06 02:07:03', 29, '2024-11-06 02:07:03', '상담 요청', 'N', '10:30', '프로모션 상담', '제품 테스트', '구매 상담', '09:30', 'ONLINE'),
+('2024-11-06', 1, '2024-11-06 02:07:03', 50, '2024-11-06 02:07:03', '일정 조정', 'Y', '12:00', '샘플 요청', '제품 테스트', '기타', '10:30', 'EMAIL'),
+('2024-10-19', 14, '2024-11-06 02:07:03', 18, '2024-11-06 02:07:03', '제품 문의', 'Y', '12:00', '샘플 요청', '추가 상담 예정', '기타', '10:00', 'ONLINE'),
+('2024-09-14', 1, '2024-11-06 02:07:03', 15, '2024-11-06 02:07:03', '제품 문의', 'Y', '19:00', '프로모션 상담', '제품 테스트', '기타', '17:00', 'PHONE'),
+('2024-12-18', 9, '2024-11-06 02:07:03', 15, '2024-11-06 02:07:03', '후속 연락', 'N', '09:00', '재구매 상담', '제품 테스트', '구매 상담', '07:00', 'VISIT'),
+('2024-04-12', 10, '2024-11-06 02:07:03', 50, '2024-11-06 02:07:03', '후속 연락', 'Y', '04:30', '재구매 상담', '발송 준비', '기타', '02:30', 'ONLINE'),
+('2024-02-24', 10, '2024-11-06 02:07:03', 11, '2024-11-06 02:07:03', '상담 요청', 'Y', '01:00', '재구매 상담', '추가 상담 예정', '기타', '23:30', 'ONLINE'),
+('2024-04-04', 5, '2024-11-06 02:07:03', 14, '2024-11-06 02:07:03', '제품 문의', 'Y', '16:30', '재구매 상담', '발송 준비', '구매 상담', '14:30', 'EMAIL'),
+('2024-11-15', 1, '2024-11-06 02:07:03', 49, '2024-11-06 02:07:03', '상담 요청', 'Y', '05:00', '재구매 상담', '제품 테스트', '문의 응대', '04:00', 'OTHER'),
+('2024-04-06', 9, '2024-11-06 02:07:03', 22, '2024-11-06 02:07:03', '서비스 요청', 'Y', '19:00', '커피 시음회', '추가 상담 예정', '문의 응대', '18:00', 'OTHER'),
+('2024-07-18', 1, '2024-11-06 02:07:03', 10, '2024-11-06 02:07:03', '상담 요청', 'Y', '05:00', '신제품 발표', '추가 상담 예정', '기타', '04:00', 'PHONE'),
+('2024-01-09', 9, '2024-11-06 02:07:03', 24, '2024-11-06 02:07:03', '일정 조정', 'N', '01:30', '커피 시음회', '추가 상담 예정', '구매 상담', '23:30', 'EMAIL'),
+('2024-10-20', 9, '2024-11-06 02:07:03', 23, '2024-11-06 02:07:03', '후속 연락', 'N', '11:00', '샘플 요청', '추가 상담 예정', '구매 상담', '10:00', 'ONLINE'),
+('2024-10-28', 14, '2024-11-06 02:07:03', 23, '2024-11-06 02:07:03', '상담 요청', 'Y', '17:00', '샘플 요청', '제품 테스트', '기타', '16:00', 'VISIT'),
+('2024-01-15', 10, '2024-11-06 02:07:03', 18, '2024-11-06 02:07:03', '제품 문의', 'Y', '15:30', '프로모션 상담', '추가 상담 예정', '문의 응대', '14:30', 'ONLINE'),
+('2024-08-17', 9, '2024-11-06 02:07:03', 43, '2024-11-06 02:07:03', '상담 요청', 'Y', '00:00', '신제품 발표', '발송 준비', '구매 상담', '22:00', 'VISIT'),
+('2024-02-05', 9, '2024-11-06 02:07:03', 4, '2024-11-06 02:07:03', '서비스 요청', 'Y', '16:30', '프로모션 상담', '제품 테스트', '문의 응대', '14:30', 'EMAIL'),
+('2024-06-04', 4, '2024-11-06 02:07:03', 6, '2024-11-06 02:07:03', '서비스 요청', 'N', '22:00', '신제품 발표', '제품 테스트', '문의 응대', '20:30', 'PHONE'),
+('2024-04-19', 1, '2024-11-06 02:07:03', 41, '2024-11-06 02:07:03', '제품 문의', 'Y', '05:00', '샘플 요청', '제품 테스트', '구매 상담', '04:00', 'PHONE'),
+('2024-03-21', 9, '2024-11-06 02:07:03', 44, '2024-11-06 02:07:03', '제품 문의', 'Y', '06:00', '프로모션 상담', '추가 상담 예정', '기타', '05:00', 'OTHER'),
+('2024-09-27', 1, '2024-11-06 02:07:03', 26, '2024-11-06 02:07:03', '일정 조정', 'N', '17:00', '프로모션 상담', '추가 상담 예정', '문의 응대', '16:00', 'VISIT'),
+('2024-01-26', 11, '2024-11-06 02:07:03', 13, '2024-11-06 02:07:03', '상담 요청', 'N', '00:30', '재구매 상담', '발송 준비', '기타', '23:00', 'EMAIL'),
+('2024-06-06', 1, '2024-11-06 02:07:03', 49, '2024-11-06 02:07:03', '제품 문의', 'N', '07:00', '샘플 요청', '제품 테스트', '기타', '05:00', 'ONLINE'),
+('2024-06-28', 12, '2024-11-06 02:07:03', 35, '2024-11-06 02:07:03', '제품 문의', 'N', '18:00', '샘플 요청', '제품 테스트', '구매 상담', '16:00', 'PHONE'),
+('2024-07-27', 9, '2024-11-06 02:07:03', 12, '2024-11-06 02:07:03', '서비스 요청', 'N', '04:30', '프로모션 상담', '추가 상담 예정', '구매 상담', '02:30', 'EMAIL'),
+('2024-01-22', 10, '2024-11-06 02:07:03', 36, '2024-11-06 02:07:03', '서비스 요청', 'Y', '21:00', '프로모션 상담', '발송 준비', '문의 응대', '20:00', 'PHONE'),
+('2024-02-19', 15, '2024-11-06 02:07:03', 41, '2024-11-06 02:07:03', '일정 조정', 'N', '02:30', '재구매 상담', '발송 준비', '기타', '01:30', 'VISIT'),
+('2024-06-16', 4, '2024-11-06 02:07:03', 15, '2024-11-06 02:07:03', '후속 연락', 'N', '22:00', '프로모션 상담', '발송 준비', '문의 응대', '20:00', 'EMAIL'),
+('2024-03-24', 10, '2024-11-06 02:07:03', 49, '2024-11-06 02:07:03', '서비스 요청', 'N', '10:00', '커피 시음회', '제품 테스트', '기타', '08:30', 'PHONE'),
+('2024-06-14', 11, '2024-11-06 02:07:03', 18, '2024-11-06 02:07:03', '일정 조정', 'Y', '09:30', '신제품 발표', '제품 테스트', '기타', '08:00', 'VISIT'),
+('2024-04-04', 10, '2024-11-06 02:07:03', 1, '2024-11-06 02:07:03', '서비스 요청', 'Y', '21:00', '프로모션 상담', '발송 준비', '기타', '20:00', 'PHONE'),
+('2024-10-05', 9, '2024-11-06 02:07:03', 15, '2024-11-06 02:07:03', '제품 문의', 'Y', '12:30', '샘플 요청', '발송 준비', '기타', '10:30', 'ONLINE'),
+('2024-06-07', 1, '2024-11-06 02:07:03', 36, '2024-11-06 02:07:03', '제품 문의', 'Y', '06:00', '재구매 상담', '발송 준비', '문의 응대', '04:00', 'ONLINE'),
+('2024-07-06', 10, '2024-11-06 02:07:03', 28, '2024-11-06 02:07:03', '제품 문의', 'N', '11:30', '프로모션 상담', '발송 준비', '기타', '10:30', 'VISIT'),
+('2024-09-23', 1, '2024-11-06 02:07:03', 47, '2024-11-06 02:07:03', '일정 조정', 'N', '23:30', '프로모션 상담', '추가 상담 예정', '문의 응대', '22:00', 'EMAIL'),
+('2024-05-20', 4, '2024-11-06 02:07:03', 22, '2024-11-06 02:07:03', '후속 연락', 'N', '19:30', '커피 시음회', '제품 테스트', '구매 상담', '18:30', 'OTHER'),
+('2024-07-27', 1, '2024-11-06 02:07:03', 26, '2024-11-06 02:07:03', '일정 조정', 'Y', '07:00', '프로모션 상담', '제품 테스트', '문의 응대', '06:00', 'OTHER'),
+('2024-03-11', 1, '2024-11-06 02:07:03', 23, '2024-11-06 02:07:03', '일정 조정', 'N', '03:00', '신제품 발표', '발송 준비', '구매 상담', '01:00', 'ONLINE'),
+('2024-01-03', 5, '2024-11-06 02:07:03', 22, '2024-11-06 02:07:03', '제품 문의', 'N', '00:00', '프로모션 상담', '발송 준비', '구매 상담', '23:00', 'VISIT'),
+('2024-06-16', 1, '2024-11-06 02:07:03', 35, '2024-11-06 02:07:03', '제품 문의', 'Y', '01:30', '재구매 상담', '제품 테스트', '문의 응대', '00:30', 'PHONE'),
+('2024-01-26', 10, '2024-11-06 02:07:03', 20, '2024-11-06 02:07:03', '제품 문의', 'N', '15:00', '신제품 발표', '발송 준비', '기타', '13:30', 'VISIT'),
+('2024-08-08', 15, '2024-11-06 02:07:03', 12, '2024-11-06 02:07:03', '서비스 요청', 'Y', '04:30', '신제품 발표', '추가 상담 예정', '기타', '03:00', 'EMAIL'),
+('2024-07-12', 9, '2024-11-06 02:07:03', 33, '2024-11-06 02:07:03', '서비스 요청', 'N', '10:00', '커피 시음회', '제품 테스트', '문의 응대', '09:00', 'PHONE'),
+('2024-03-28', 1, '2024-11-06 02:07:03', 7, '2024-11-06 02:07:03', '일정 조정', 'N', '23:30', '재구매 상담', '제품 테스트', '기타', '22:00', 'ONLINE'),
+('2024-12-14', 12, '2024-11-06 02:07:03', 33, '2024-11-06 02:07:03', '제품 문의', 'Y', '21:30', '커피 시음회', '추가 상담 예정', '문의 응대', '20:00', 'ONLINE'),
+('2024-11-19', 9, '2024-11-06 02:07:03', 6, '2024-11-06 02:07:03', '후속 연락', 'N', '07:30', '커피 시음회', '발송 준비', '기타', '05:30', 'EMAIL'),
+('2024-07-08', 9, '2024-11-06 02:07:03', 47, '2024-11-06 02:07:03', '후속 연락', 'Y', '10:30', '프로모션 상담', '발송 준비', '기타', '08:30', 'ONLINE'),
+('2024-09-06', 1, '2024-11-06 02:07:03', 20, '2024-11-06 02:07:03', '후속 연락', 'N', '17:00', '재구매 상담', '제품 테스트', '기타', '15:30', 'VISIT'),
+('2024-10-03', 4, '2024-11-06 02:07:03', 49, '2024-11-06 02:07:03', '일정 조정', 'N', '22:30', '커피 시음회', '제품 테스트', '문의 응대', '21:30', 'OTHER'),
+('2024-11-20', 1, '2024-11-06 02:07:03', 42, '2024-11-06 02:07:03', '상담 요청', 'N', '12:30', '커피 시음회', '추가 상담 예정', '구매 상담', '11:30', 'VISIT'),
+('2024-04-13', 9, '2024-11-06 02:07:03', 13, '2024-11-06 02:07:03', '제품 문의', 'N', '03:00', '재구매 상담', '제품 테스트', '기타', '01:00', 'OTHER'),
+('2024-03-09', 10, '2024-11-06 02:07:03', 15, '2024-11-06 02:07:03', '제품 문의', 'N', '16:00', '샘플 요청', '발송 준비', '문의 응대', '15:00', 'EMAIL'),
+('2024-02-28', 14, '2024-11-06 02:07:03', 5, '2024-11-06 02:07:03', '후속 연락', 'Y', '22:30', '커피 시음회', '추가 상담 예정', '문의 응대', '21:30', 'PHONE'),
+('2024-09-11', 10, '2024-11-06 02:07:03', 50, '2024-11-06 02:07:03', '후속 연락', 'N', '04:00', '샘플 요청', '추가 상담 예정', '문의 응대', '02:30', 'OTHER'),
+('2024-12-09', 1, '2024-11-06 02:07:03', 15, '2024-11-06 02:07:03', '상담 요청', 'Y', '10:30', '신제품 발표', '추가 상담 예정', '문의 응대', '09:30', 'EMAIL'),
+('2024-12-25', 9, '2024-11-06 02:07:03', 29, '2024-11-06 02:07:03', '제품 문의', 'N', '09:30', '프로모션 상담', '제품 테스트', '기타', '08:00', 'OTHER'),
+('2024-10-18', 10, '2024-11-06 02:07:03', 6, '2024-11-06 02:07:03', '제품 문의', 'N', '14:00', '커피 시음회', '추가 상담 예정', '기타', '13:00', 'PHONE'),
+('2024-04-17', 5, '2024-11-06 02:07:03', 33, '2024-11-06 02:07:03', '서비스 요청', 'Y', '04:00', '샘플 요청', '제품 테스트', '기타', '02:00', 'VISIT'),
+('2024-02-28', 15, '2024-11-06 02:07:03', 20, '2024-11-06 02:07:03', '서비스 요청', 'N', '17:00', '샘플 요청', '추가 상담 예정', '문의 응대', '15:30', 'ONLINE'),
+('2024-09-27', 4, '2024-11-06 02:07:03', 19, '2024-11-06 02:07:03', '서비스 요청', 'N', '02:30', '신제품 발표', '발송 준비', '문의 응대', '00:30', 'PHONE'),
+('2024-03-24', 14, '2024-11-06 02:07:03', 36, '2024-11-06 02:07:03', '서비스 요청', 'Y', '12:00', '재구매 상담', '추가 상담 예정', '문의 응대', '10:30', 'EMAIL'),
+('2024-11-05', 10, '2024-11-06 02:07:03', 36, '2024-11-06 02:07:03', '후속 연락', 'N', '10:00', '신제품 발표', '추가 상담 예정', '문의 응대', '08:30', 'OTHER'),
+('2024-05-05', 9, '2024-11-06 02:07:03', 1, '2024-11-06 02:07:03', '상담 요청', 'N', '05:00', '커피 시음회', '추가 상담 예정', '문의 응대', '03:00', 'VISIT'),
+('2024-03-21', 11, '2024-11-06 02:07:03', 19, '2024-11-06 02:07:03', '상담 요청', 'Y', '22:00', '신제품 발표', '발송 준비', '구매 상담', '21:00', 'ONLINE'),
+('2024-04-27', 4, '2024-11-06 02:07:03', 47, '2024-11-06 02:07:03', '서비스 요청', 'N', '20:00', '샘플 요청', '발송 준비', '기타', '19:00', 'PHONE'),
+('2024-06-05', 1, '2024-11-06 02:07:03', 26, '2024-11-06 02:07:03', '일정 조정', 'N', '23:00', '프로모션 상담', '제품 테스트', '문의 응대', '21:30', 'EMAIL'),
+('2024-06-14', 11, '2024-11-06 02:07:03', 15, '2024-11-06 02:07:03', '후속 연락', 'Y', '23:30', '프로모션 상담', '발송 준비', '문의 응대', '21:30', 'OTHER'),
+('2024-02-07', 9, '2024-11-06 02:07:03', 44, '2024-11-06 02:07:03', '서비스 요청', 'Y', '08:00', '샘플 요청', '제품 테스트', '문의 응대', '06:30', 'VISIT'),
+('2024-07-26', 11, '2024-11-06 02:07:03', 9, '2024-11-06 02:07:03', '후속 연락', 'Y', '12:30', '프로모션 상담', '제품 테스트', '문의 응대', '10:30', 'ONLINE'),
+('2024-05-01', 14, '2024-11-06 02:07:03', 9, '2024-11-06 02:07:03', '제품 문의', 'Y', '17:30', '샘플 요청', '추가 상담 예정', '구매 상담', '15:30', 'ONLINE'),
+('2024-01-27', 5, '2024-11-06 02:07:03', 4, '2024-11-06 02:07:03', '제품 문의', 'N', '22:30', '샘플 요청', '발송 준비', '구매 상담', '21:00', 'ONLINE'),
+('2024-07-04', 5, '2024-11-06 02:07:03', 31, '2024-11-06 02:07:03', '서비스 요청', 'Y', '22:30', '커피 시음회', '제품 테스트', '문의 응대', '20:30', 'OTHER'),
+('2024-03-02', 9, '2024-11-06 02:07:03', 13, '2024-11-06 02:07:03', '후속 연락', 'N', '02:30', '커피 시음회', '발송 준비', '구매 상담', '01:30', 'VISIT'),
+('2024-12-26', 14, '2024-11-06 02:07:03', 14, '2024-11-06 02:07:03', '일정 조정', 'Y', '08:30', '커피 시음회', '제품 테스트', '기타', '07:30', 'VISIT'),
+('2024-03-16', 9, '2024-11-06 02:07:03', 33, '2024-11-06 02:07:03', '제품 문의', 'N', '08:00', '샘플 요청', '추가 상담 예정', '기타', '06:30', 'PHONE'),
+('2024-05-28', 9, '2024-11-06 02:07:03', 26, '2024-11-06 02:07:03', '일정 조정', 'N', '09:30', '재구매 상담', '발송 준비', '문의 응대', '07:30', 'OTHER'),
+('2024-07-23', 10, '2024-11-06 02:07:03', 30, '2024-11-06 02:07:03', '후속 연락', 'Y', '23:00', '커피 시음회', '발송 준비', '문의 응대', '21:00', 'PHONE'),
+('2024-03-03', 11, '2024-11-06 02:07:03', 43, '2024-11-06 02:07:03', '서비스 요청', 'N', '10:00', '프로모션 상담', '추가 상담 예정', '구매 상담', '08:30', 'ONLINE'),
+('2024-12-10', 5, '2024-11-06 02:07:03', 31, '2024-11-06 02:07:03', '서비스 요청', 'Y', '04:00', '커피 시음회', '발송 준비', '기타', '02:00', 'EMAIL'),
+('2024-01-04', 1, '2024-11-06 02:07:03', 47, '2024-11-06 02:07:03', '서비스 요청', 'N', '17:30', '커피 시음회', '제품 테스트', '기타', '15:30', 'OTHER'),
+('2024-10-04', 1, '2024-11-06 02:07:03', 26, '2024-11-06 02:07:03', '서비스 요청', 'Y', '10:00', '커피 시음회', '제품 테스트', '구매 상담', '08:00', 'PHONE'),
+('2024-03-09', 9, '2024-11-06 02:07:03', 24, '2024-11-06 02:07:03', '제품 문의', 'Y', '21:00', '재구매 상담', '발송 준비', '기타', '20:00', 'OTHER'),
+('2024-10-25', 10, '2024-11-06 02:07:03', 20, '2024-11-06 02:07:03', '서비스 요청', 'N', '22:30', '프로모션 상담', '발송 준비', '구매 상담', '20:30', 'VISIT'),
+('2024-08-07', 15, '2024-11-06 02:07:03', 5, '2024-11-06 02:07:03', '제품 문의', 'Y', '15:30', '신제품 발표', '제품 테스트', '문의 응대', '14:30', 'PHONE'),
+('2024-11-10', 15, '2024-11-06 02:07:03', 23, '2024-11-06 02:07:03', '제품 문의', 'N', '23:00', '샘플 요청', '제품 테스트', '구매 상담', '21:00', 'EMAIL'),
+('2024-06-22', 1, '2024-11-06 02:07:03', 41, '2024-11-06 02:07:03', '제품 문의', 'Y', '13:30', '신제품 발표', '제품 테스트', '기타', '11:30', 'PHONE'),
+('2024-07-19', 1, '2024-11-06 02:07:03', 19, '2024-11-06 02:07:03', '제품 문의', 'Y', '04:30', '샘플 요청', '발송 준비', '구매 상담', '03:00', 'VISIT'),
+('2024-01-06', 14, '2024-11-06 02:07:03', 30, '2024-11-06 02:07:03', '일정 조정', 'Y', '03:00', '커피 시음회', '발송 준비', '기타', '01:30', 'VISIT'),
+('2024-02-03', 10, '2024-11-06 02:07:03', 25, '2024-11-06 02:07:03', '일정 조정', 'N', '19:00', '샘플 요청', '추가 상담 예정', '문의 응대', '17:30', 'ONLINE'),
+('2024-03-04', 5, '2024-11-06 02:07:03', 8, '2024-11-06 02:07:03', '후속 연락', 'N', '21:00', '신제품 발표', '발송 준비', '문의 응대', '19:00', 'PHONE'),
+('2024-06-13', 4, '2024-11-06 02:07:03', 35, '2024-11-06 02:07:03', '제품 문의', 'N', '05:30', '커피 시음회', '발송 준비', '기타', '04:30', 'PHONE'),
+('2024-11-14', 4, '2024-11-06 02:07:03', 35, '2024-11-06 02:07:03', '상담 요청', 'Y', '13:30', '재구매 상담', '발송 준비', '구매 상담', '12:00', 'PHONE'),
+('2024-09-26', 9, '2024-11-06 02:07:03', 42, '2024-11-06 02:07:03', '서비스 요청', 'N', '23:00', '커피 시음회', '추가 상담 예정', '문의 응대', '21:00', 'VISIT'),
+('2024-05-25', 11, '2024-11-06 02:07:03', 50, '2024-11-06 02:07:03', '일정 조정', 'N', '07:30', '프로모션 상담', '제품 테스트', '기타', '06:00', 'OTHER'),
+('2024-03-14', 9, '2024-11-06 02:07:03', 4, '2024-11-06 02:07:03', '상담 요청', 'N', '19:30', '커피 시음회', '제품 테스트', '구매 상담', '18:30', 'VISIT');
