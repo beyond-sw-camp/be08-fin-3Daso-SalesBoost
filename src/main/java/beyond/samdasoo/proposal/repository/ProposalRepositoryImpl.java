@@ -1,10 +1,13 @@
 package beyond.samdasoo.proposal.repository;
 
+import beyond.samdasoo.customer.entity.QCustomer;
 import beyond.samdasoo.estimate.entity.QEstimate;
+import beyond.samdasoo.lead.Entity.QLead;
 import beyond.samdasoo.proposal.dto.ProposalResponseDto;
 import beyond.samdasoo.proposal.dto.ProposalSearchCriteriaDTO;
 import beyond.samdasoo.proposal.dto.QProposalResponseDto;
 import beyond.samdasoo.proposal.entity.QProposal;
+import beyond.samdasoo.user.repository.UserRepository;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -16,9 +19,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProposalRepositoryImpl implements ProposalRepositoryCustom {
     private final JPAQueryFactory queryFactory;
+    private final UserRepository userRepository;
 
     QProposal proposal = QProposal.proposal;
     QEstimate estimate = QEstimate.estimate;
+    BooleanBuilder builder;
 
     @Override
     public ProposalResponseDto findLatestProposalWithEstimatesByLeadId(Long leadNo) {
@@ -29,7 +34,7 @@ public class ProposalRepositoryImpl implements ProposalRepositoryCustom {
                         .join(estimate.proposal, proposal).on(proposal.lead.no.eq(leadNo))
                         .fetch();
 
-        BooleanBuilder builder = new BooleanBuilder();
+        builder = new BooleanBuilder();
 
         if (!proposalIdsWithEstimates.isEmpty()) {
             builder.and(proposal.propNo.in(proposalIdsWithEstimates));
@@ -48,21 +53,41 @@ public class ProposalRepositoryImpl implements ProposalRepositoryCustom {
 
     @Override
     public List<ProposalResponseDto> searchProposals(ProposalSearchCriteriaDTO searchDto) {
-        BooleanBuilder builder = new BooleanBuilder();
+        QLead lead = QLead.lead;
+        QCustomer customer = QCustomer.customer;
+        builder = new BooleanBuilder();
+
+        if (searchDto.getStartDate() != null) {
+            builder.and(proposal.startDate.goe(searchDto.getStartDate()));
+        }
+
+        if (searchDto.getEndDate() != null) {
+            builder.and(proposal.endDate.loe(searchDto.getEndDate()));
+        }
+
+        if (searchDto.getSubmitDate() != null) {
+            builder.and(proposal.submitDate.eq(searchDto.getSubmitDate()));
+        }
 
         if (searchDto.getPropName() != null && !searchDto.getPropName().isEmpty()) {
             builder.and(proposal.name.containsIgnoreCase(searchDto.getPropName()));
         }
-        if (searchDto.getReqDate() != null) {
-            builder.and(proposal.reqDate.eq(searchDto.getReqDate()));
+
+        if (searchDto.getDeptNo() != null && searchDto.getDeptNo() > 0) {
+            List<Long> deptNos = userRepository.findAllSubDepartments(searchDto.getDeptNo());
+
+            builder.and(customer.user.department.deptNo.in(deptNos));
         }
-        if (searchDto.getStartDate() != null) {
-            builder.and(proposal.startDate.eq(searchDto.getStartDate()));
+
+        if (searchDto.getUserNo() != null && searchDto.getUserNo() > 0) {
+            builder.and(customer.user.id.eq(searchDto.getUserNo()));
         }
 
         return queryFactory
                 .select(new QProposalResponseDto(proposal))
                 .from(proposal)
+                .join(proposal.lead, lead)
+                .join(lead.customer, customer)
                 .where(builder)
                 .fetch();
     }

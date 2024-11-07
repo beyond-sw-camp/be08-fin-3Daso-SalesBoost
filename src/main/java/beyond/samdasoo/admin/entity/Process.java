@@ -33,6 +33,9 @@ public class Process  extends BaseEntity{
     @Column(name = "description")
     private String description;   // 내용
 
+    @Column(name = "is_deleted")
+    private boolean isDeleted;
+
     @OneToMany(mappedBy = "process", cascade = CascadeType.ALL)
     private List<SubProcess> subProcesses;      // 하위 프로세스
 }

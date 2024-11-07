@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -48,13 +49,18 @@ public class DepartmentServiceImpl implements DepartmentService {
                 .deptName(request.getDeptName())
                 .deptCode(request.getDeptCode())
                 .deptHead(request.getDeptHead())
+                .isDeleted(false)
                 .build();
 
         departmentRepository.save(department);
     }
 
     public List<DepartmentDto> getAllDepartments() {
-        List<Department> topDepartments = departmentRepository.findByParentIsNull();
+        List<Department> topDepartments = departmentRepository.findByParentIsNull()
+                .stream()
+                .filter(department -> !department.isDeleted())
+                .collect(Collectors.toList());
+
         List<DepartmentDto> result = new ArrayList<>();
 
         for (Department department : topDepartments) {
@@ -71,27 +77,27 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     private DepartmentDto departmentTree(Department department) {
+        if (department.isDeleted()) {
+            return null;
+        }
 
         String upperDeptName = "";
-
         if (department.getParent() != null) {
             Optional<Department> upperDept = departmentRepository.findById(department.getParent().getDeptNo());
-
-            upperDeptName = upperDept.get().getDeptName();
-
-        }
-
-        if (!department.getChildren().isEmpty()) {
-            List<DepartmentDto> childDtos = new ArrayList<>();
-            for (Department child : department.getChildren()) {
-                childDtos.add(departmentTree(child));
+            if (upperDept.isPresent() && !upperDept.get().isDeleted()) {
+                upperDeptName = upperDept.get().getDeptName();
             }
-            return new DepartmentDto(department.getDeptNo(), department.getDeptName(),
-                    department.getDeptCode(), department.getEngName(), department.getDeptHead(), childDtos, upperDeptName);
-        } else {
-            return new DepartmentDto(department.getDeptNo(), department.getDeptName(),
-                    department.getDeptCode(), department.getEngName(), department.getDeptHead(), upperDeptName);
         }
+
+        List<DepartmentDto> childDtos = department.getChildren().stream()
+                .map(this::departmentTree)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+
+        return new DepartmentDto(
+                department.getDeptNo(), department.getDeptName(), department.getDeptCode(),
+                department.getEngName(), department.getDeptHead(), childDtos, upperDeptName
+        );
     }
 
 
@@ -113,8 +119,16 @@ public class DepartmentServiceImpl implements DepartmentService {
         if (optionalDepartment.isEmpty()) {
             throw new BaseException(DEPARTMENT_NOT_EXIST);
         }
+        setDeletedFlag(optionalDepartment.get());
+    }
 
-        departmentRepository.deleteById(deptNo);
+    private void setDeletedFlag(Department department) {
+        department.setDeleted(true);
+        departmentRepository.save(department);
+
+        for (Department child : department.getChildren()) {
+            setDeletedFlag(child);
+        }
     }
 
     @Override

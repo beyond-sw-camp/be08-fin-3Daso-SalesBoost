@@ -27,6 +27,7 @@ public class ProcessServiceImpl implements ProcessService {
         List<Process> processes = processRepository.findAll();
 
         return processes.stream()
+                .filter(process -> !process.isDeleted())
                 .map(process -> new ProcessResponseDto(process))
                 .collect(Collectors.toList());
     }
@@ -55,6 +56,7 @@ public class ProcessServiceImpl implements ProcessService {
                 .isDefault(request.getIsDefault())
                 .expectedDuration(0)
                 .description(request.getDescription())
+                .isDeleted(false)
                 .build();
 
 
@@ -70,7 +72,9 @@ public class ProcessServiceImpl implements ProcessService {
             throw new BaseException(PROCESS_NOT_EXIST);
         }
 
-        processRepository.deleteById(no);
+        optionalProcess.get().setDeleted(true);
+
+        processRepository.save(optionalProcess.get());
     }
 
     @Override

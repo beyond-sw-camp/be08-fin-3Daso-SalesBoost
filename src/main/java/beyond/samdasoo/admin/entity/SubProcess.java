@@ -41,4 +41,7 @@ public class SubProcess extends BaseEntity {
     
     @Column(name = "expected_duration")
     private Integer expectedDuration;       // 예상 소요 시간
+
+    @Column(name = "is_deleted")
+    private boolean isDeleted;
 }

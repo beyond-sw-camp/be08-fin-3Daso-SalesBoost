@@ -59,6 +59,9 @@ public class Product extends BaseEntity {
     @Column(nullable = false)
     private int price;              // 가격
 
+    @Column(name = "is_deleted")
+    private boolean isDeleted;
+
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<EstProduct> estProducts;
 
