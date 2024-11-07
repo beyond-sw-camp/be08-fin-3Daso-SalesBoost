@@ -27,6 +27,7 @@ public class ProductServiceImpl implements ProductService {
     public List<ProductResponseDto> getAllProducts() {
         List<Product> products = productRepository.findAll();
         return products.stream()
+                .filter(product -> !product.isDeleted())
                 .map(product -> new ProductResponseDto(product))
                 .collect(Collectors.toList());
     }
@@ -54,6 +55,7 @@ public class ProductServiceImpl implements ProductService {
                 .taxRate(request.getTaxRate())
                 .supplyPrice(request.getSupplyPrice())
                 .price(request.getPrice())
+                .isDeleted(false)
                 .build();
 
 
@@ -79,7 +81,9 @@ public class ProductServiceImpl implements ProductService {
             throw new BaseException(Product_NOT_EXIST);
         }
 
-        productRepository.deleteById(productNo);
+        optionalProduct.get().setDeleted(true);
+
+        productRepository.save(optionalProduct.get());
     }
 
     @Override
