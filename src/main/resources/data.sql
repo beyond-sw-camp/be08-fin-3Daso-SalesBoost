@@ -218,20 +218,20 @@ VALUES
 
 -- >>>>>>>>> 관리자
 -- 프로세스
-INSERT INTO tb_process(process_no, process_name, is_default, DESCRIPTION, created_at, updated_at, expected_duration)
-VALUES (1, '기본영업프로세스', 1, '기회인지-상담-제안-협상-계약', CURDATE(), CURDATE(), 45),
-       (2, '커피머신 영업 프로세스', 0, '제안-협상-계약', CURDATE(), CURDATE(), 30);
+INSERT INTO tb_process(process_no, process_name, is_default, DESCRIPTION, created_at, updated_at, expected_duration, is_deleted)
+VALUES (1, '기본영업프로세스', 1, '기회인지-상담-제안-협상-계약', CURDATE(), CURDATE(), 45, false),
+       (2, '커피머신 영업 프로세스', 0, '제안-협상-계약', CURDATE(), CURDATE(), 30, false);
 
 -- 서브프로세스
-INSERT INTO tb_sub_process(sub_process_no, sub_process_name, progress_step, success_rate, ACTION, expected_duration, created_at, updated_at, process_no)
-VALUES (1, '기회인지', '인지', 0, '인지', 5, CURDATE(), CURDATE(), 1),
-       (2, '상담', '제안', 10, '제안', 10, CURDATE(), CURDATE(), 1),
-       (3, '제안', '제안', 20, '제안', 5, CURDATE(), CURDATE(), 1),
-       (4, '협상', '협상', 60, '견적', 5, CURDATE(), CURDATE(), 1),
-       (5, '계약', '계약', 100, '계약', 20, CURDATE(), CURDATE(), 1),
-       (6, '제안', '제안', 20, '제안', 5, CURDATE(), CURDATE(), 2),
-       (7, '협상', '협상', 30, '견적', 5, CURDATE(), CURDATE(), 2),
-       (8, '계약', '계약', 100, '계약', 20, CURDATE(), CURDATE(), 2);
+INSERT INTO tb_sub_process(sub_process_no, sub_process_name, progress_step, success_rate, ACTION, expected_duration, created_at, updated_at, process_no, is_deleted)
+VALUES (1, '기회인지', '인지', 0, '인지', 5, CURDATE(), CURDATE(), 1, false),
+       (2, '상담', '제안', 10, '제안', 10, CURDATE(), CURDATE(), 1, false),
+       (3, '제안', '제안', 20, '제안', 5, CURDATE(), CURDATE(), 1, false),
+       (4, '협상', '협상', 60, '견적', 5, CURDATE(), CURDATE(), 1, false),
+       (5, '계약', '계약', 100, '계약', 20, CURDATE(), CURDATE(), 1, false),
+       (6, '제안', '제안', 20, '제안', 5, CURDATE(), CURDATE(), 2, false),
+       (7, '협상', '협상', 30, '견적', 5, CURDATE(), CURDATE(), 2, false),
+       (8, '계약', '계약', 100, '계약', 20, CURDATE(), CURDATE(), 2, false);
 
 -- 물품
 INSERT INTO tb_product (prod_no, created_at, updated_at, abbr_name, dept_id, eng_name, field, name, price, prod_code, quantity, release_date, supply_price, tax_rate, unit, upp_group)
