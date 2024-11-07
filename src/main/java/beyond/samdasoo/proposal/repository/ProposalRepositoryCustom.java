@@ -1,5 +1,6 @@
 package beyond.samdasoo.proposal.repository;
 
+import beyond.samdasoo.proposal.dto.ProposalPopResponseDto;
 import beyond.samdasoo.proposal.dto.ProposalResponseDto;
 import beyond.samdasoo.proposal.dto.ProposalSearchCriteriaDTO;
 
@@ -9,6 +10,8 @@ public interface ProposalRepositoryCustom {
     ProposalResponseDto findLatestProposalWithEstimatesByLeadId(Long leadNo);
 
     List<ProposalResponseDto> searchProposals(ProposalSearchCriteriaDTO searchDto);
+
+    List<ProposalPopResponseDto> searchProposalsPopup(ProposalSearchCriteriaDTO searchDto);
 
 }
 

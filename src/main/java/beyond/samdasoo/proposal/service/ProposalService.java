@@ -71,16 +71,13 @@ public class ProposalService {
     public List<ProposalResponseDto> getAllProposals() {
         List<Proposal> proposals = proposalRepository.findAll();
         return proposals.stream()
-                .map(proposal -> new ProposalResponseDto(proposal))
+                .map(ProposalResponseDto::new)
                 .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
-    public List<ProposalPopResponseDto> getAllProposals2() {
-        List<Proposal> proposals = proposalRepository.findAll();
-        return proposals.stream()
-                .map(ProposalPopResponseDto::new)
-                .collect(Collectors.toList());
+    public List<ProposalPopResponseDto> getAllProposals2(ProposalSearchCriteriaDTO dto) {
+        return proposalRepository.searchProposalsPopup(dto);
     }
 
     @Transactional(readOnly = true)

@@ -3,9 +3,7 @@ package beyond.samdasoo.proposal.repository;
 import beyond.samdasoo.customer.entity.QCustomer;
 import beyond.samdasoo.estimate.entity.QEstimate;
 import beyond.samdasoo.lead.Entity.QLead;
-import beyond.samdasoo.proposal.dto.ProposalResponseDto;
-import beyond.samdasoo.proposal.dto.ProposalSearchCriteriaDTO;
-import beyond.samdasoo.proposal.dto.QProposalResponseDto;
+import beyond.samdasoo.proposal.dto.*;
 import beyond.samdasoo.proposal.entity.QProposal;
 import beyond.samdasoo.user.repository.UserRepository;
 import com.querydsl.core.BooleanBuilder;
@@ -23,6 +21,8 @@ public class ProposalRepositoryImpl implements ProposalRepositoryCustom {
 
     QProposal proposal = QProposal.proposal;
     QEstimate estimate = QEstimate.estimate;
+    QLead lead = QLead.lead;
+    QCustomer customer = QCustomer.customer;
     BooleanBuilder builder;
 
     @Override
@@ -53,8 +53,6 @@ public class ProposalRepositoryImpl implements ProposalRepositoryCustom {
 
     @Override
     public List<ProposalResponseDto> searchProposals(ProposalSearchCriteriaDTO searchDto) {
-        QLead lead = QLead.lead;
-        QCustomer customer = QCustomer.customer;
         builder = new BooleanBuilder();
 
         if (searchDto.getStartDate() != null) {
@@ -70,7 +68,7 @@ public class ProposalRepositoryImpl implements ProposalRepositoryCustom {
         }
 
         if (searchDto.getPropName() != null && !searchDto.getPropName().isEmpty()) {
-            builder.and(proposal.name.containsIgnoreCase(searchDto.getPropName()));
+            builder.and(proposal.name.contains(searchDto.getPropName()));
         }
 
         if (searchDto.getDeptNo() != null && searchDto.getDeptNo() > 0) {
@@ -85,6 +83,33 @@ public class ProposalRepositoryImpl implements ProposalRepositoryCustom {
 
         return queryFactory
                 .select(new QProposalResponseDto(proposal))
+                .from(proposal)
+                .join(proposal.lead, lead)
+                .join(lead.customer, customer)
+                .where(builder)
+                .fetch();
+    }
+
+    @Override
+    public List<ProposalPopResponseDto> searchProposalsPopup(ProposalSearchCriteriaDTO searchDto) {
+        builder = new BooleanBuilder();
+
+        if (searchDto.getPropName() != null && !searchDto.getPropName().isEmpty()) {
+            builder.and(proposal.name.contains(searchDto.getPropName()));
+        }
+
+        if (searchDto.getDeptNo() != null && searchDto.getDeptNo() > 0) {
+            List<Long> deptNos = userRepository.findAllSubDepartments(searchDto.getDeptNo());
+
+            builder.and(customer.user.department.deptNo.in(deptNos));
+        }
+
+        if (searchDto.getUserNo() != null && searchDto.getUserNo() > 0) {
+            builder.and(customer.user.id.eq(searchDto.getUserNo()));
+        }
+
+        return queryFactory
+                .select(new QProposalPopResponseDto(proposal))
                 .from(proposal)
                 .join(proposal.lead, lead)
                 .join(lead.customer, customer)
