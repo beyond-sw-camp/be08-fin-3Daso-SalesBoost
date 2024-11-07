@@ -135,6 +135,9 @@ public class ProductServiceImpl implements ProductService {
         if (request.getPrice() != 0) {
             product.setPrice(request.getPrice());
         }
+        if (request.getTaxRate() != null){
+            product.setTaxRate(request.getTaxRate());
+        }
 
         productRepository.save(product);
     }
