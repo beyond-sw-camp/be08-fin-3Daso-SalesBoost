@@ -34,6 +34,18 @@ jobs:
           echo "${{ secrets.APP_SET }}" > ./application.yml
         shell: bash
 
+      - name: AWS credentials 설정
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: ap-northeast-2
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRETE_ACCESS_KEY }}
+
+      - name: Download JAR from S3
+        run: |
+          mkdir -p ./src/main/resources/lib          
+          aws s3 cp s3://salesboost-font/font-extension.jar ./src/main/resources/lib/font-extension.jar
+
       - name: Gradle Build
         run: ./gradlew clean build -x test
 
