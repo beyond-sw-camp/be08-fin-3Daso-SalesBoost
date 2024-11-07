@@ -38,6 +38,9 @@ public class Department extends BaseEntity {
     @Column(name = "dept_head")
     private String deptHead;    // 부서장
 
+    @Column(name = "is_deleted")
+    private boolean isDeleted;
+
     // 상위 부서
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
