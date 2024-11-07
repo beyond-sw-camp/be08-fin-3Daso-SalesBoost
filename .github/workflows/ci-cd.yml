@@ -34,17 +34,17 @@ jobs:
           echo "${{ secrets.APP_SET }}" > ./application.yml
         shell: bash
 
-      - name: AWS credentials 설정
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-region: ap-northeast-2
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRETE_ACCESS_KEY }}
+#      - name: AWS credentials 설정
+#        uses: aws-actions/configure-aws-credentials@v4
+#        with:
+#          aws-region: ap-northeast-2
+#          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#          aws-secret-access-key: ${{ secrets.AWS_SECRETE_ACCESS_KEY }}
 
-      - name: Download JAR from S3
-        run: |
-          mkdir -p ./src/main/resources/lib          
-          aws s3 cp s3://salesboost-font/font-extension.jar ./src/main/resources/lib/font-extension.jar
+#      - name: Download JAR from S3
+#        run: |
+#          mkdir -p ./src/main/resources/lib
+#          aws s3 cp s3://salesboost-font/font-extension.jar ./src/main/resources/lib/font-extension.jar
 
       - name: Gradle Build
         run: ./gradlew clean build -x test
@@ -68,6 +68,14 @@ jobs:
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/develop' }}
 
     steps:
+      - name: Copy font-extension.jar to EC2
+        uses: appleboy/scp-action@v0.1.6
+        with:
+          host: ${{ secrets.AWS_EC2_HOST }}
+          username: ${{ secrets.AWS_EC2_USER }}
+          key: ${{ secrets.AWS_SSH_PRIVATE_KEY }}
+          source: "./lib/font-extension.jar"
+          target: "/home/ubuntu/salesboost/src/main/resources/lib/"
       - name: Deploy to EC2
         uses: appleboy/ssh-action@v0.1.6
         with:
