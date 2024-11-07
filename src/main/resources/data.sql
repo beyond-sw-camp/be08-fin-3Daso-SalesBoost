@@ -1,17 +1,17 @@
-INSERT INTO `tb_department` (dept_no, dept_code,dept_name,eng_name,created_at,updated_at)
-SELECT 1,'SALES-001','영업부','dept_sales',now(),now()
+INSERT INTO `tb_department` (dept_no, dept_code,dept_name,eng_name,created_at,updated_at, is_deleted)
+SELECT 1,'SALES-001','영업부','dept_sales',now(),now(), false
 WHERE NOT EXISTS (SELECT 1 FROM tb_department WHERE dept_no = 1);
 
-INSERT INTO `tb_department` (dept_no, dept_code,dept_name,eng_name,created_at,updated_at)
-SELECT 2,'SS-001','영업 지원부','dept_sales_support',now(),now()
+INSERT INTO `tb_department` (dept_no, dept_code,dept_name,eng_name,created_at,updated_at, is_deleted)
+SELECT 2,'SS-001','영업 지원부','dept_sales_support',now(),now(), false
 WHERE NOT EXISTS (SELECT 2 FROM tb_department WHERE dept_no = 2);
 
-INSERT INTO `tb_department` (dept_no, dept_code,dept_name,eng_name,created_at,updated_at, parent_id)
-SELECT 3,'SALES-002','영업 1팀','dept_sales_1',now(),now(), 1
+INSERT INTO `tb_department` (dept_no, dept_code,dept_name,eng_name,created_at,updated_at, parent_id, is_deleted)
+SELECT 3,'SALES-002','영업 1팀','dept_sales_1',now(),now(), 1, false
 WHERE NOT EXISTS (SELECT 1 FROM tb_department WHERE dept_no = 3);
 
-INSERT INTO `tb_department` (dept_no, dept_code,dept_name,eng_name,created_at,updated_at, parent_id)
-SELECT 4,'SALES-003','영업 2팀','dept_sales_2',now(),now(), 1
+INSERT INTO `tb_department` (dept_no, dept_code,dept_name,eng_name,created_at,updated_at, parent_id, is_deleted)
+SELECT 4,'SALES-003','영업 2팀','dept_sales_2',now(),now(), 1, false
 WHERE NOT EXISTS (SELECT 1 FROM tb_department WHERE dept_no = 4);
 
 
