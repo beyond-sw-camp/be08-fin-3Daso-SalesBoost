@@ -5,7 +5,6 @@ import beyond.samdasoo.customer.entity.QCustomer;
 import beyond.samdasoo.estimate.dto.EstimateResponseDto;
 import beyond.samdasoo.estimate.dto.EstimateSearchDto;
 import beyond.samdasoo.estimate.dto.QEstimateResponseDto;
-import beyond.samdasoo.estimate.entity.Estimate;
 import beyond.samdasoo.estimate.entity.QEstimate;
 import beyond.samdasoo.lead.Entity.QLead;
 import beyond.samdasoo.proposal.entity.QProposal;
