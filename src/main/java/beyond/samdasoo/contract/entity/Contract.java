@@ -83,10 +83,10 @@ public class Contract extends BaseEntity {
     @Column(name = "note")
     private String note;
 
-    @JoinColumn(name = "est_no", nullable = false)
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne
+    @JoinColumn(name = "est_no", nullable = false) // 필요한 경우 컬럼명 수정
     private Estimate estimate;
 
-    @OneToMany(mappedBy = "contract", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "contract", orphanRemoval = true)
     private List<Sales> salesList = new ArrayList<>();
 }
