@@ -52,6 +52,7 @@ public class SubProcessServiceImpl implements SubProcessService{
                 .successRate(request.getSuccessRate())
                 .description(request.getDescription())
                 .expectedDuration(request.getExpectedDuration())
+                .isDeleted(false)
                 .build();
 
         subProcessRepository.save(subProcess);
@@ -68,6 +69,7 @@ public class SubProcessServiceImpl implements SubProcessService{
         List<SubProcess> subProcesses = subProcessRepository.findByProcess_ProcessName(processName);
 
         return subProcesses.stream()
+                .filter(subProcess -> !subProcess.isDeleted())
                 .map(subProcess -> new SubProcessResponseDto(subProcess))
                 .collect(Collectors.toList());
     }
@@ -88,7 +90,9 @@ public class SubProcessServiceImpl implements SubProcessService{
             process.setExpectedDuration(process.getExpectedDuration() - optionalSubProcess.get().getExpectedDuration());
         }
 
-        subProcessRepository.deleteById(no);
+        optionalSubProcess.get().setDeleted(true);
+
+        subProcessRepository.save(optionalSubProcess.get());
     }
 
     @Override
@@ -141,6 +145,7 @@ public class SubProcessServiceImpl implements SubProcessService{
         List<SubProcess> subProcesses = subProcessRepository.findAll();
 
         return subProcesses.stream()
+                .filter(subProcess -> !subProcess.isDeleted())
                 .map(subProcess -> new SubProcessResponseDto(subProcess))
                 .collect(Collectors.toList());
     }
