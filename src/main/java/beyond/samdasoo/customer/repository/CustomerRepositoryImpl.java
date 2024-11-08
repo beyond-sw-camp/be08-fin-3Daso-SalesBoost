@@ -11,7 +11,6 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Objects;
@@ -28,9 +27,18 @@ public class CustomerRepositoryImpl implements CustomerRepositoryCustom {
 
         BooleanBuilder builder = new BooleanBuilder();
 
+        if (searchCriteriaDTO.getDeptNo() != null && searchCriteriaDTO.getDeptNo() > 0) {
+            List<Long> deptNos = userRepository.findAllSubDepartments(searchCriteriaDTO.getDeptNo());
+
+            builder.and(customer.user.department.deptNo.in(deptNos));
+        }
+
+        if (searchCriteriaDTO.getUserNo() != null && searchCriteriaDTO.getUserNo() > 0) {
+            builder.and(customer.user.id.eq(searchCriteriaDTO.getUserNo()));
+        }
+
         if (searchCriteriaDTO.getSearchQuery() != null && !searchCriteriaDTO.getSearchQuery().isEmpty()) {
-            builder.or(customer.name.like("%" + searchCriteriaDTO.getSearchQuery() + "%"));
-            builder.or(customer.company.like("%" + searchCriteriaDTO.getSearchQuery() + "%"));
+            builder.and(customer.name.contains(searchCriteriaDTO.getSearchQuery()).or(customer.company.contains(searchCriteriaDTO.getSearchQuery())));
         }
 
         return queryFactory

@@ -21,6 +21,7 @@ public class SubProcessRepositoryImpl implements SubProcessRepositoryCustom {
                                 .and(subProcess.subProcessName.contains(keyword))
                                 .and(subProcess.progressStep.eq(keyword))
                 )
+                .limit(1)
                 .fetchOne();
     }
 }

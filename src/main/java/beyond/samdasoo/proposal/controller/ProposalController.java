@@ -41,10 +41,10 @@ public class ProposalController {
         return ResponseEntity.ok(responseDtos);
     }
 
-    @GetMapping("/popUp")
-    @Operation(summary = "모든 제안 조회", description = "등록되어 있는 모든 제안 조 + 고객,담당자")
-    public ResponseEntity<List<ProposalPopResponseDto>> getAllProposals2() {
-        List<ProposalPopResponseDto> responseDtos = proposalService.getAllProposals2();
+    @PostMapping("/popUp")
+    @Operation(summary = "모든 제안 조회", description = "등록되어 있는 모든 제안(+고객,담당자) 조회")
+    public ResponseEntity<List<ProposalPopResponseDto>> getAllProposals2(@RequestBody ProposalSearchCriteriaDTO dto) {
+        List<ProposalPopResponseDto> responseDtos = proposalService.getAllProposals2(dto);
         return ResponseEntity.ok(responseDtos);
     }
 

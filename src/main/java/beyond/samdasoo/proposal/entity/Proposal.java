@@ -20,6 +20,7 @@ public class Proposal extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "prop_no")
     private Long propNo; //제안번호 (PK)
 
     @ManyToOne(fetch = FetchType.LAZY)
