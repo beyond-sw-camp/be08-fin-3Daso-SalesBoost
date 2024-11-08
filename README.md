@@ -101,7 +101,7 @@
 ### [📑 다이어그램 설계 ](https://drive.google.com/file/d/1sa3nzAjRnVlWn3rbHa3fBf4TlaeV7v7y/view)
 
 
-### [📑 ERD](https://www.erdcloud.com/d/PHYe2XTF67MMkxSL9)
+### [📑 ERD](https://www.erdcloud.com/d/aqHuqgJsN6PQ4o7rn)
 
 ### 📑 시스템 아키텍처
 
