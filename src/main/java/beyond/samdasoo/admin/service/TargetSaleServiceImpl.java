@@ -41,6 +41,7 @@ public class TargetSaleServiceImpl implements TargetSaleService {
 
         Product product = productRepository.getByName(request.getProdName());
         User user = userRepository.getUserByName(request.getUserName());
+        int origin_sum = 0;
 
         if (user == null) {
             throw new BaseException(USER_NOT_EXIST);
@@ -51,6 +52,7 @@ public class TargetSaleServiceImpl implements TargetSaleService {
         }
 
         List<TargetSale> targetSales = targetSaleRepository.findByUserAndProductAndYear(user, product, request.getYear());
+
 
         if (targetSales.isEmpty()) {
             if (request.getSum() != 0) {
@@ -85,7 +87,10 @@ public class TargetSaleServiceImpl implements TargetSaleService {
                 }
             }
         } else {
-            if (request.getSum() != 0) {
+            for(TargetSale targetSale : targetSales){
+                origin_sum += targetSale.getMonthTarget();
+            }
+            if (request.getSum() != origin_sum) {
                 int sum = request.getSum() - (request.getSum() % 12);
                 for (int i = 0; i < 12; i++) {
                     int newMonthTarget = sum / 12;
@@ -98,17 +103,11 @@ public class TargetSaleServiceImpl implements TargetSaleService {
             } else {
                 for (int i = 0; i < 12; i++) {
                     int newMonthTarget = 0;
-                    if (request.getMonthTargets() != null && request.getMonthTargets().size() > i) {
-                        if (request.getMonthTargets().get(i) == 0) {
-                            newMonthTarget = 0;
-                        } else {
-                            newMonthTarget = request.getMonthTargets().get(i);
-                        }
+                    if (request.getMonthTargets() != null) {
+                        newMonthTarget = request.getMonthTargets().get(i);
 
-                        if (targetSales.get(i).getMonthTarget() != newMonthTarget) {
-                            targetSales.get(i).setMonthTarget(newMonthTarget);
-                            targetSaleRepository.save(targetSales.get(i));
-                        }
+                        targetSales.get(i).setMonthTarget(newMonthTarget);
+                        targetSaleRepository.save(targetSales.get(i));
                     }
                 }
             }
