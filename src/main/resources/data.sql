@@ -238,7 +238,7 @@ INSERT INTO tb_product (prod_no, created_at, updated_at, abbr_name, dept_id, eng
 VALUES
     -- 커피 원두 제품
     (1, NOW(), NOW(), 'COFBRA001', 3, 'Rubia Dark Brown', '원두', '루비아 다크 브라운', 65000, 'BRA001', 100, '2024-05-01', 58670, 11, '봉지', '브라질 원두', false),
-    (2, NOW(), NOW(), 'COFCOL001', 3, 'Supremo Nariño', '원두', '수프레모 나리뇨', 46000, 'COL001', 90, '2024-07-01', 42779, 8, '봉지', '콜롬비아 원두', false),
+    (2, NOW(), NOW(), 'COFCOL001', 3, 'Supremo Narino', '원두', '수프레모 나리뇨', 46000, 'COL001', 90, '2024-07-01', 42779, 8, '봉지', '콜롬비아 원두', false),
     (3, NOW(), NOW(), 'COFETH001', 3, 'Sidamo', '원두', '시다모', 45500, 'ETH001', 75, '2025-01-01', 40463, 	12, '봉지', '에티오피아 원두', false),
     (4, NOW(), NOW(), 'COFETH001', 3, 'Yirgacheffe Abaya Geisha', '원두', '예가체프 아바야 게이샤', 65500, 'ETH001', 95, '2025-01-01', 57886, 13, '봉지', '에티오피아 원두', false),
     (5, NOW(), NOW(), 'COFCOL001', 4, 'Melparai shouts', '원두', '멜파라이 소리치', 76000, 'COL001', 90, '2024-07-01', 71185, 7, '봉지', '콜롬비아 원두', false),
