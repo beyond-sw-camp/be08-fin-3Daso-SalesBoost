@@ -40,13 +40,13 @@ public class SalesController {
         return new BaseResponse<>(sales);
     }
 
-//    // 특정 년도 매출 조회
-//    @GetMapping("/count/monthly")
-//    @Operation(summary = "특정 년도 매출 조회", description = "특정 년도에 대한 월별 매출 데이터 조회")
-//    public BaseResponse<Map<String, Integer>> getMonthlySalesData(@RequestParam("year") String year) {
-//        Map<String, Integer> monthlySales = salesService.getMonthlySalesData(year);
-//        return new BaseResponse<>(monthlySales);
-//    }
+    // 특정 년도 매출 조회
+    @GetMapping("/count/monthly")
+    @Operation(summary = "특정 년도 매출 조회", description = "특정 년도에 대한 월별 매출 데이터 조회")
+    public BaseResponse<Map<String, Integer>> getMonthlySalesData(@RequestParam("year") String year) {
+        Map<String, Integer> monthlySales = salesService.getMonthlySalesData(year);
+        return new BaseResponse<>(monthlySales);
+    }
 
     // 매출 생성
     @PostMapping
