@@ -125,7 +125,7 @@
 
 ### [🎨 화면 설계서](https://www.figma.com/design/3eVoEOIHFVwVvohUklm3Zy/3dsaoo?node-id=0-1)
 
-### [🎨 스토리보드](https://docs.google.com/spreadsheets/d/19Nf7w0QSlVX1VOPbxbSS61pFMHorlVDw/edit?gid=2104583298#gid=2104583298&range=A1)
+### [🎨 스토리보드](https://docs.google.com/spreadsheets/d/19Nf7w0QSlVX1VOPbxbSS61pFMHorlVDw/edit?gid=667885906#gid=667885906&range=A1)
 
 ### [💯 UI/UX 단위 테스트 ](https://docs.google.com/spreadsheets/d/19Nf7w0QSlVX1VOPbxbSS61pFMHorlVDw/edit?gid=696265026#gid=696265026&range=A1)
 
