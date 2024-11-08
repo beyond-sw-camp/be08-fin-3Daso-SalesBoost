@@ -51,6 +51,6 @@ public class Proposal extends BaseEntity {
     @Column(name = "note")
     private String note;  // 비고
 
-    @OneToMany(mappedBy = "proposal", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "proposal", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Estimate> estimates;
 }
