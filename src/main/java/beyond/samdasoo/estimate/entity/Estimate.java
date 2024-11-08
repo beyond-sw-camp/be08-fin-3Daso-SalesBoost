@@ -56,7 +56,7 @@ public class Estimate extends BaseEntity {
     @Column(name = "note")
     private String note;  // 비고 (optional)
 
-    @OneToOne(mappedBy = "estimate", orphanRemoval = true)
+    @OneToOne(mappedBy = "estimate", orphanRemoval = true, cascade = CascadeType.ALL)
     private Contract contract;
 
     @OneToMany(mappedBy = "estimate", cascade = CascadeType.ALL)

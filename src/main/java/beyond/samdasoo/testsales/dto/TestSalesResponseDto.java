@@ -25,8 +25,8 @@ public class TestSalesResponseDto {
     private String busiType;
     private String busiTypeDetail;
     private String note;
-    private Long contractNo;
-    private String contractName;
+//    private Long contractNo;
+//    private String contractName;
 
     @QueryProjection
     public TestSalesResponseDto(TestSales sales) {
@@ -43,8 +43,8 @@ public class TestSalesResponseDto {
         this.busiType = sales.getBusiType();
         this.busiTypeDetail = sales.getBusiTypeDetail();
         this.note = sales.getNote();
-        this.contractNo = sales.getContract().getContractNo();
-        this.contractName = sales.getContract().getName();
+//        this.contractNo = sales.getContract().getContractNo();
+//        this.contractName = sales.getContract().getName();
     }
 
 }
