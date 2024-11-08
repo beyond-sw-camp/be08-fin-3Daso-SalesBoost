@@ -3362,3 +3362,20 @@ INSERT INTO tb_target_sale (month, month_target, year, created_at, product_no, t
     (10, 450000, 2022, NOW(), 10, DEFAULT, NOW(), 13),
     (11, 754000, 2022, NOW(), 10, DEFAULT, NOW(), 13),
     (12, 457000, 2022, NOW(), 10, DEFAULT, NOW(), 13);
+
+
+UPDATE tb_department
+SET dept_head = '김영수'
+WHERE dept_code = 'SALES-001';
+
+UPDATE tb_department
+SET dept_head = '박지훈'
+WHERE dept_code = 'SALES-002';
+
+UPDATE tb_department
+SET dept_head = '오성민'
+WHERE dept_code = 'SALES-003';
+
+UPDATE tb_department
+SET dept_head = '최수현'
+WHERE dept_code = 'SS-001';

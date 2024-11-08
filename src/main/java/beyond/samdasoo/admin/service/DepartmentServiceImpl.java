@@ -122,7 +122,7 @@ public class DepartmentServiceImpl implements DepartmentService {
             throw new BaseException(DEPARTMENT_NOT_EXIST);
         }
 
-        if(userRepository.findUsersByDepartment(optionalDepartment.get().getDeptNo()) != null){
+        if(!userRepository.findUsersByDepartment(optionalDepartment.get().getDeptNo()).isEmpty()){
             throw new BaseException(DEPARTMENT_IS_USING);
         }else{
             setDeletedFlag(optionalDepartment.get());
